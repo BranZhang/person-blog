@@ -1,6 +1,5 @@
 # build output
 dist/
-
 # generated types
 .astro/
 
@@ -14,10 +13,10 @@ yarn-error.log*
 pnpm-debug.log*
 *.log
 
+
 # environment variables
 .env
 .env.production
-.env.local
 
 # macOS-specific files
 .DS_Store
@@ -25,14 +24,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# pagefind
-public/pagefind
-
-# pnpm
-.pnpm-store
-
-# docker compose
-compose.override.yaml
-
-# local template/import working directories
-.astro-paper-template/
+public/pagefind/
+.migration-backup/
+.tmp-*/
+.vite-cache/
+.vite-cache-build/

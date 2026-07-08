@@ -1,69 +1,87 @@
-import { defineConfig, envField, svgoOptimizer } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
+// @ts-check
+import { defineConfig } from "astro/config";
+import { resolve } from "path";
+import remarkMath from "remark-math";
+import rehypeMathjax from "rehype-mathjax";
+
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import { unified } from "@astrojs/markdown-remark";
-import remarkToc from "remark-toc";
-import remarkCollapse from "remark-collapse";
-import rehypeCallouts from "rehype-callouts";
-import {
-  transformerNotationDiff,
-  transformerNotationHighlight,
-  transformerNotationWordHighlight,
-} from "@shikijs/transformers";
-import { transformerFileName } from "./src/utils/transformers/fileName";
-import config from "./astro-paper.config";
+import tailwind from "@astrojs/tailwind";
+import svelte from "@astrojs/svelte";
+import { pagefind } from "vite-plugin-pagefind";
 
+import { BASE, SITE } from "./src/config.ts";
+
+import customEmbeds from "astro-custom-embeds";
+
+import {
+  transformerMetaHighlight,
+  transformerNotationHighlight,
+} from "@shikijs/transformers";
+
+import LinkCardEmbed from "./src/embeds/link-card/embed";
+import YoutubeEmbed from "./src/embeds/youtube/embed";
+import ExcalidrawEmbed from "./src/embeds/excalidraw/embed";
+
+// https://astro.build/config
 export default defineConfig({
-  site: config.site.url,
-  base: process.env.SITE_BASE ?? "/",
-  integrations: [
-    mdx(),
-    sitemap({
-      filter: page =>
-        config.features?.showArchives !== false || !page.endsWith("/archives/"),
-    }),
-  ],
-  i18n: {
-    locales: ["zh-CN"],
-    defaultLocale: "zh-CN",
-    routing: {
-      prefixDefaultLocale: false,
-    },
-  },
-  markdown: {
-    processor: unified({
-      remarkPlugins: [
-        remarkToc,
-        [remarkCollapse, { test: "Table of contents" }],
-      ],
-      rehypePlugins: [rehypeCallouts],
-    }),
-    shikiConfig: {
-      themes: { light: "min-light", dark: "night-owl" },
-      defaultColor: false,
-      wrap: false,
-      transformers: [
-        transformerFileName({ style: "v2", hideDot: false }),
-        transformerNotationHighlight(),
-        transformerNotationWordHighlight(),
-        transformerNotationDiff({ matchAlgorithm: "v3" }),
-      ],
-    },
-  },
   vite: {
-    plugins: [tailwindcss()],
-  },
-  env: {
-    schema: {
-      PUBLIC_GOOGLE_SITE_VERIFICATION: envField.string({
-        access: "public",
-        context: "client",
-        optional: true,
-      }),
+    resolve: {
+      alias: {
+        $components: resolve("./src/components"),
+        $layouts: resolve("./src/layouts"),
+        $pages: resolve("./src/pages"),
+        $assets: resolve("./src/assets"),
+        $content: resolve("./src/content"),
+      },
+    },
+    ssr: {
+      noExternal: [BASE + "/pagefind/pagefind.js"],
+    },
+    plugins: [pagefind({ outputDirectory: "dist" })],
+    build: {
+      rollupOptions: {
+        external: [BASE + "/pagefind/pagefind.js"],
+      },
     },
   },
-  experimental: {
-    svgOptimizer: svgoOptimizer(),
+
+  integrations: [
+    customEmbeds({
+      embeds: [ExcalidrawEmbed, YoutubeEmbed, LinkCardEmbed],
+    }),
+    mdx(),
+    sitemap(),
+    tailwind(),
+    svelte(),
+  ],
+
+  markdown: {
+    shikiConfig: {
+      // Choose from Shiki's built-in themes (or add your own)
+      // https://shiki.style/themes
+      // Alternatively, provide multiple themes
+      // See note below for using dual light/dark themes
+      themes: {
+        light: "github-light",
+        dark: "github-dark",
+      },
+      defaultColor: false,
+      transformers: [
+        transformerMetaHighlight(),
+        transformerNotationHighlight(),
+      ],
+      wrap: true,
+    },
+
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeMathjax],
   },
+
+  prefetch: {
+    prefetchAll: true,
+  },
+  site: SITE,
+  base: BASE,
+  output: "static",
 });
