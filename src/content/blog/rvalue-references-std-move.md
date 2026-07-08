@@ -4,8 +4,6 @@ description: "C++ 右值引用（rvalue references）和 std::move 是 C++11 引
 pubDate: "2022-10-05T13:47:00.000Z"
 updatedDate: "2025-03-03T14:28:26.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["C++"]
 ---
 <p class="wp-block-paragraph">C++ 右值引用（<strong>rvalue references</strong>）和 <code>std::move</code> 是 C++11 引入的两项关键特性，它们极大地改善了 C++ 中的资源管理，尤其是与 <strong>移动语义</strong>（<strong>move semantics</strong>）和 <strong>完美转发</strong>（<strong>perfect forwarding</strong>）相关的方面。</p>

@@ -4,8 +4,6 @@ description: "在 V8 引擎中，JavaScript 和 C++ 之间的交互涉及了 Jav
 pubDate: "2024-06-08T07:34:00.000Z"
 updatedDate: "2025-02-24T07:58:16.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["C++","JavaScript","V8"]
 ---
 <p class="wp-block-paragraph">在 V8 引擎中，JavaScript 和 C++ 之间的交互涉及了 JavaScript 对象与 C++ 对象的映射，内存管理，以及函数调用的桥接等。本文主要参照 V8 的代码，来讲讲如何实现 JS 调用 C++。JS 调用 C++，分为 JS 调用 C++ 函数（全局），和调用 C++ 类。</p>

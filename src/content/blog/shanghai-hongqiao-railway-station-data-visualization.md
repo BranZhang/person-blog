@@ -4,8 +4,6 @@ description: "实现了一个简单的虹桥火车站运行的可视化效果，
 pubDate: "2019-12-08T16:57:59.000Z"
 updatedDate: "2023-01-03T10:05:47.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["可视化","火车","虹桥站","GIS"]
 ---
 <p class="wp-block-paragraph">当做完这个火车运行可视化的小页面时，已经想不起来为什么要做这个了，可能就是觉得好玩吧。最终的版本比起最初设想的内容，缺了不少，主要是一些数据无法获取到。也有一些是因为实现起来太复杂。</p>

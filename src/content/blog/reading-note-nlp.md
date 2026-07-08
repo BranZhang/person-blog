@@ -4,8 +4,6 @@ description: "书目"
 pubDate: "2019-10-28T12:44:32.000Z"
 updatedDate: "2025-03-02T09:21:04.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["NLP","自然语言处理","信息检索"]
 ---
 <h2 class="wp-block-heading">书目</h2>

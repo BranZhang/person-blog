@@ -4,8 +4,6 @@ description: "翻译自 maplibre/maplibre-gl-js 项目的《life-of-a-tile》，
 pubDate: "2021-02-28T02:07:00.000Z"
 updatedDate: "2025-02-18T14:31:16.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["mapbox","WebGL","地图","GIS"]
 ---
 <p class="wp-block-paragraph"><strong>本篇文章翻译自 <a href="https://github.com/maplibre/maplibre-gl-js/blob/main/docs/life-of-a-tile.md" data-type="URL" data-id="https://github.com/maplibre/maplibre-gl-js/blob/main/docs/life-of-a-tile.md" target="_blank" rel="noreferrer noopener">maplibre/maplibre-gl-js 项目的《life-of-a-tile》</a>。文中的超链接，对应到 Mapbox 的 v1.13.2 版本。</strong></p>

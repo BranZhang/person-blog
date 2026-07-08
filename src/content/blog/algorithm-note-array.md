@@ -4,8 +4,6 @@ description: "数组类的题目不大好整理，应为只涉及到数组的问
 pubDate: "2018-11-22T14:41:16.000Z"
 updatedDate: "2023-01-03T09:56:22.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["leetcode","Two Pointers","数组","算法"]
 ---
 <p class="wp-block-paragraph">数组类的题目不大好整理，应为只涉及到数组的问题不多。其中数值计算，Two Pointers是与数组关联度最大的2个分类；搜索，排序与数组关联度并不大。</p>

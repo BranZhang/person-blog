@@ -4,8 +4,6 @@ description: "Three.JS相关的学习笔记。"
 pubDate: "2020-12-13T05:51:00.000Z"
 updatedDate: "2025-02-18T12:34:55.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["JavaScript","Three.JS","WebGL","笔记"]
 ---
 <h2 class="wp-block-heading">书目</h2>

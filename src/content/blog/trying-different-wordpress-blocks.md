@@ -4,8 +4,6 @@ description: "尝试使用不同类型的block，提升记录的丰富度。"
 pubDate: "2017-08-17T14:19:43.000Z"
 updatedDate: "2023-01-03T09:58:30.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["block","highlight","mapbox","WordPress","控件","工具"]
 ---
 <!--more-->

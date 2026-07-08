@@ -4,8 +4,6 @@ description: "开发了一个简单的爬虫，对方没有任何反爬手段，
 pubDate: "2020-04-27T15:59:50.000Z"
 updatedDate: "2025-02-18T14:33:48.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["工具"]
 ---
 <p class="wp-block-paragraph">开发了一个简单的爬虫，对方没有任何反爬手段，直接多线程循环遍历即可。</p>

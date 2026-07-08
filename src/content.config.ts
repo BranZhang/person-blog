@@ -26,12 +26,6 @@ const blog = defineCollection({
     // useful for sharing drafts with other people
     hidden: z.boolean().optional(),
 
-    // whether to disable bluesky comments
-    disableComments: z.boolean().optional(),
-
-    // whether to disable bluesky likes
-    disableLikes: z.boolean().optional(),
-
     // short description will be used for og image (fallback to description)
     shortDescription: z.string().optional(),
 

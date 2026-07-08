@@ -4,8 +4,6 @@ description: "谁还不是一只小猪仔呢？少碰敏感词，碰多了会死
 pubDate: "2021-01-14T16:50:20.000Z"
 updatedDate: "2025-03-02T09:19:49.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["leetcode","算法"]
 ---
 <p class="wp-block-paragraph">本文从一条 LeetCode 算法题，研究了一下题目拓展后的情景，并结合言论审查赋予了拓展题一点点实际意义。</p>

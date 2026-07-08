@@ -4,8 +4,6 @@ description: "在球形表面绘制多边形比在平面上绘制要麻烦不少
 pubDate: "2024-11-11T08:31:00.000Z"
 updatedDate: "2025-02-28T10:17:38.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["Cesium","gis","GIS"]
 ---
 <p class="wp-block-paragraph">在球形表面绘制多边形比在平面上绘制要麻烦不少。这个问题和将一张全景照片还原到现实视觉效果本质上是一样的</p>

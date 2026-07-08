@@ -4,8 +4,6 @@ description: "看一看结巴分词算法的相关原理，并尝试实现一个
 pubDate: "2018-05-03T04:24:55.000Z"
 updatedDate: "2023-01-03T09:57:12.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["HMM","MMSEG","NLP","分词","结巴分词","自然语言处理"]
 ---
 <h2 class="wp-block-heading">简介</h2>

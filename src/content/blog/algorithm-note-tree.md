@@ -4,8 +4,6 @@ description: "感觉树相关的算法问题离不开树的构建和搜索，不
 pubDate: "2019-01-02T14:54:00.000Z"
 updatedDate: "2023-01-03T09:54:03.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["算法"]
 ---
 <h2 class="wp-block-heading">简介</h2>

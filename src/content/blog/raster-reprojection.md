@@ -4,8 +4,6 @@ description: "在前端实现栅格瓦片的重投影，使得非墨卡托投影
 pubDate: "2022-11-10T08:22:00.000Z"
 updatedDate: "2023-01-03T09:48:50.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["mapbox","raster","WebGL","地图","GIS"]
 ---
 <p class="wp-block-paragraph">目前绝大多数的供公开使用的栅格瓦片都是基于墨卡托投影切片的，少数是基于经纬度投影的。这两种投影方式的解析比较简单，并且支持全球范围。但是，在某些情况下，尤其是在展示局部地区的场景中，会接触到一些不常见的投影，例如，在 maptiler 中，提供了捷克，荷兰，瑞士等国家的地方投影坐标系的栅格瓦片。</p>

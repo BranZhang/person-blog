@@ -4,8 +4,6 @@ description: "在 Mapbox 中实现基于日照的建筑物阴影效果。"
 pubDate: "2022-07-06T10:38:00.000Z"
 updatedDate: "2025-02-18T12:25:36.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["mapbox","WebGL","可视化","地图","GIS"]
 ---
 <p class="wp-block-paragraph">光照分析是一个很常见的需求，那么如何在地图中实现类似的效果呢？</p>

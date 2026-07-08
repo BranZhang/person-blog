@@ -4,8 +4,6 @@ description: "“随着无产阶级文化大革命的深入发展，首都的红
 pubDate: "2019-09-07T13:01:54.000Z"
 updatedDate: "2025-02-04T13:40:24.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["mapbox","openstreetmap","地图","GIS"]
 ---
 <p class="wp-block-paragraph">最近刚好读到《中评周刊》115期的《陈徒手： 1965-1975：北京地名修改内情》文章，里面提到了北京在六七十年代，曾要求过改革不适合时代潮流的已有地名。原文的说法如下：</p>

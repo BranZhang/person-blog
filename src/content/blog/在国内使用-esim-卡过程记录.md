@@ -4,8 +4,6 @@ description: "试试在国内使用 esim 卡，说不定哪天墙的特别厉害
 pubDate: "2021-06-02T17:58:46.000Z"
 updatedDate: "2023-01-03T09:51:38.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["随笔"]
 ---
 <h2 class="wp-block-heading">选择</h2>

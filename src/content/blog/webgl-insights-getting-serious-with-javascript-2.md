@@ -4,8 +4,6 @@ description: "4.3 性能 写关于 JavaScript 性能的文章是件棘手的事�
 pubDate: "2020-10-09T08:40:00.000Z"
 updatedDate: "2025-02-09T10:24:23.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["Cesium","gis","JavaScript","WebGL","地图"]
 ---
 <h2 class="wp-block-heading">4.3 性能</h2>

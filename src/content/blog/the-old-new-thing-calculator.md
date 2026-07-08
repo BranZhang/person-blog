@@ -4,8 +4,6 @@ description: "Steam夏促到了，每个游戏都打上了‘50% off’的标签
 pubDate: "2019-09-08T12:35:51.000Z"
 updatedDate: "2023-01-03T09:53:31.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["bug","Windows编程启示录","计算器","调度场算法","逆波兰表达式","算法"]
 ---
 <h2 class="wp-block-heading">简介</h2>

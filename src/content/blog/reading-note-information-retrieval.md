@@ -4,8 +4,6 @@ description: "信息检索相关的学习内容。"
 pubDate: "2018-03-17T11:22:42.000Z"
 updatedDate: "2023-01-03T09:57:29.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["IR","信息检索","笔记"]
 ---
 <h2 class="wp-block-heading">书目</h2>

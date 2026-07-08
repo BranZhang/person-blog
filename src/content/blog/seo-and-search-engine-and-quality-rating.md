@@ -4,8 +4,6 @@ description: "如何从优化搜索结果的目标出发，设计一个切实有
 pubDate: "2018-04-03T12:41:43.000Z"
 updatedDate: "2023-01-03T09:57:21.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["seo","搜索引擎","信息检索"]
 ---
 <h2 class="wp-block-heading">简介</h2>

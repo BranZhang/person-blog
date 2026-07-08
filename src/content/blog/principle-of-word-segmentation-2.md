@@ -4,8 +4,6 @@ description: "根据结巴分词算法的相关原理，了解其中的各个算
 pubDate: "2018-05-08T16:10:00.000Z"
 updatedDate: "2023-01-03T09:57:03.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["NLP","结巴分词","自然语言处理"]
 ---
 <p class="wp-block-paragraph">本篇文章将主要介绍在<a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://littlepotato.me/archives/293" target="_blank">《分词算法的原理及简单实现（一）》</a>中提及的分词相关的各种算法。包括但不仅限于结巴分词。</p>

@@ -27,7 +27,6 @@ Features:
 - ✅ Super easy to deploy as a static site
 - ✅ Includes some prebuilt components for you to use
 - ✅ Easy to edit by editing the markdown directly
-- ✅ Comments and likes via bluesky
 
 ## tutorials
 
@@ -37,7 +36,6 @@ the demo blog doubles as a tutorial on how to use this template:
 
 - [adding content](https://flo-bit.dev/blog-template/posts/adding-content)
 
-- [comments and likes via bluesky](https://flo-bit.dev/blog-template/posts/comments-via-bluesky)
 
 ## quick start with github pages in 5 minutes
 
@@ -63,10 +61,8 @@ the demo blog doubles as a tutorial on how to use this template:
 - `SITE_DESCRIPTION` is the description of your blog, and will be shown e.g. in search results
 - `SITE_FAVICON` is the emoji that will be shown as favicon of your blog (will be shown in the header and as favicon)
 - `NAME` is the name of the author of the blog, will be shown in the footer as `(c) <YEAR> <NAME> - LICENSE`
-- `BLUESKY_IDENTIFIER` is your bluesky handle (without the `@`), this is needed for likes and comments to work 
-(see [comments via bluesky](https://flo-bit.dev/blog-template/posts/comments-via-bluesky))
-- `SOCIAL_LINKS` set your social media links here, e.g. `{ BLUESKY_URL: "https://bsky.app/profile/flo-bit.dev" }` 
-will be shown in the footer of the blog
+- `SOCIAL_LINKS` set your social media links here; configured links will be shown in the footer of the blog.
+- Comments are powered by Giscus using the repository configuration in `src/components/Giscus.astro`.
 
 6. Edit `about.mdx` in `src/content/info/` to add your own about page.
 
@@ -76,8 +72,7 @@ will be shown in the footer of the blog
 8. Anytime you push to the main branch, your blog will automatically be updated (should usually take less than 2 minutes). 
 You can also go to the github actions tab to check the progress/status.
 
-If you run into any issues, feel free to [open an issue](https://github.com/flo-bit/blog-template/issues) or 
-[contact me on bluesky](https://bsky.app/profile/flo-bit.dev)
+If you run into any issues, feel free to [open an issue](https://github.com/flo-bit/blog-template/issues).
 
 ## Notes
 

@@ -4,8 +4,6 @@ description: "主要基于《WebGL 理论基础》文档的学习笔记。"
 pubDate: "2021-02-25T04:24:00.000Z"
 updatedDate: "2025-02-04T14:05:04.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["WebGL","笔记"]
 ---
 <h2 class="wp-block-heading">书目</h2>

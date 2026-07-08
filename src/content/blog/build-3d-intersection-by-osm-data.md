@@ -4,8 +4,6 @@ description: "之所以要做这么一件事情是因为在玩《Cities: Skyline
 pubDate: "2018-05-20T14:48:13.000Z"
 updatedDate: "2023-01-03T10:02:43.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["kml","Linear Optimization","openstreetmap","ortools","osm","postgis","立交","GIS","算法"]
 ---
 <h2 class="wp-block-heading">简介</h2>

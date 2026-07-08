@@ -4,8 +4,6 @@ description: "关于原子操作，网络上已经有很多文章讨论，通常
 pubDate: "2022-06-29T03:13:00.000Z"
 updatedDate: "2025-02-18T14:34:29.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["Atomic","C++"]
 ---
 <p class="wp-block-paragraph">关于原子操作，网络上已经有很多文章讨论，通常聚焦于原子的读-修改-写（RMW）操作。然而，这并不是唯一的原子操作类型。还有原子的加载和存储操作，它们同样重要。原子读-修改-写操作（或称“RMW”操作）比原子加载和存储更为复杂。它们允许你从共享内存中的一个变量读取值，同时在其位置写入一个不同的值。</p>

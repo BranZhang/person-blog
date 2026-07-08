@@ -4,8 +4,6 @@ description: "求好心人用我站点里的文章的名称去Google里面搜索
 pubDate: "2017-12-22T06:50:59.000Z"
 updatedDate: "2023-01-03T09:57:37.000Z"
 published: true
-disableComments: true
-disableLikes: true
 tags: ["seo","搜索引擎","笔记","信息检索"]
 ---
 <h2 class="wp-block-heading">简介</h2>
