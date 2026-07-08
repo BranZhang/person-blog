@@ -2,7 +2,7 @@ import { defineAstroPaperConfig } from "./src/types/config";
 
 export default defineAstroPaperConfig({
   site: {
-    url: process.env.SITE_URL ?? "https://branzhang.github.io/person-blog/",
+    url: process.env.SITE_URL ?? "https://littlepotato.me/",
     title: "Bran Zhang",
     description: "Personal notes, engineering writeups, and archived posts.",
     author: "Bran Zhang",

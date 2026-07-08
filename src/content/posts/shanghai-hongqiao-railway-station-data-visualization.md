@@ -95,7 +95,7 @@ canonicalURL: "https://littlepotato.me/2019/12/09/shanghai-hongqiao-railway-stat
 
 <p class="wp-block-paragraph">花了最多时间的基本就是列车的相关数据计算，虚拟时间的控制也花了点精力。</p>
 
-<p class="wp-block-paragraph">首先要计算的是，列车是否已经驶出站台？驶出的距离为多少？为了让列车的移动更加平稳，在上面的示例中，列车的运行实际上是一个匀加速运动，加速度默认为 <img loading="lazy" decoding="async" src="https://littlepotato.me/wp-content/ql-cache/quicklatex.com-879d462270df2c9e785272e114bc9379_l3.png" class="ql-img-inline-formula quicklatex-auto-format" alt="&#49;&#109;&#47;&#115;&#94;&#50;" title="Rendered by QuickLaTeX.com" height="21" width="49" style="vertical-align: -5px;"/>。因为可视范围不大，所以再整个范围内列车都保持着加速度不变，不需要考虑速度到达某个最大值后保持匀速行驶。</p>
+<p class="wp-block-paragraph">首先要计算的是，列车是否已经驶出站台？驶出的距离为多少？为了让列车的移动更加平稳，在上面的示例中，列车的运行实际上是一个匀加速运动，加速度默认为 <img loading="lazy" decoding="async" src="/wp-content/ql-cache/quicklatex.com-879d462270df2c9e785272e114bc9379_l3.png" class="ql-img-inline-formula quicklatex-auto-format" alt="&#49;&#109;&#47;&#115;&#94;&#50;" title="Rendered by QuickLaTeX.com" height="21" width="49" style="vertical-align: -5px;"/>。因为可视范围不大，所以再整个范围内列车都保持着加速度不变，不需要考虑速度到达某个最大值后保持匀速行驶。</p>
 
 <p class="wp-block-paragraph">再实现一个类似于 <a href="http://turfjs.org/docs/#along" target="_blank" rel="noopener">Turf 中 Along 的方法</a>。区别在于，对于一趟列车，需要计算16次。所以，出于效率考虑，我自己实现了一个 Along 方法。</p>
 

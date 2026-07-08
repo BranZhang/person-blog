@@ -9,11 +9,11 @@ pnpm install
 pnpm run dev
 ```
 
-The default production URL is `https://branzhang.github.io/person-blog/`. If you deploy with a custom domain, set `SITE_URL` and `SITE_BASE=/`.
+The default production URL is `https://littlepotato.me/`, with `SITE_BASE=/`.
 
 ## WordPress Import
 
-The importer reads WordPress REST API posts, writes Markdown files to `src/content/posts`, and optionally downloads media under `public/wp-content/uploads`.
+The importer reads WordPress REST API posts, writes Markdown files to `src/content/posts`, and optionally downloads media under `public/wp-content`.
 
 Create a local `.env` from `.env.example`, then run:
 
@@ -31,28 +31,21 @@ Optional:
 - `WP_STATUS`: defaults to `publish`
 - `WP_IMPORT_PAGES`: set to `true` to import WordPress pages into `src/content/pages/imported`
 - `WP_DOWNLOAD_MEDIA`: defaults to `true`; set to `false` to keep original media URLs
-- `WP_MEDIA_DIR`: local media output path, defaults to `public/wp-content/uploads`
-- `WP_MEDIA_PUBLIC_BASE`: public URL prefix, defaults to `/wp-content/uploads`
+- `WP_MEDIA_DIR`: local media output path, defaults to `public/wp-content`
+- `WP_MEDIA_PUBLIC_BASE`: public URL prefix, defaults to `/wp-content`
 
 For a complete migration before shutting down WordPress, verify:
 
 - post count, titles, dates, slugs, tags, and categories
-- images and downloadable files previously hosted under `wp-content/uploads`
+- images and downloadable files previously hosted under `wp-content`
 - internal links that still point at the old WordPress domain
 - redirects from old WordPress URLs to the new Astro routes
 
 ## Deployment
 
-GitHub Pages project hosting should use:
+Production hosting should use:
 
 ```bash
-SITE_URL=https://branzhang.github.io/person-blog/
-SITE_BASE=/person-blog
-```
-
-Custom domain hosting should use:
-
-```bash
-SITE_URL=https://your-domain.example/
+SITE_URL=https://littlepotato.me/
 SITE_BASE=/
 ```

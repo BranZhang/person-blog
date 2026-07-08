@@ -11,8 +11,8 @@ const importPages = process.env.WP_IMPORT_PAGES === "true";
 const downloadMedia = process.env.WP_DOWNLOAD_MEDIA !== "false";
 const postsDir = path.resolve(rootDir, process.env.WP_POSTS_DIR ?? "src/content/posts");
 const pagesDir = path.resolve(rootDir, process.env.WP_PAGES_DIR ?? "src/content/pages/imported");
-const mediaDir = path.resolve(rootDir, process.env.WP_MEDIA_DIR ?? "public/wp-content/uploads");
-const mediaPublicBase = process.env.WP_MEDIA_PUBLIC_BASE ?? "/wp-content/uploads";
+const mediaDir = path.resolve(rootDir, process.env.WP_MEDIA_DIR ?? "public/wp-content");
+const mediaPublicBase = process.env.WP_MEDIA_PUBLIC_BASE ?? "/wp-content";
 const mediaTimeoutMs = Number(process.env.WP_MEDIA_TIMEOUT_MS ?? "20000");
 
 if (!wpBaseUrl) {
@@ -139,7 +139,7 @@ async function localizeMedia(html) {
     try {
       const normalizedUrl = normalizeRemoteUrl(originalUrl);
       const remote = new URL(normalizedUrl);
-      const marker = "/wp-content/uploads/";
+      const marker = "/wp-content/";
       const markerIndex = remote.pathname.indexOf(marker);
       if (markerIndex < 0) continue;
 
@@ -185,7 +185,7 @@ async function localizeMedia(html) {
 }
 
 function findUploadUrls(html) {
-  const pattern = /(?:https?:)?\/\/[^"'\s<>)]*\/wp-content\/uploads\/[^"'\s<>)]*/g;
+  const pattern = /(?:https?:)?\/\/[^"'\s<>)]*\/wp-content\/[^"'\s<>)]*/g;
   return [...new Set(html.match(pattern) ?? [])];
 }
 

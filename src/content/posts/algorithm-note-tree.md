@@ -98,7 +98,7 @@ canonicalURL: "https://littlepotato.me/2019/01/02/algorithm-note-tree/"
 
 <h3 class="wp-block-heading">红黑树</h3>
 
-<p class="wp-block-paragraph">红黑树本质上是一棵二叉搜索树，但它在二叉搜索树的基础上增加了着色和相关的性质使得红黑树相对平衡，从而保证了红黑树的查找、插入、删除的时间复杂度最坏为  <img loading="lazy" decoding="async" src="https://littlepotato.me/wp-content/ql-cache/quicklatex.com-3e714e1ffb0b6741764c419ad5162f72_l3.png" class="ql-img-inline-formula quicklatex-auto-format" alt="&#79;&#40;&#108;&#111;&#103;&#110;&#41;" title="Rendered by QuickLaTeX.com" height="18" width="64" style="vertical-align: -4px;"/> 。</p>
+<p class="wp-block-paragraph">红黑树本质上是一棵二叉搜索树，但它在二叉搜索树的基础上增加了着色和相关的性质使得红黑树相对平衡，从而保证了红黑树的查找、插入、删除的时间复杂度最坏为  <img loading="lazy" decoding="async" src="/wp-content/ql-cache/quicklatex.com-3e714e1ffb0b6741764c419ad5162f72_l3.png" class="ql-img-inline-formula quicklatex-auto-format" alt="&#79;&#40;&#108;&#111;&#103;&#110;&#41;" title="Rendered by QuickLaTeX.com" height="18" width="64" style="vertical-align: -4px;"/> 。</p>
 
 <p class="wp-block-paragraph">红黑树的特性：</p>
 
@@ -130,7 +130,7 @@ canonicalURL: "https://littlepotato.me/2019/01/02/algorithm-note-tree/"
 
 <p class="wp-block-paragraph">在考虑这条题目之前，先来看看“<a href="https://leetcode.com/problems/count-of-smaller-numbers-after-self/" class="rank-math-link" target="_blank" rel="noopener">计算右侧小于当前元素的个数</a>”这个题目。给定一个数组，统计每个数的右侧，有多少个小于当前数值的元素。接解题的思路是，从右往左遍历，在遍历的同时，构建一颗二叉搜索树。每当需要在二叉搜索树中插入元素时，就可以顺便统计一下有多少节点小于当前值，也就是在数组中当前元素的右侧有多少个数小于当前值。</p>
 
-<p class="wp-block-paragraph">回到这条题目：在给定数组中，求区间和满足指定范围的的区间的个数。可以简单的双重循环一遍，但是这样效率很差。结合“”题目来看，事先计算好数组的求和结果可以提高一些效率，定义新的数组 T，令 <img loading="lazy" decoding="async" src="https://littlepotato.me/wp-content/ql-cache/quicklatex.com-0b6ab4b39338891c25a3e8a1c630d700_l3.png" class="ql-img-inline-formula quicklatex-auto-format" alt="&#84;&#105;&#32;&#61;" title="Rendered by QuickLaTeX.com" height="12" width="39" style="vertical-align: 0px;"/>。题目中想要求的区间实际上就是，区间 <img loading="lazy" decoding="async" src="https://littlepotato.me/wp-content/ql-cache/quicklatex.com-a30a5ea3272c65a2e833d052a5b474aa_l3.png" class="ql-img-inline-formula quicklatex-auto-format" alt="&#40;&#105;&#44;&#106;&#41;" title="Rendered by QuickLaTeX.com" height="18" width="36" style="vertical-align: -4px;"/> 的和等于  。</p>
+<p class="wp-block-paragraph">回到这条题目：在给定数组中，求区间和满足指定范围的的区间的个数。可以简单的双重循环一遍，但是这样效率很差。结合“”题目来看，事先计算好数组的求和结果可以提高一些效率，定义新的数组 T，令 <img loading="lazy" decoding="async" src="/wp-content/ql-cache/quicklatex.com-0b6ab4b39338891c25a3e8a1c630d700_l3.png" class="ql-img-inline-formula quicklatex-auto-format" alt="&#84;&#105;&#32;&#61;" title="Rendered by QuickLaTeX.com" height="12" width="39" style="vertical-align: 0px;"/>。题目中想要求的区间实际上就是，区间 <img loading="lazy" decoding="async" src="/wp-content/ql-cache/quicklatex.com-a30a5ea3272c65a2e833d052a5b474aa_l3.png" class="ql-img-inline-formula quicklatex-auto-format" alt="&#40;&#105;&#44;&#106;&#41;" title="Rendered by QuickLaTeX.com" height="18" width="36" style="vertical-align: -4px;"/> 的和等于  。</p>
 
 <p class="wp-block-paragraph">问题就转换为了：对于每一个位置，在它的右侧有多少个元素满足“与当前位置的差在指定的区间范围内”。所以，解法参照上面的题目，从右往左遍历，一边遍历一边构造二叉树，从而解决题目中的问题。考虑到输入的数组的大小，红黑树可能比二叉搜索树更加合适。</p>
 

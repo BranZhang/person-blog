@@ -14,16 +14,9 @@ import {
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import config from "./astro-paper.config";
 
-const configuredSiteUrl = new URL(config.site.url);
-const githubPagesBase =
-  configuredSiteUrl.hostname.endsWith("github.io") &&
-  configuredSiteUrl.pathname !== "/"
-    ? configuredSiteUrl.pathname.replace(/\/$/, "")
-    : "/";
-
 export default defineConfig({
   site: config.site.url,
-  base: process.env.SITE_BASE ?? githubPagesBase,
+  base: process.env.SITE_BASE ?? "/",
   integrations: [
     mdx(),
     sitemap({

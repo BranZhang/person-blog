@@ -9,7 +9,7 @@ import path from "node:path";
 const root = path.resolve("dist");
 const host = process.env.HOST ?? "127.0.0.1";
 const port = Number(process.env.PORT ?? "4321");
-const base = (process.env.SITE_BASE ?? "/person-blog").replace(/\/$/, "");
+const base = (process.env.SITE_BASE ?? "/").replace(/\/$/, "");
 
 const contentTypes = {
   ".css": "text/css; charset=utf-8",
