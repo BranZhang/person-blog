@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { access, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const rootDir = process.cwd();
@@ -13,6 +13,7 @@ const postsDir = path.resolve(rootDir, process.env.WP_POSTS_DIR ?? "src/content/
 const pagesDir = path.resolve(rootDir, process.env.WP_PAGES_DIR ?? "src/content/pages/imported");
 const mediaDir = path.resolve(rootDir, process.env.WP_MEDIA_DIR ?? "public/wp-content/uploads");
 const mediaPublicBase = process.env.WP_MEDIA_PUBLIC_BASE ?? "/wp-content/uploads";
+const mediaTimeoutMs = Number(process.env.WP_MEDIA_TIMEOUT_MS ?? "20000");
 
 if (!wpBaseUrl) {
   console.error("Missing WP_BASE_URL. Copy .env.example or pass WP_BASE_URL=https://your-site/.");
@@ -44,28 +45,30 @@ async function writeEntries(entries, kind, targetDir) {
   ]);
 
   for (const entry of entries) {
-    const slug = sanitizeFileName(entry.slug || String(entry.id));
+    const slug = sanitizeFileName(decodeMaybe(entry.slug || String(entry.id)));
     const filePath = path.join(targetDir, `${slug}.md`);
     const title = decodeEntities(stripTags(entry.title?.rendered ?? slug)).trim() || slug;
     const rawContent = entry.content?.rendered ?? "";
     const content = downloadMedia ? await localizeMedia(rawContent) : rawContent;
     const description = buildDescription(entry.excerpt?.rendered || rawContent);
     const tags = buildTags(entry, tagsById, categoriesById);
-    const frontmatter = [
-      "---",
-      `title: ${yamlString(title)}`,
-      `description: ${yamlString(description)}`,
-      `pubDatetime: ${toIso(entry.date_gmt || entry.date)}`,
-      entry.modified_gmt || entry.modified
-        ? `modDatetime: ${toIso(entry.modified_gmt || entry.modified)}`
-        : "",
-      `author: ${yamlString(entry._embedded?.author?.[0]?.name ?? "Bran Zhang")}`,
-      "tags:",
-      ...tags.map(tag => `  - ${yamlString(tag)}`),
-      entry.link ? `canonicalURL: ${yamlString(entry.link)}` : "",
-      "---",
-      "",
-    ].filter(Boolean).join("\n");
+    const frontmatter =
+      [
+        "---",
+        `title: ${yamlString(title)}`,
+        `description: ${yamlString(description)}`,
+        `pubDatetime: ${toIso(entry.date_gmt || entry.date)}`,
+        entry.modified_gmt || entry.modified
+          ? `modDatetime: ${toIso(entry.modified_gmt || entry.modified)}`
+          : "",
+        `author: ${yamlString(entry._embedded?.author?.[0]?.name ?? "Bran Zhang")}`,
+        "tags:",
+        ...tags.map(tag => `  - ${yamlString(tag)}`),
+        entry.link ? `canonicalURL: ${yamlString(entry.link)}` : "",
+        "---",
+      ]
+        .filter(Boolean)
+        .join("\n") + "\n\n";
 
     await writeFile(filePath, `${frontmatter}${content.trim()}\n`, "utf8");
     console.log(`Imported ${kind}: ${slug}`);
@@ -153,7 +156,18 @@ async function localizeMedia(html) {
         continue;
       }
 
-      const response = await fetch(normalizedUrl, { headers: authHeaders });
+      const publicUrl = `${mediaPublicBase.replace(/\/$/, "")}/${safeSegments
+        .map(encodeURIComponent)
+        .join("/")}`;
+      if (await exists(target)) {
+        output = output.split(originalUrl).join(publicUrl);
+        continue;
+      }
+
+      const response = await fetch(normalizedUrl, {
+        headers: authHeaders,
+        signal: AbortSignal.timeout(mediaTimeoutMs),
+      });
       if (!response.ok) {
         console.warn(`Skipped media ${originalUrl}: ${response.status}`);
         continue;
@@ -161,10 +175,6 @@ async function localizeMedia(html) {
 
       await mkdir(path.dirname(target), { recursive: true });
       await writeFile(target, Buffer.from(await response.arrayBuffer()));
-
-      const publicUrl = `${mediaPublicBase.replace(/\/$/, "")}/${safeSegments
-        .map(encodeURIComponent)
-        .join("/")}`;
       output = output.split(originalUrl).join(publicUrl);
     } catch (error) {
       console.warn(`Skipped media ${originalUrl}: ${error.message}`);
@@ -236,6 +246,23 @@ function sanitizeFileName(value) {
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "")
     .toLowerCase() || "post";
+}
+
+async function exists(filePath) {
+  try {
+    await access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function decodeMaybe(value) {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
 }
 
 function sanitizePathSegment(value) {
