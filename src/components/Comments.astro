@@ -1,0 +1,61 @@
+---
+// Giscus comments.
+// - Loaded per navigation because AstroPaper uses ClientRouter (SPA nav),
+//   where a plain giscus <script> would not re-run on the next post.
+// - Theme is synced with AstroPaper's data-theme toggle via postMessage.
+---
+
+<section id="giscus" class="mt-16"></section>
+
+<script>
+  const GISCUS_ATTRS: Record<string, string> = {
+    "data-repo": "BranZhang/person-blog",
+    "data-repo-id": "R_kgDOTRLiDg",
+    "data-category": "Announcements",
+    "data-category-id": "DIC_kwDOTRLiDs4DAwUC",
+    "data-mapping": "pathname",
+    "data-strict": "0",
+    "data-reactions-enabled": "1",
+    "data-emit-metadata": "0",
+    "data-input-position": "bottom",
+    "data-lang": "zh-CN",
+    "data-loading": "lazy",
+  };
+
+  function giscusTheme() {
+    return document.documentElement.getAttribute("data-theme") === "dark"
+      ? "dark"
+      : "light";
+  }
+
+  function loadGiscus() {
+    const container = document.getElementById("giscus");
+    if (!container) return; // not a post page
+    if (container.querySelector("iframe.giscus-frame, script")) return; // already loaded
+    const s = document.createElement("script");
+    s.src = "https://giscus.app/client.js";
+    for (const [k, v] of Object.entries(GISCUS_ATTRS)) s.setAttribute(k, v);
+    s.setAttribute("data-theme", giscusTheme());
+    s.crossOrigin = "anonymous";
+    s.async = true;
+    container.appendChild(s);
+  }
+
+  function setGiscusTheme() {
+    const iframe =
+      document.querySelector<HTMLIFrameElement>("iframe.giscus-frame");
+    iframe?.contentWindow?.postMessage(
+      { giscus: { setConfig: { theme: giscusTheme() } } },
+      "https://giscus.app"
+    );
+  }
+
+  // (re)load on first paint and after every SPA navigation
+  document.addEventListener("astro:page-load", loadGiscus);
+
+  // keep comment theme in sync with the site theme toggle
+  new MutationObserver(setGiscusTheme).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+</script>

@@ -54,15 +54,21 @@
 ### 5. `.gitignore`
 - 增加 `*.log`。
 
+### 6. Giscus 评论
+- `src/components/Comments.astro`：giscus 脚本 + 主题同步（跟随 `data-theme` toggle）+ 每次 SPA 导航后重载（AstroPaper 用 ClientRouter，普通 giscus `<script>` 不会在下一篇文章重跑）。
+- 在 `src/pages/posts/[...slug]/index.astro` 的 `AdjacentPostNav` 后引入 `<Comments />`。
+- 配置：repo `BranZhang/person-blog`、category `Announcements`、`data-lang="zh-CN"`。
+
+### 7. Header Logo
+- `src/components/Header.astro`：站点标题前加 `public/logo.png`（引入 `getAssetPath`）。
+
 ---
 
 ## 待办的定制（TODO）
 
 - [ ] **列表封面**：原 `heroImage` 映射保存在 git `fbd300d` 与 scratchpad `cover_map.json`（18/50 篇有封面）。AstroPaper 原生列表无封面，需自定义。
 - [ ] **数学公式**：加 `remark-math` + `rehype-mathjax`（或 KaTeX）。含公式的文章：`how-kriging-works-*`、`principle-of-word-segmentation-*` 等。
-- [ ] **Giscus 评论**：参考 AstroPaper 示例文章 `how-to-integrate-giscus-comments`（在 baseline `30fa8ef` 的历史里）。
 - [ ] **中文 UI**：AstroPaper 只内置 `en` 翻译。当前 `lang: "en"`。需在 `src/i18n/lang/` 加 `zh` 并在 config 切换。
-- [ ] **Logo**：把 `public/logo.png` 用到 header（原版用纯文字 title）。
 - [ ] **自定义 embeds**：旧站有 link-card / youtube / mapbox 嵌入，按需评估是否移植。
 - [ ] **部署（Cloudflare Pages）**：构建命令 `pnpm build`，输出目录 `dist`，环境变量 `NODE_VERSION=22`。可选：删除 AstroPaper 自带的 `.github/`（issue 模板、`ci.yml`）。
 - [ ] **WordPress 正文样式**：检查 `wp-block-*` 在 AstroPaper prose 下的渲染，按需补 CSS。
