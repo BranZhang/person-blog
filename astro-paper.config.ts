@@ -2,14 +2,16 @@ import { defineAstroPaperConfig } from "./src/types/config";
 
 export default defineAstroPaperConfig({
   site: {
-    url: "https://astro-paper.pages.dev/",
-    title: "AstroPaper",
-    description: "A minimal, responsive and SEO-friendly Astro blog theme.",
-    author: "Sat Naing",
-    profile: "https://satna.ing",
+    url: "https://littlepotato.me/",
+    title: "Bran Zhang",
+    description: "Personal notes, engineering writeups, and archived posts.",
+    author: "Bran Zhang",
+    profile: "https://github.com/BranZhang",
     ogImage: "default-og.jpg",
+    // TODO: no built-in zh translations in AstroPaper yet; UI stays English
+    // until a zh locale is added. See CUSTOMIZATIONS.md.
     lang: "en",
-    timezone: "Asia/Bangkok",
+    timezone: "Asia/Shanghai",
     dir: "ltr",
   },
   posts: {
@@ -19,27 +21,24 @@ export default defineAstroPaperConfig({
   },
   features: {
     lightAndDarkMode: true,
-    dynamicOgImage: true,
+    // Disabled: OG image generation needs Google Fonts, which is blocked in
+    // this build environment / slow in mainland China. Revisit with covers.
+    dynamicOgImage: false,
     showArchives: true,
     showBackButton: true,
+    // Deployed on Cloudflare, not editing via GitHub — disable the edit link.
     editPost: {
-      enabled: true,
-      url: "https://github.com/satnaing/astro-paper/edit/main/",
+      enabled: false,
     },
     search: "pagefind",
   },
   socials: [
-    { name: "github",   url: "https://github.com/satnaing/astro-paper" },
-    { name: "x",        url: "https://x.com/username" },
-    { name: "linkedin", url: "https://www.linkedin.com/in/username/" },
-    { name: "mail",     url: "mailto:yourmail@gmail.com" },
+    { name: "github", url: "https://github.com/BranZhang" },
+    { name: "mail", url: "mailto:njnuzhangchi@gmail.com" },
   ],
   shareLinks: [
-    { name: "whatsapp", url: "https://wa.me/?text=" },
-    { name: "facebook", url: "https://www.facebook.com/sharer.php?u=" },
-    { name: "x",        url: "https://x.com/intent/post?url=" },
+    { name: "x", url: "https://x.com/intent/post?url=" },
     { name: "telegram", url: "https://t.me/share/url?url=" },
-    { name: "pinterest", url: "https://pinterest.com/pin/create/button/?url=" },
-    { name: "mail",     url: "mailto:?subject=See%20this%20post&body=" },
+    { name: "mail", url: "mailto:?subject=See%20this%20post&body=" },
   ],
 });
