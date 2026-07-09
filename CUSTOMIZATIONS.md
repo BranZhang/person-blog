@@ -66,7 +66,7 @@
 ### 8. 列表封面
 - `src/content.config.ts`：posts schema 加自定义字段 `cover`（public 绝对路径字符串，直接当 `<img src>`，不走 astro:assets，避免把 `/wp-content/...` 当本地 asset 加载而报错）。
 - 18 篇文章 frontmatter 加回 `cover`（映射来源：git `fbd300d` / scratchpad `cover_map.json`）。
-- `src/components/Card.astro`：有 `cover` 时在卡片**右侧**显示封面，图片**左侧用 `mask-image` 线性渐变淡入**融进卡片；移动端隐藏（`sm` 以上显示）。
+- `src/components/Card.astro`：改成带内边距的卡片，**hover 时整卡背景高亮**（`hover:bg-muted`）且整卡可点击（标题链接用 `after:absolute inset-0` 覆盖）；有 `cover` 时在**右侧**显示封面，图片**左侧 `mask-image` 渐变淡入**；移动端隐藏封面（`sm` 以上显示）。
 
 ---
 

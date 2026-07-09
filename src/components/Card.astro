@@ -17,36 +17,41 @@ const { title, description, cover, ...props } = data;
 const coverMask = "linear-gradient(to right, transparent, black 45%)";
 ---
 
-<li class="my-6">
-  <div class="flex items-stretch gap-4">
-    <div class="min-w-0 flex-1">
-      <a
-        href={getPostUrl(id, filePath, Astro.currentLocale)}
-        class:list={[
-          "text-accent inline-block text-lg font-medium",
-          "decoration-dashed underline-offset-4 hover:underline",
-          "focus-visible:no-underline focus-visible:underline-offset-0",
-        ]}
-      >
-        <Heading transition:name={toTransitionName(title)}>
-          {title}
-        </Heading>
-      </a>
-      <Datetime {...props} />
-      <p>{description}</p>
+<li class="my-2">
+  <div
+    class="group relative rounded-xl px-4 py-5 transition-colors duration-200 hover:bg-muted/60"
+  >
+    <div class="flex items-stretch gap-4">
+      <div class="min-w-0 flex-1">
+        <a
+          href={getPostUrl(id, filePath, Astro.currentLocale)}
+          class:list={[
+            "text-accent inline-block text-lg font-medium",
+            "decoration-dashed underline-offset-4 group-hover:underline",
+            "focus-visible:no-underline focus-visible:underline-offset-0",
+            "after:absolute after:inset-0 after:rounded-xl",
+          ]}
+        >
+          <Heading transition:name={toTransitionName(title)}>
+            {title}
+          </Heading>
+        </a>
+        <Datetime {...props} />
+        <p>{description}</p>
+      </div>
+      {
+        cover && (
+          <div class="relative hidden w-40 shrink-0 overflow-hidden lg:w-52 sm:block">
+            <img
+              src={cover}
+              alt=""
+              loading="lazy"
+              class="absolute inset-0 h-full w-full object-cover"
+              style={`mask-image:${coverMask};-webkit-mask-image:${coverMask}`}
+            />
+          </div>
+        )
+      }
     </div>
-    {
-      cover && (
-        <div class="relative hidden w-40 shrink-0 overflow-hidden lg:w-52 sm:block">
-          <img
-            src={cover}
-            alt=""
-            loading="lazy"
-            class="absolute inset-0 h-full w-full object-cover"
-            style={`mask-image:${coverMask};-webkit-mask-image:${coverMask}`}
-          />
-        </div>
-      )
-    }
   </div>
 </li>
