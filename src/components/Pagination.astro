@@ -12,7 +12,7 @@ type Props = {
 
 const { page } = Astro.props;
 
-const t = useTranslations(Astro.currentLocale);
+const t = useTranslations(Astro.currentLocale ?? "en");
 ---
 
 {
@@ -20,7 +20,7 @@ const t = useTranslations(Astro.currentLocale);
     <nav
       class="mt-auto mb-8 flex justify-center gap-4"
       role="navigation"
-      aria-label="Pagination Navigation"
+      aria-label={t.a11y.paginationNav}
     >
       <LinkButton
         disabled={!page.url.prev}

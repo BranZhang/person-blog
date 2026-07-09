@@ -73,16 +73,40 @@
 - `src/styles/global.css`：`max-w-app` 从 `max-w-3xl`（768px）改为 `max-w-5xl`（1024px），加宽全站内容容器、减少桌面左右留白。
 - `astro-paper.config.ts`：`posts.perPage` 从 4 改为 15（每页文章数；`perIndex` 首页数量保持 4）。
 
+### 10. ⚠️ 中英双语（i18n）支持
+在 AstroPaper 原有 i18n 基础设施上扩展了中文支持和自动语言检测：
+
+**新增文件：**
+- `src/i18n/lang/zh-cn.ts`：中文 UI 翻译文件，覆盖导航（首页/文章/标签/关于/归档/搜索）、文章操作按钮、分页、页脚、无障碍标签、404 页面等所有界面文本。
+- `src/scripts/lang.ts`：客户端语言切换脚本，处理语言按钮点击事件、localStorage/Cookie 双重持久化（有效期 1 年）、页面导航（保持当前路径，仅切换语言前缀），兼容 Astro View Transitions（监听 `astro:after-swap` 重新绑定事件）。
+- `functions/_middleware.js`：Cloudflare Pages Functions 边缘中间件，实现基于访问者地理位置的自动语言检测。检测优先级：用户 Cookie 偏好 > Cloudflare `request.cf.country`（CN/TW/HK/MO/SG → 中文）> 浏览器 `Accept-Language` 请求头。仅在首次访问根路径时执行 302 重定向，已有偏好 Cookie 则跳过。本地开发时无 CF 环境，回退到 Accept-Language 检测。
+- `src/pages/zh-cn/`：中文页面路由目录。Astro SSG 模式下非默认语言需要对应的页面文件，文件内容与英文版相同（通过 `Astro.currentLocale === "zh-cn"` 自动使用中文翻译），目录结构包含 `index.astro`、`about.astro`、`search.astro`、`404.astro` 及 `posts/`、`tags/`、`archives/` 子目录。
+
+**修改文件：**
+- `astro.config.ts:26-32`：`i18n.locales` 从 `["en"]` 改为 `["en", "zh-cn"]`，保持 `defaultLocale: "en"`、`prefixDefaultLocale: false`（英文无前缀，中文使用 `/zh-cn/` 前缀）。
+- `src/components/Header.astro`：在主题切换按钮旁添加语言切换按钮（`#lang-btn`），显示当前语言标识 "EN" / "中"，按钮样式与搜索/主题按钮保持一致（`size-8`、`focus-outline`、响应式布局），点击时通过客户端脚本切换语言。
+- `src/layouts/Layout.astro`：在 `<body>` 末尾引入 `@/scripts/lang` 脚本（与 theme 脚本并列）。
+- `src/i18n/types.ts`、`src/i18n/lang/en.ts`：新增 `a11y.paginationNav` 翻译键，用于分页组件 aria-label。
+- `src/components/Pagination.astro`：将硬编码的 `aria-label="Pagination Navigation"` 改为使用翻译键 `t.a11y.paginationNav`，`useTranslations` 增加 `?? "en"` 回退。
+- `astro-paper.config.ts`：移除"no built-in zh translations"的 TODO 注释。
+
+**URL 结构：**
+- 英文（默认）：`/`、`/posts`、`/posts/slug`、`/tags` 等，无语言前缀
+- 中文：`/zh-cn/`、`/zh-cn/posts`、`/zh-cn/posts/slug`、`/zh-cn/tags` 等
+- 用户手动切换语言后，偏好保存在 `preferred-locale` Cookie 和 localStorage 中，后续访问直接使用用户选择的语言
+- 博客文章内容暂不做多语言切换（UI 按钮/导航已全部中英文化），后续可扩展内容多语言（需要为每篇文章提供中文版本并调整路由）
+
+**⚠️ 升级注意：**
+- 新增语言时需同时更新 `src/i18n/lang/` 下的翻译文件和 `src/pages/zh-cn/` 对应的页面文件
+- Cloudflare 中间件位于项目根目录 `functions/` 下（不是 `src/`），这是 Cloudflare Pages Functions 的约定目录
+- 目前 Pagefind 搜索已自动索引两种语言，但中文不支持词干提取（stemming），搜索按精确匹配工作
+
 ---
 
 ## 待办的定制（TODO）
 
 - [ ] **数学公式**：加 `remark-math` + `rehype-mathjax`（或 KaTeX）。含公式的文章：`how-kriging-works-*`、`principle-of-word-segmentation-*` 等。
-- [ ] **中英双语切换（i18n）**：目标是让**界面语言**支持 en/zh 切换（不是把 UI 固定成中文）。AstroPaper 只内置 `en` 翻译，当前 `lang: "en"`。计划：
-  - 在 `src/i18n/lang/` 新增 `zh.ts`（对照 `en.ts` 翻译 nav/a11y 等文案）。
-  - 在 `astro.config.ts` 的 `i18n.locales` 加入 `zh`，确定路由策略（locale 前缀 `/zh/…`，默认 en 不加前缀）。
-  - 在 header 加语言切换入口，切换后跳到对应 locale 路由。
-  - 待明确：仅**界面**双语（文章内容保持原语言），还是**内容**也要中/英两版（后者需每篇文章多语言版本，工作量大，默认不做）。
+- [x] **中英双语切换（i18n）**：已完成界面双语支持（en/zh-cn），含语言切换按钮、Cloudflare 地理位置自动检测、Cookie 持久化。当前仅 UI 文本双语，文章内容保持原语言，后续可扩展内容多语言。
 - [ ] **自定义 embeds**：旧站有 link-card / youtube / mapbox 嵌入，按需评估是否移植。
 - [ ] **部署（Cloudflare Pages）**：构建命令 `pnpm build`，输出目录 `dist`，环境变量 `NODE_VERSION=22`。可选：删除 AstroPaper 自带的 `.github/`（issue 模板、`ci.yml`）。
 - [ ] **彻底清洗 WordPress 痕迹**：正文目前是 WordPress Gutenberg 导出的原始 HTML，痕迹很多：
