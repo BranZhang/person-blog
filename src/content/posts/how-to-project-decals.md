@@ -5,6 +5,7 @@ pubDatetime: 2022-03-12T10:34:00.000Z
 modDatetime: 2023-01-12T10:40:10.000Z
 draft: false
 tags: ["WebGL"]
+cover: "/wp-content/uploads/2022/03/decals.png"
 ---
 <p class="wp-block-paragraph">本文翻译自<a href="http://blog.wolfire.com/2009/06/how-to-project-decals/" target="_blank" data-type="URL" data-id="http://blog.wolfire.com/2009/06/how-to-project-decals/" rel="noreferrer noopener">《How to project decals》</a>。</p>
 

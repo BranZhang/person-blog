@@ -10,22 +10,43 @@ type Props = {
 
 const { variant: Heading = "h2", id, data, filePath } = Astro.props;
 
-const { title, description, ...props } = data;
+const { title, description, cover, ...props } = data;
+
+// Fade the cover in from the left so it blends into the card instead of
+// showing a hard edge next to the text.
+const coverMask = "linear-gradient(to right, transparent, black 45%)";
 ---
 
 <li class="my-6">
-  <a
-    href={getPostUrl(id, filePath, Astro.currentLocale)}
-    class:list={[
-      "text-accent inline-block text-lg font-medium",
-      "decoration-dashed underline-offset-4 hover:underline",
-      "focus-visible:no-underline focus-visible:underline-offset-0",
-    ]}
-  >
-    <Heading transition:name={toTransitionName(title)}>
-      {title}
-    </Heading>
-  </a>
-  <Datetime {...props} />
-  <p>{description}</p>
+  <div class="flex items-stretch gap-4">
+    <div class="min-w-0 flex-1">
+      <a
+        href={getPostUrl(id, filePath, Astro.currentLocale)}
+        class:list={[
+          "text-accent inline-block text-lg font-medium",
+          "decoration-dashed underline-offset-4 hover:underline",
+          "focus-visible:no-underline focus-visible:underline-offset-0",
+        ]}
+      >
+        <Heading transition:name={toTransitionName(title)}>
+          {title}
+        </Heading>
+      </a>
+      <Datetime {...props} />
+      <p>{description}</p>
+    </div>
+    {
+      cover && (
+        <div class="relative hidden w-40 shrink-0 overflow-hidden lg:w-52 sm:block">
+          <img
+            src={cover}
+            alt=""
+            loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover"
+            style={`mask-image:${coverMask};-webkit-mask-image:${coverMask}`}
+          />
+        </div>
+      )
+    }
+  </div>
 </li>

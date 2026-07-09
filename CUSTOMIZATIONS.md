@@ -63,11 +63,15 @@
 - `src/components/Header.astro`：站点标题前加 `public/logo.png`（引入 `getAssetPath`）。
 - `src/layouts/Layout.astro`：favicon 与 apple-touch-icon 改用 `public/logo.png`（原为 AstroPaper 的 `favicon.svg` / `favicon.ico`）。
 
+### 8. 列表封面
+- `src/content.config.ts`：posts schema 加自定义字段 `cover`（public 绝对路径字符串，直接当 `<img src>`，不走 astro:assets，避免把 `/wp-content/...` 当本地 asset 加载而报错）。
+- 18 篇文章 frontmatter 加回 `cover`（映射来源：git `fbd300d` / scratchpad `cover_map.json`）。
+- `src/components/Card.astro`：有 `cover` 时在卡片**右侧**显示封面，图片**左侧用 `mask-image` 线性渐变淡入**融进卡片；移动端隐藏（`sm` 以上显示）。
+
 ---
 
 ## 待办的定制（TODO）
 
-- [ ] **列表封面**：原 `heroImage` 映射保存在 git `fbd300d` 与 scratchpad `cover_map.json`（18/50 篇有封面）。AstroPaper 原生列表无封面，需自定义。
 - [ ] **数学公式**：加 `remark-math` + `rehype-mathjax`（或 KaTeX）。含公式的文章：`how-kriging-works-*`、`principle-of-word-segmentation-*` 等。
 - [ ] **中英双语切换（i18n）**：目标是让**界面语言**支持 en/zh 切换（不是把 UI 固定成中文）。AstroPaper 只内置 `en` 翻译，当前 `lang: "en"`。计划：
   - 在 `src/i18n/lang/` 新增 `zh.ts`（对照 `en.ts` 翻译 nav/a11y 等文案）。

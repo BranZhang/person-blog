@@ -5,6 +5,7 @@ pubDatetime: 2022-07-06T10:38:00.000Z
 modDatetime: 2025-02-18T12:25:36.000Z
 draft: false
 tags: ["mapbox","WebGL","可视化","地图","GIS"]
+cover: "/wp-content/uploads/2022/12/image-4-e1672739374316.png"
 ---
 <p class="wp-block-paragraph">光照分析是一个很常见的需求，那么如何在地图中实现类似的效果呢？</p>
 

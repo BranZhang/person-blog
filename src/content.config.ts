@@ -17,6 +17,10 @@ const posts = defineCollection({
       draft: z.boolean().optional(),
       tags: z.array(z.string()).default(["others"]),
       ogImage: image().or(z.string()).optional(),
+      // Custom: list-card cover image as a public/ absolute path
+      // (e.g. "/wp-content/uploads/.../cover.avif"). Rendered directly as
+      // <img>, so it is not processed by astro:assets. See CUSTOMIZATIONS.md.
+      cover: z.string().optional(),
       description: z.string(),
       canonicalURL: z.string().optional(),
       hideEditPost: z.boolean().optional(),

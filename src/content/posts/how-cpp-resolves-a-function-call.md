@@ -5,6 +5,7 @@ pubDatetime: 2023-04-21T10:09:00.000Z
 modDatetime: 2025-03-09T15:28:20.000Z
 draft: false
 tags: ["C++"]
+cover: "/wp-content/uploads/2023/04/image-1.png"
 ---
 <p class="wp-block-paragraph">C 是一种简单的语言，每个函数名称只能对应一个函数。另一方面，C++ 提供了更大的灵活性：</p>
 

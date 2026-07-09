@@ -5,6 +5,7 @@ pubDatetime: 2026-06-10T12:33:00.000Z
 modDatetime: 2026-06-12T01:38:58.000Z
 draft: false
 tags: ["3dtiles","Cesium","gaussian_splatting","spark","WebGL","GIS"]
+cover: "/wp-content/uploads/2026/06/labs-report-gaussian-splatting-stadium-e1781228379995.webp"
 ---
 <p class="wp-block-paragraph">3D Gaussian Splatting（3DGS）正在快速成为 Web 端实景三维渲染的主流表示方式。但&#8221;如何在浏览器里高效地流式加载并渲染数百万甚至上千万个 splat&#8221;，目前业界并没有统一答案。本文对比当前两条最具代表性的开源技术路线——<strong>Cesium 3D Tiles + glTF <code>KHR_gaussian_splatting</code></strong> 与 <strong>SparkJS 2.0</strong>——从数据格式、LOD 策略、流式管线、运行时内存到生态适配，逐层拆解它们的设计哲学与取舍。</p>
 

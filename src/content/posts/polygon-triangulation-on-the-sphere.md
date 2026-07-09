@@ -5,6 +5,7 @@ pubDatetime: 2024-11-11T08:31:00.000Z
 modDatetime: 2025-02-28T10:17:38.000Z
 draft: false
 tags: ["Cesium","gis","GIS"]
+cover: "/wp-content/uploads/2025/02/polygon-rendered.jpg"
 ---
 <p class="wp-block-paragraph">在球形表面绘制多边形比在平面上绘制要麻烦不少。这个问题和将一张全景照片还原到现实视觉效果本质上是一样的</p>
 

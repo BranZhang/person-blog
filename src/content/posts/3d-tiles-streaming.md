@@ -5,6 +5,7 @@ pubDatetime: 2023-02-04T07:43:00.000Z
 modDatetime: 2025-03-03T02:25:16.000Z
 draft: false
 tags: ["Cesium","gis","地图","GIS","算法"]
+cover: "/wp-content/uploads/2025/03/BoundingVolumes.avif"
 ---
 <p class="wp-block-paragraph">为了提高 Cesium for Unreal 中 3D Tiles 的传输性能，我们最近将虚幻引擎的遮挡剔除系统集成到了我们的瓦片选择算法中。</p>
 

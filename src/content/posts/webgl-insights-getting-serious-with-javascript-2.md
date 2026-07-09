@@ -5,6 +5,7 @@ pubDatetime: 2020-10-09T08:40:00.000Z
 modDatetime: 2025-02-09T10:24:23.000Z
 draft: false
 tags: ["Cesium","gis","JavaScript","WebGL","地图"]
+cover: "/wp-content/uploads/2025/02/WebGL.Insights.-.Patrick.Cozzi-Image79.jpg"
 ---
 <h2 class="wp-block-heading">4.3 性能</h2>
 

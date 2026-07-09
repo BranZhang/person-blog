@@ -5,6 +5,7 @@ pubDatetime: 2018-05-20T14:48:13.000Z
 modDatetime: 2023-01-03T10:02:43.000Z
 draft: false
 tags: ["kml","Linear Optimization","openstreetmap","ortools","osm","postgis","立交","GIS","算法"]
+cover: "/wp-content/uploads/2018/05/intersection-3d-rebuild-e1672740155669.png"
 ---
 <h2 class="wp-block-heading">简介</h2>
 
