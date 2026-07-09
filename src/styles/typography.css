@@ -44,19 +44,29 @@
     }
 
     img {
-      @apply border-border mx-auto border;
+      @apply mx-auto rounded-lg shadow-sm;
     }
 
     img[role="button"] {
-      @apply cursor-zoom-in;
+      @apply cursor-zoom-in transition-shadow duration-200;
+
+      &:hover {
+        @apply shadow-md;
+      }
 
       &:focus-visible {
         @apply outline-2 outline-offset-2 outline-dashed;
       }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      img[role="button"] {
+        @apply transition-none;
+      }
+    }
+
     figcaption {
-      @apply opacity-75;
+      @apply text-center opacity-75;
     }
 
     table {
@@ -71,11 +81,11 @@
     }
 
     code {
-      @apply bg-muted/75 text-foreground rounded p-1 wrap-break-word before:content-none after:content-none;
+      @apply bg-muted/75 text-foreground border-border/60 rounded border px-1.5 py-0.5 text-[0.9em] font-normal wrap-break-word before:content-none after:content-none;
     }
 
     .astro-code code {
-      @apply flex-[1_0_100%] bg-inherit p-0;
+      @apply flex-[1_0_100%] border-0 bg-inherit p-0 text-[0.95em];
     }
 
     blockquote {
@@ -113,7 +123,7 @@
       }
 
       figcaption {
-        @apply text-muted-foreground mt-2 text-center text-sm;
+        @apply text-muted-foreground/80 mt-2.5 text-center text-sm leading-relaxed italic;
       }
     }
 
@@ -133,19 +143,43 @@
         }
 
         figcaption {
-          @apply text-muted-foreground mt-1.5 text-center text-sm;
+          @apply text-muted-foreground/80 mt-1.5 text-center text-sm italic;
         }
       }
 
       .blog-gallery-caption {
-        @apply text-muted-foreground mt-3 text-center text-sm;
+        @apply text-muted-foreground/80 mt-3 text-center text-sm italic;
       }
     }
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
   .astro-code {
-    @apply outline-border flex border bg-(--shiki-light-bg) text-(--shiki-light) [&_span]:text-(--shiki-light);
+    @apply outline-border border-border/70 flex max-h-[36rem] overflow-y-auto rounded-lg border shadow-sm bg-(--shiki-light-bg) text-(--shiki-light) [&_span]:text-(--shiki-light);
+  }
+
+  /* Line numbers via CSS counter. Rendered in ::before so the digits are not
+     part of code.innerText and never end up in the clipboard copy. */
+  .astro-code code {
+    counter-reset: step;
+    counter-increment: step 0;
+  }
+
+  .astro-code .line::before {
+    content: counter(step);
+    counter-increment: step;
+    display: inline-block;
+    width: 1.9rem;
+    margin-right: 1rem;
+    text-align: right;
+    color: color-mix(in oklab, var(--muted-foreground) 55%, transparent);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Shiki sometimes emits a trailing empty line; don't number it. */
+  .astro-code .line:last-child:empty::before {
+    content: none;
   }
 
   html[data-theme="dark"] .astro-code {

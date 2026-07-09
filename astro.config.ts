@@ -48,7 +48,7 @@ export default defineConfig({
       rehypePlugins: [rehypeCallouts, rehypeKatex, rehypeImageFigures],
     }),
     shikiConfig: {
-      themes: { light: "min-light", dark: "night-owl" },
+      themes: { light: "github-light", dark: "night-owl" },
       defaultColor: false,
       wrap: false,
       transformers: [

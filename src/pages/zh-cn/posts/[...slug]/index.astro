@@ -63,6 +63,7 @@ const locale = Astro.currentLocale ?? config.site.lang;
 const {
   title,
   description,
+  cover,
   ogImage: initOgImage,
   canonicalURL,
   pubDatetime,
@@ -112,26 +113,69 @@ const ogImage = ogImageUrl
     class:list={["app-layout", { "mt-8": !config.features.showBackButton }]}
     data-pagefind-body
   >
-    <h1
-      style={{ viewTransitionName: toTransitionName(title) }}
-      class="text-accent inline-block text-2xl font-bold sm:text-3xl"
-    >
-      {title}
-    </h1>
+    {
+      cover ? (
+        <header class="post-hero relative flex min-h-64 flex-col justify-end overflow-hidden rounded-lg p-3 shadow-sm sm:min-h-72 sm:p-5">
+          <img
+            src={cover}
+            alt=""
+            fetchpriority="high"
+            class="absolute inset-0 h-full w-full border-0 object-cover"
+          />
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
+          <div class="relative rounded-lg bg-black/30 px-4 py-3 backdrop-blur-md sm:px-6 sm:py-4">
+            <h1
+              style={{ viewTransitionName: toTransitionName(title) }}
+              class="inline-block text-2xl font-bold text-white sm:text-3xl"
+            >
+              {title}
+            </h1>
+            <div class="mt-1.5 flex items-center gap-2 text-white/85">
+              <Datetime
+                {pubDatetime}
+                {modDatetime}
+                {timezone}
+                size="lg"
+                class="text-white/85!"
+              />
+              <span
+                aria-hidden="true"
+                class:list={[
+                  "text-white/60 max-sm:hidden",
+                  { hidden: !config.features.editPost?.enabled || hideEditPost },
+                ]}
+              >
+                |
+              </span>
+              <EditPost {hideEditPost} {post} class="max-sm:hidden text-white/85!" />
+            </div>
+          </div>
+        </header>
+      ) : (
+        <Fragment>
+          <h1
+            style={{ viewTransitionName: toTransitionName(title) }}
+            class="text-accent inline-block text-2xl font-bold sm:text-3xl"
+          >
+            {title}
+          </h1>
 
-    <div class="my-2 flex items-center gap-2">
-      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-      <span
-        aria-hidden="true"
-        class:list={[
-          "text-muted-foreground max-sm:hidden",
-          { hidden: !config.features.editPost?.enabled || hideEditPost },
-        ]}
-      >
-        |
-      </span>
-      <EditPost {hideEditPost} {post} class="max-sm:hidden" />
-    </div>
+          <div class="my-2 flex items-center gap-2">
+            <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+            <span
+              aria-hidden="true"
+              class:list={[
+                "text-muted-foreground max-sm:hidden",
+                { hidden: !config.features.editPost?.enabled || hideEditPost },
+              ]}
+            >
+              |
+            </span>
+            <EditPost {hideEditPost} {post} class="max-sm:hidden" />
+          </div>
+        </Fragment>
+      )
+    }
 
     <article
       id="article"
@@ -239,6 +283,27 @@ const ogImage = ogImageUrl
       copyButton.innerHTML = copyButtonLabel;
       codeBlock.setAttribute("tabindex", "0");
       codeBlock.appendChild(copyButton);
+
+      // Language badge (mirrors the copy button on the opposite corner).
+      const rawLang = codeBlock.getAttribute("data-language") || "";
+      const langNames = {
+        cpp: "C++",
+        c: "C",
+        csharp: "C#",
+        js: "JavaScript",
+        ts: "TypeScript",
+        python: "Python",
+        java: "Java",
+        bash: "Bash",
+        html: "HTML",
+        json: "JSON",
+      };
+      if (rawLang && !["text", "plaintext", "ansi", "txt"].includes(rawLang)) {
+        const langLabel = document.createElement("span");
+        langLabel.className = `code-lang absolute start-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-muted-foreground font-medium select-none`;
+        langLabel.textContent = langNames[rawLang] || rawLang;
+        codeBlock.appendChild(langLabel);
+      }
 
       codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
       wrapper.appendChild(codeBlock);

@@ -133,6 +133,16 @@
 - 数学/画廊/嵌入依赖 `markdown.processor`（自定义 unified processor）被 MDX 继承——**不要**再往 `mdx({...})` 传 `remarkPlugins`/`rehypePlugins`（已废弃且会重复）。
 - 若要新增一篇带嵌入/画廊的文章，写 `.mdx` 并 `import Embed/Gallery from "@/components/..."`。
 
+### 12. 单篇文章视觉美化
+
+- **封面 hero**（`src/pages/posts/[...slug]/index.astro` 与 `src/pages/zh-cn/...`）：仅 18 篇有 `cover` 的文章，把封面做成**标题背后的头图**——`<header class="post-hero">`（`min-h-64`/桌面 `sm:min-h-72`），封面 `<img>` 绝对定位 `object-cover` 铺满，叠一层底部渐深的黑色 gradient；**标题+日期放底部的毛玻璃面板**（`bg-black/30` + `backdrop-blur-md`），文字强制白色（`Datetime` 硬编码 `text-muted-foreground`，用 `text-white/85!` important 覆盖，日历图标 `currentColor` 同步变白）。`fetchpriority="high"` 助 LCP。**无封面的文章**保持原纯标题布局（三元分支）。图片/hero 容器均**无边框**。
+- **正文图片**（`typography.css` `.app-prose img`）：`rounded-lg` + `shadow-sm`，**无边框**；可缩放图（`img[role=button]`）hover 时 `shadow-md`，`prefers-reduced-motion` 下关动画。
+- **图注**（`figure.blog-figure` / `.blog-gallery` 的 `figcaption`、`.blog-gallery-caption`，以及 `.app-prose` 基础 `figcaption`）：`text-center` 居中 + `italic` + `text-muted-foreground/80`，正文图注加 `leading-relaxed`。
+- **代码块主题与可读性**：`astro.config.ts` 亮色主题从 `min-light`（低对比、发灰）换成 **`github-light`**（高对比），暗色保留 `night-owl`。`.astro-code` 加 `max-h-[36rem]` + `overflow-y-auto`（超长代码内部滚动），及 `rounded-lg` + `border-border/70` + `shadow-sm`（代码块**保留**淡边框，仅图片去边框）。
+- **代码行号**（`typography.css`）：CSS counter，`.astro-code .line::before` 输出序号——放 `::before` 使其**不进 `code.innerText`，复制不带行号**；gutter 宽 `1.9rem`（容 3 位数）；`.line:last-child:empty` 不编号。
+- **代码语言标识**：扩展 `attachCopyButtons`（inline script，en + zh-cn 双份），读 `pre[data-language]`，在**左上角**加语言徽标（与右上角复制按钮对称，同 `top-(--file-name-offset)` 偏移）；`langNames` 映射友好名（`cpp→C++`、`csharp→C#`…）；`text`/`plaintext`/`txt`/`ansi` 不显示。徽标 append 到 `<pre>` 而非 `<code>`，同样不进复制。
+- **行内 code**（`.app-prose code`）：`px-1.5 py-0.5` + `text-[0.9em]` + `border-border/60` 细边框；`.astro-code code` 用 `border-0 text-[0.95em]` 覆盖，避免代码块内 token 被套框。
+
 ---
 
 ## 待办的定制（TODO）
