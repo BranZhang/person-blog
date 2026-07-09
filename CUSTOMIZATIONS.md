@@ -76,4 +76,11 @@
   - 待明确：仅**界面**双语（文章内容保持原语言），还是**内容**也要中/英两版（后者需每篇文章多语言版本，工作量大，默认不做）。
 - [ ] **自定义 embeds**：旧站有 link-card / youtube / mapbox 嵌入，按需评估是否移植。
 - [ ] **部署（Cloudflare Pages）**：构建命令 `pnpm build`，输出目录 `dist`，环境变量 `NODE_VERSION=22`。可选：删除 AstroPaper 自带的 `.github/`（issue 模板、`ci.yml`）。
-- [ ] **WordPress 正文样式**：检查 `wp-block-*` 在 AstroPaper prose 下的渲染，按需补 CSS。
+- [ ] **彻底清洗 WordPress 痕迹**：正文目前是 WordPress Gutenberg 导出的原始 HTML，痕迹很多：
+  - block class：`wp-block-paragraph` ×1429、`wp-block-heading` ×458、`wp-block-list` ×255、`wp-block-image` ×237、`wp-element-caption` ×155，以及 gallery / quote / table / separator / group / file / codepen-embed 等。
+  - `<img>` 带 `loading`/`decoding`/`width`/`height`/`wp-image-xxx` 等冗余属性，且被 `<figure class="wp-block-image">` 等结构包裹。
+  - `<!--more-->` 摘要分隔符（49 篇；AstroPaper 用 frontmatter `description` 做摘要，可删）。
+  - `/wp-content/...` 图片路径（约 922 处；图片实体在 `public/wp-content/`）。
+  - **数学公式被渲染成 quicklatex 图片**（7 篇，`/wp-content/ql-cache/...`）——与"数学公式"待办联动，理想是恢复成 LaTeX 源码交给 rehype-mathjax 渲染（源码可能已丢，需人工）。
+  - 目标：把正文转成干净的 Markdown（AstroPaper 原生格式），或至少去掉全部 `wp-*` class 与冗余属性、简化结构。
+  - 待明确：**转成 Markdown**（最彻底、易维护，但 gallery / codepen / 公式图等特殊块需人工处理）还是**保留 HTML、仅去 class/属性**（改动小、风险低）。
