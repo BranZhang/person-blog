@@ -8,8 +8,6 @@ export default defineAstroPaperConfig({
     author: "Bran Zhang",
     profile: "https://github.com/BranZhang",
     ogImage: "default-og.jpg",
-    // TODO: no built-in zh translations in AstroPaper yet; UI stays English
-    // until a zh locale is added. See CUSTOMIZATIONS.md.
     lang: "en",
     timezone: "Asia/Shanghai",
     dir: "ltr",
