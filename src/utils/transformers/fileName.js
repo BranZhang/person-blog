@@ -49,6 +49,7 @@ export const transformerFileName = ({
       tagName: "span",
       properties: {
         class: [
+          "code-file-name",
           "absolute py-1 text-foreground text-xs font-medium leading-4",
           hideDot
             ? "px-2"

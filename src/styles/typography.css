@@ -155,14 +155,24 @@
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
   .astro-code {
-    @apply outline-border border-border/70 flex max-h-[36rem] overflow-y-auto rounded-lg border shadow-sm bg-(--shiki-light-bg) text-(--shiki-light) [&_span]:text-(--shiki-light);
+    @apply outline-border border-border/70 flex max-h-[36rem] overflow-y-auto rounded-lg border bg-(--shiki-light-bg) text-(--shiki-light) shadow-sm [&_span]:text-(--shiki-light);
   }
 
   /* Line numbers via CSS counter. Rendered in ::before so the digits are not
      part of code.innerText and never end up in the clipboard copy. */
   .astro-code code {
+    display: flex;
+    width: max-content;
+    min-width: 100%;
+    flex-direction: column;
+    align-items: stretch;
     counter-reset: step;
     counter-increment: step 0;
+  }
+
+  .astro-code .line {
+    display: block;
+    padding-right: 1rem;
   }
 
   .astro-code .line::before {
@@ -182,21 +192,46 @@
     content: none;
   }
 
+  .astro-code .line:nth-of-type(odd) {
+    background-color: color-mix(in oklab, var(--shiki-light-bg) 98%, #000 2%);
+  }
+
+  .astro-code .line:nth-of-type(even) {
+    background-color: color-mix(in oklab, var(--shiki-light-bg) 95%, #000 5%);
+  }
+
+  .code-lang-icon {
+    @apply size-4 shrink-0;
+  }
+
+  .astro-code .code-lang,
+  .astro-code .code-lang span {
+    color: var(--muted-foreground);
+  }
+
   html[data-theme="dark"] .astro-code {
     @apply bg-(--shiki-dark-bg) text-(--shiki-dark) [&_span]:text-(--shiki-dark);
+  }
+
+  html[data-theme="dark"] .astro-code .line:nth-of-type(odd) {
+    background-color: color-mix(in oklab, var(--shiki-dark-bg) 96%, #fff 4%);
+  }
+
+  html[data-theme="dark"] .astro-code .line:nth-of-type(even) {
+    background-color: color-mix(in oklab, var(--shiki-dark-bg) 91%, #fff 9%);
   }
 
   /* Styles for Shiki transformers */
   /* https://shiki.style/packages/transformers */
   .astro-code {
     .line.diff.add {
-      @apply relative inline-block w-full bg-green-400/20 before:absolute before:-left-3 before:text-green-500 before:content-['+'];
+      @apply relative block bg-green-400/20 before:absolute before:-left-3 before:text-green-500 before:content-['+'];
     }
     .line.diff.remove {
-      @apply relative inline-block w-full bg-red-500/20 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
+      @apply relative block bg-red-500/20 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
     }
     .line.highlighted {
-      @apply inline-block w-full bg-slate-400/20;
+      @apply block bg-slate-400/20;
     }
     .highlighted-word {
       @apply border-border rounded-sm border px-0.5 py-px;
