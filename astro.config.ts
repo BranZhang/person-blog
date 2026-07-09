@@ -6,7 +6,10 @@ import { unified } from "@astrojs/markdown-remark";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import rehypeCallouts from "rehype-callouts";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import remarkResponsiveEmbeds from "./src/utils/remarkResponsiveEmbeds";
+import rehypeImageFigures from "./src/utils/rehypeImageFigures";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -18,6 +21,9 @@ import config from "./astro-paper.config";
 export default defineConfig({
   site: config.site.url,
   integrations: [
+    // MDX inherits the remark/rehype plugins from `markdown.processor` below
+    // (math, image figures, callouts, embeds) plus shikiConfig, so no per-plugin
+    // config is needed here.
     mdx(),
     sitemap({
       filter: page =>
@@ -36,9 +42,10 @@ export default defineConfig({
       remarkPlugins: [
         remarkToc,
         [remarkCollapse, { test: "Table of contents" }],
+        remarkMath,
         remarkResponsiveEmbeds,
       ],
-      rehypePlugins: [rehypeCallouts],
+      rehypePlugins: [rehypeCallouts, rehypeKatex, rehypeImageFigures],
     }),
     shikiConfig: {
       themes: { light: "min-light", dark: "night-owl" },

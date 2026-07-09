@@ -1,0 +1,30 @@
+---
+// Responsive wrapper for third-party <iframe> embeds (CodePen, Shadertoy,
+// CodeSandbox, XMind, Lucidchart, …). One component keeps every provider
+// responsive and consistently styled. See `.blog-embed` in typography.css.
+//
+// Usage (MDX):
+//   <Embed src="https://www.xmind.net/embed/CBeAjL/" height={600} title="MindMap" />
+//   <Embed src="https://codepen.io/BranZhang/embed/RwyGxrm" ratio="16/9" />
+type Props = {
+  src: string;
+  /** Fixed pixel height. Omit to use `ratio` (defaults to 16/9). */
+  height?: number;
+  /** Aspect ratio, e.g. "16/9". Ignored when `height` is set. */
+  ratio?: string;
+  title?: string;
+};
+
+const { src, height, ratio = "16/9", title = "Embedded content" } = Astro.props;
+
+// Upgrade protocol-relative srcs (e.g. //codepen.io/…) to https.
+const url = src.replace(/^\/\//, "https://");
+
+const style = height
+  ? `height:${height}px`
+  : `aspect-ratio:${ratio.replace("/", " / ")}`;
+---
+
+<div class="blog-embed" style={style}>
+  <iframe src={url} title={title} loading="lazy" allowfullscreen></iframe>
+</div>

@@ -94,12 +94,51 @@
       @apply focus-visible:outline-accent focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-dashed;
     }
 
-    /* Third-party iframe embeds, wrapped by remarkResponsiveEmbeds */
+    /* Third-party iframe embeds: the <Embed> component (clean posts) and
+       raw-HTML iframes wrapped by remarkResponsiveEmbeds (script-heavy posts). */
     .blog-embed {
       @apply border-border my-6 overflow-hidden rounded-lg border;
 
       iframe {
-        @apply block w-full max-w-full border-0;
+        @apply block h-full w-full max-w-full border-0;
+      }
+    }
+
+    /* Captioned single image promoted from Markdown by rehypeImageFigures. */
+    figure.blog-figure {
+      @apply my-6;
+
+      img {
+        @apply my-0;
+      }
+
+      figcaption {
+        @apply text-muted-foreground mt-2 text-center text-sm;
+      }
+    }
+
+    /* Image gallery: the <Gallery> component (from wp-block-gallery). */
+    figure.blog-gallery {
+      @apply my-6;
+
+      .blog-gallery-grid {
+        @apply grid gap-3;
+      }
+
+      .blog-gallery-item {
+        @apply my-0;
+
+        img {
+          @apply my-0 h-full w-full rounded-md object-cover;
+        }
+
+        figcaption {
+          @apply text-muted-foreground mt-1.5 text-center text-sm;
+        }
+      }
+
+      .blog-gallery-caption {
+        @apply text-muted-foreground mt-3 text-center text-sm;
       }
     }
   }

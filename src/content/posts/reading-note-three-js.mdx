@@ -1,0 +1,84 @@
+---
+title: "学习笔记——Three.JS"
+description: "Three.JS相关的学习笔记。"
+pubDatetime: 2020-12-13T05:51:00.000Z
+modDatetime: 2025-02-18T12:34:55.000Z
+draft: false
+tags: ["JavaScript","Three.JS","WebGL","笔记"]
+---
+
+import Embed from "@/components/Embed.astro";
+
+## 书目
+
+- [《Three.js零基础入门教程》](http://www.yanhuangxueyuan.com/Three.js/)
+- [《Three.js开发指南》](https://book.douban.com/subject/34451906/)
+- [Three.js document](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
+
+## 大纲
+
+- **程序结构**
+  - 场景（Scene）
+  - 相机（Camera）
+  - 渲染器（Renderer）
+  - 辅助对象
+- **几何体（Geometry）**
+  - 基类Geometry
+  - BufferGeometry
+  - 分类
+  - 自定义几何体
+  - 构造实体几何体（ConstructiveSolidGeometry）
+  - 几何体合并
+  - 顶点
+- **材质（Material）**
+  - 基础属性
+  - 融合属性
+  - 分类
+  - 联合材质
+  - 材质索引materialIndex
+- **模型**
+  - 分类
+  - 模型基类
+- **精灵模型**
+  - 创建精灵模型对象不需要创建几何体对象Geometry，精灵模型对象本质上你可以理解为已经内部封装了一个平面矩形几何体PlaneGeometry。
+  - 粒子（Points）和精灵（Sprites）的效果是一样的。精灵多会有性能问题，但是能够单个控制。
+  - 可以基于一个复杂的几何体的顶点创建 Points 对象。
+- **组对象**
+  - 通过Threejs的组对象Group可以组织各个模型，构成一个层级结构。
+  - Group
+- **后处理**
+  - 代码实现
+  - 后期处理通道
+  - 遮罩（mask）：可以在特定的区域使用通道
+  - THREE.ShaderPass：自定义效果
+- **工具**
+  - 控件
+  - Helper
+- **插件**
+  - 物理效果
+- **拾取**
+  - CPU 拾取
+  - GPU 拾取
+- **加载外部模型**
+  - 加载器
+- **动画**
+  - 基类（Camera）
+  - 分类
+  - 方法
+  - 自适应渲染
+- **光源**
+  - 基类Light
+  - 分类
+  - 阴**场景**影
+- **纹理贴图**
+  - 分类
+  - 创建纹理贴图
+  - Texture对象
+- **场景**
+  - 属性
+
+---
+
+下方为 xmind 脑图的线上分享，如果没加载出来需要等一会会。
+
+<Embed src="https://www.xmind.app/embed/E52ap7/" height={600} />

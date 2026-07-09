@@ -29,7 +29,7 @@
   | `heroImage` | （暂移除，见待办） | 原为封面/OG 图 |
   | `title` / `description` / `tags` | 同名保留 | |
 
-- ⚠️ **正文是 WordPress 导出的原始 HTML**（带 `wp-block-*` class），不是标准 markdown。AstroPaper 的 prose/typography 针对 markdown，个别块可能需要补兼容 CSS。
+- ✅ **正文已从 WordPress 原始 HTML 彻底清洗为干净的 Markdown/MDX**（见第 11 项）。34 篇纯文章为 `.md`，16 篇含嵌入/画廊的为 `.mdx`。
 - about 页在 `src/content/pages/about.md`。
 
 ### 2. 站点配置 `astro-paper.config.ts`
@@ -101,22 +101,46 @@
 - Cloudflare 中间件位于项目根目录 `functions/` 下（不是 `src/`），这是 Cloudflare Pages Functions 的约定目录
 - 目前 Pagefind 搜索已自动索引两种语言，但中文不支持词干提取（stemming），搜索按精确匹配工作
 
+### 11. ⚠️ WordPress 正文清洗（HTML → Markdown/MDX）
+把 50 篇从 WordPress 迁移的 Gutenberg 原始 HTML 正文，一次性转成干净、简洁、可扩展的 Markdown/MDX。目标：`.md` 为主，只有真正需要组件的文章升级为 `.mdx`。
+
+**产物形态：**
+- **34 篇 `.md`**：纯文字/代码/图片/公式/表格的文章，全部标准 Markdown。
+- **16 篇 `.mdx`**：含第三方嵌入或图片画廊的文章，顶部 `import` 对应组件。
+- 分类规则：正文含活体 `<script>` 的 2 篇（mapbox 内联地图、gist）保持 `.md` 并原样保留 `<script>`/`<iframe>`（Astro `.md` 直出 raw HTML，`<script>` 可执行；MDX 会把 `<script>` 当 JSX 处理，故不转）；其余含 `<iframe>` 或画廊的转 `.mdx` 用组件。
+
+**新增组件：**
+- `src/components/Embed.astro`：响应式第三方 iframe 包裹（`src`/`height`/`ratio`/`title`），统一 `.blog-embed` 样式，协议相对 URL 升级 https。替代原先 raw `<iframe>` + remark 兜底的做法。
+- `src/components/Gallery.astro`：图片画廊（`images={[{src,caption}]}` + 可选 `caption`），CSS grid `auto-fit` 自适应列数。来自 `wp-block-gallery`。
+
+**新增/接入的插件（`astro.config.ts` 的 `markdown.processor`，MDX 自动继承）：**
+- `remark-math` + `rehype-katex`：数学公式，KaTeX 构建期渲染，字体自托管。
+- `src/utils/rehypeImageFigures.ts`：把「独占一段、带 title 的 Markdown 图片」`![alt](src "cap")` 提升为 `<figure class="blog-figure"><img><figcaption>`，让纯 `.md` 也能有带标题图片，无需组件。
+- `remark-responsive-embeds`（保留）：仅服务上面 2 篇 raw-HTML iframe。
+
+**转换器（一次性脚本，未入库）：** 用 `cheerio` 解析每篇 HTML，递归序列化为 Markdown。关键映射：
+- `p.wp-block-paragraph` → 段落；`h2-4.wp-block-heading` → `##`/`###`/`####`；`ul/ol.wp-block-list` → 列表（有序项子列表按 marker 宽度 3 空格缩进）。
+- `pre.EnlighterJSRAW[data-enlighter-language]` → 带语言的围栏代码块（`generic`→`text`）。
+- `figure.wp-block-image` + `figcaption` → `![alt](src "caption")`（交给 `rehypeImageFigures` 出 figure）。
+- `figure.wp-block-gallery` → `<Gallery>`；`table` → GFM 表格（cell 保留 `<sup>`/`<br>` 内联 HTML）；`blockquote`/`hr`/`<sup>`/`<mark>` 等按语义转。
+- **数学**：`img.ql-img-inline-formula` 的 `alt`（数字实体编码的 LaTeX）→ `$…$`；`img.ql-img-displayed-equation` → `$$…$$`（去掉 `\[ \]`）。
+- HTML 实体解码；`<!--more-->` 删除；frontmatter 里 `&hellip;` 等实体顺手解码。
+- **MDX 转义**：`.mdx` 文本节点里裸 `<` → `\<`、`{`/`}` → `\{`/`\}`，避免被当成 JSX；`.md` 里裸 `<` → `&lt;`。
+
+**样式：** `src/styles/typography.css` 加 `.blog-figure` / `.blog-gallery*` 规则；`.blog-embed` 改为 `h-full` + 由组件设 `height`/`aspect-ratio`。`src/styles/global.css` 加 `@import "katex/dist/katex.min.css"`。
+
+**⚠️ 升级注意：**
+- 数学/画廊/嵌入依赖 `markdown.processor`（自定义 unified processor）被 MDX 继承——**不要**再往 `mdx({...})` 传 `remarkPlugins`/`rehypePlugins`（已废弃且会重复）。
+- 若要新增一篇带嵌入/画廊的文章，写 `.mdx` 并 `import Embed/Gallery from "@/components/..."`。
+
 ---
 
 ## 待办的定制（TODO）
 
-- [ ] **数学公式**：加 `remark-math` + `rehype-mathjax`（或 KaTeX）。含公式的文章：`how-kriging-works-*`、`principle-of-word-segmentation-*` 等。
+- [x] **数学公式**：已用 `remark-math` + `rehype-katex` 渲染（见第 11 项）。7 篇被 WordPress 渲染成 quicklatex 图片的公式，LaTeX 源码从 `<img alt>`（HTML 数字实体编码）中完整恢复，行内用 `$…$`、独立公式用 `$$…$$`。KaTeX 字体自托管（59 个 woff2 打进 `dist/_astro/`），无需外网。
 - [x] **中英双语切换（i18n）**：已完成界面双语支持（en/zh-cn），含语言切换按钮、Cloudflare 地理位置自动检测、Cookie 持久化。当前仅 UI 文本双语，文章内容保持原语言，后续可扩展内容多语言。
-- [x] **自定义 embeds（响应式）**：正文里迁移过来的第三方 `<iframe>` 嵌入（CodePen ×5、Shadertoy ×1、CodeSandbox ×2、XMind ×6、Lucidchart ×2，共 13 篇）已统一处理。
-  - `src/utils/remarkResponsiveEmbeds.ts`：remark 插件，把每个含 `<iframe>` 的 raw-HTML 节点包进 `<div class="blog-embed">`，并将协议相对 URL（`//host/…`）升级为 `https:`。放在 remark 层（字符串处理）而非 rehype，避免为解析正文引入 `rehype-raw` 重新解析整篇 HTML。
-  - `src/styles/typography.css`：`.blog-embed` 容器（圆角边框）+ `.blog-embed iframe { width:100%; max-width:100% }`，用 CSS 宽度覆盖写死的 `width='900'` 等属性，修复窄屏横向溢出（高度保留原值）。
-  - ⚠️ CodePen 用的是 `anon` 匿名嵌入，CodePen 早已停用，实际会显示 "CodePen Embed Fallback" 空框——只做了响应式包裹，未替换失效源（需人工，与 WordPress 清洗联动）。link-card / youtube：迁移内容中未发现。
+- [x] **自定义 embeds（响应式）**：第三方 `<iframe>` 嵌入已升级为 `<Embed>` 组件（见第 11 项）。清洗后的 `.mdx` 文章用 `<Embed src height title />`；仅两篇含活体 `<script>` 的文章（`trying-different-wordpress-blocks`、`design-a-cultural-revolution-style-map`）保留原始 `<iframe>` 走 `remarkResponsiveEmbeds` 兜底。
+  - `src/utils/remarkResponsiveEmbeds.ts`：仍保留，负责上面两篇 raw-HTML `<iframe>` 的 `.blog-embed` 包裹与协议相对 URL 升级。
+  - ⚠️ CodePen 用的是 `anon` 匿名嵌入，CodePen 早已停用，实际会显示 "CodePen Embed Fallback" 空框——已转成 `<Embed>`（保留原 src，方便日后替换），但源仍失效。link-card / youtube：迁移内容中未发现。
 - [ ] **部署（Cloudflare Pages）**：构建命令 `pnpm build`，输出目录 `dist`，环境变量 `NODE_VERSION=22`。可选：删除 AstroPaper 自带的 `.github/`（issue 模板、`ci.yml`）。
-- [ ] **彻底清洗 WordPress 痕迹**：正文目前是 WordPress Gutenberg 导出的原始 HTML，痕迹很多：
-  - block class：`wp-block-paragraph` ×1429、`wp-block-heading` ×458、`wp-block-list` ×255、`wp-block-image` ×237、`wp-element-caption` ×155，以及 gallery / quote / table / separator / group / file / codepen-embed 等。
-  - `<img>` 带 `loading`/`decoding`/`width`/`height`/`wp-image-xxx` 等冗余属性，且被 `<figure class="wp-block-image">` 等结构包裹。
-  - `<!--more-->` 摘要分隔符（49 篇；AstroPaper 用 frontmatter `description` 做摘要，可删）。
-  - `/wp-content/...` 图片路径（约 922 处；图片实体在 `public/wp-content/`）。
-  - **数学公式被渲染成 quicklatex 图片**（7 篇，`/wp-content/ql-cache/...`）——与"数学公式"待办联动，理想是恢复成 LaTeX 源码交给 rehype-mathjax 渲染（源码可能已丢，需人工）。
-  - 目标：把正文转成干净的 Markdown（AstroPaper 原生格式），或至少去掉全部 `wp-*` class 与冗余属性、简化结构。
-  - 待明确：**转成 Markdown**（最彻底、易维护，但 gallery / codepen / 公式图等特殊块需人工处理）还是**保留 HTML、仅去 class/属性**（改动小、风险低）。
+- [x] **彻底清洗 WordPress 痕迹**：50 篇正文已全部从 Gutenberg 原始 HTML 转成干净的 Markdown/MDX（见第 11 项）。所有 `wp-block-*` / `wp-element-*` class、`<img>` 冗余属性、`<!--more-->` 分隔符已清除；`/wp-content/...` 图片路径保留（实体仍在 `public/wp-content/`）。

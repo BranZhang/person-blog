@@ -1,0 +1,404 @@
+---
+title: "Mapbox 3D 立交实现方式解析"
+description: "看了下最近的 Mapbox GL JS 的更新日志，发现新增了立交桥的3D显示效果。根据车道级的高精地图数据，能够实现立交，高架，隧道，导流区等形式的效果。还是挺美观的。下面将从样式，数据，渲染等几个角度研究一下 Mapbox 的实现思路。"
+pubDatetime: 2025-05-21T09:14:51.000Z
+modDatetime: 2025-06-23T08:48:29.000Z
+draft: false
+tags: ["gis","mapbox","WebGL","地图","GIS"]
+cover: "/wp-content/uploads/2025/05/image.png"
+---
+
+import Gallery from "@/components/Gallery.astro";
+
+看了下最近的 [Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js) 的更新日志，发现新增了立交桥的3D显示效果。根据车道级的高精地图数据，能够实现立交，高架，隧道，导流区等形式的效果。还是挺美观的。下面将从样式，数据，渲染等几个角度研究一下 Mapbox 的实现思路。
+
+## 效果预览
+
+![](/wp-content/uploads/2025/05/image-1024x486.png "立交桥")
+
+![](/wp-content/uploads/2025/05/image-1-1024x486.png "高架")
+
+![](/wp-content/uploads/2025/05/image-2-1024x486.png "隧道")
+
+数据的[预览链接](https://console.mapbox.com/studio/tilesets/mapbox.hd-road-v1/#16.23/48.220481/11.629958)。截至本篇文章发表时，这个链接是能够正常预览的。不排除哪天就看不了了。测试数据分布在德国慕尼黑，不知道高精地图的功能是不是 Mapbox 为宝马定制的。
+
+## 数据构成
+
+从预览链接里能够看到高精地图效果的数据构成。数据依旧是基于 mvt 规范来提供的，**暂时不确定**这个 hd-roads 是否遵守了当前的 mvt 协议，也就是没有写入额外的数据。数据主要由以下几部分组成：
+
+### hd_road_centerlines
+
+每一根车道的中心线，在渲染过程中没用，不包括应急车道，更适合用于在导航过程中显示行车路线。
+
+![](/wp-content/uploads/2025/05/image-8.png)
+
+### hd_road_elevation
+
+这个数据集有点奇怪，肯定不是直接用于渲染的，它既有面数据也有点数据，根据名字看应该承载了道路高度信息，具体有啥用后面再说。
+
+![](/wp-content/uploads/2025/05/image-9.png)
+
+![](/wp-content/uploads/2025/05/image-11.png)
+
+### hd_road_line
+
+每一条车道两侧的边界线，也就是车道线，相邻的两个车道共用一条数据。应急车道的边界线也在其中。在渲染时可以是实线或者虚线。
+
+![](/wp-content/uploads/2025/05/image-10.png)
+
+### hd_road_point
+
+这个数据集中包含了多种数据，道路两侧的植物，道路指示符号等。
+
+![](/wp-content/uploads/2025/05/image-12.png)
+
+![](/wp-content/uploads/2025/05/image-13.png)
+
+### hd_road_polygon
+
+这个数据集是面状数据，覆盖了上述的各种车道，应急车道，导流区等，可以简单的理解为，面状数据包含了所有与道路直接有关的数据，除了那些树木。
+
+![](/wp-content/uploads/2025/05/image-14.png)
+
+## 地图样式
+
+直接看 debug 目录下的 3d-intersections.html 可以看到上面的示例。不过现在是要分析它的实现方式，所以还是简单一点好。我们可以从 test 目录入手，其中各个功能拆分的更细，便于研究。test 目录中可以看到这样的一个测试用例，这是其中的样式文件渲染出的效果：
+
+![](/wp-content/uploads/2025/05/expected-2.png "测试样例效果")
+
+这是对应的 style 文件（下面的内容不完整，无关的部分我删除了）：
+
+```json
+{
+	"version": 8,
+	"sources": {
+		"hd-roads": {
+			"type": "vector",
+			"tileSize": 512,
+			"maxzoom": 18,
+			"tiles": ["local://tiles/3d-intersections/{z}-{x}-{y}.mvt"]
+		},
+		"geojson": {
+			"type": "geojson",
+			"data": {
+				"type": "FeatureCollection",
+				"features": [
+					{
+						"type": "Feature",
+						"properties": {
+							"zLevel": 1
+						},
+						"geometry": {
+							"type": "MultiPoint",
+							"coordinates": [[11.5406, 48.1763]]
+						}
+					}
+				]
+			}
+		}
+	},
+	"layers": [
+		{
+			"id": "fake-road-shade",
+			"type": "fill",
+			"source": "hd-roads",
+			"source-layer": "hd_road_polygon",
+			"filter": [
+				"all",
+				["match", ["get", "class"], ["road", "bridge"], true, false]
+			],
+			"paint": {
+				"fill-color": "rgb(214, 221, 219)"
+			}
+		},
+		{
+			"id": "road-base",
+			"type": "fill",
+			"source": "hd-roads",
+			"source-layer": "hd_road_polygon",
+			"filter": ["all", ["match", ["get", "class"], ["road"], true, false]],
+			"layout": {
+				"fill-elevation-reference": "hd-road-base"
+			},
+			"paint": {
+				"fill-color": [
+					"interpolate",
+					["linear"],
+					["zoom"],
+					16,
+					"hsl(212, 25%, 80%)",
+					18,
+					"hsl(212, 25%, 71%)"
+				]
+			}
+		},
+		{
+			"id": "road-base-bridge",
+			"type": "fill",
+			"source": "hd-roads",
+			"source-layer": "hd_road_polygon",
+			"filter": ["all", ["match", ["get", "class"], ["bridge"], true, false]],
+			"layout": {
+				"fill-elevation-reference": "hd-road-base"
+			},
+			"paint": {
+				"fill-color": [
+					"interpolate",
+					["linear"],
+					["zoom"],
+					16,
+					"hsl(212, 25%, 80%)",
+					18,
+					"hsl(212, 25%, 71%)"
+				]
+			}
+		},
+		{
+			"id": "road-hatched-area",
+			"type": "fill",
+			"source": "hd-roads",
+			"source-layer": "hd_road_polygon",
+			"filter": [
+				"all",
+				["match", ["get", "class"], ["hatched_area"], true, false]
+			],
+			"layout": {
+				"fill-elevation-reference": "hd-road-markup"
+			},
+			"paint": {
+				"fill-opacity": ["interpolate", ["linear"], ["zoom"], 15, 0, 16, 1],
+				"fill-pattern": [
+					"match",
+					["get", "color"],
+					["yellow"],
+					"hatched-pattern-yellow",
+					"hatched-pattern"
+				]
+			}
+		},
+		{
+			"id": "solid-lines",
+			"type": "line",
+			"source": "hd-roads",
+			"source-layer": "hd_road_line",
+			"filter": [
+				"all",
+				["match", ["get", "class"], ["lanes"], true, false],
+				[
+					"match",
+					["get", "line_type"],
+					["solid", "solid_half_arrow", "half_arrow_solid", "arrow_solid"],
+					true,
+					false
+				]
+			],
+			"layout": {
+				"line-elevation-reference": "hd-road-markup"
+			},
+			"paint": {
+				"line-color": [
+					"match",
+					["get", "color"],
+					["yellow"],
+					"hsl(54, 100%, 65%)",
+					"hsl(0, 0%, 96%)"
+				],
+				"line-width": [
+					"interpolate",
+					["exponential", 1.5],
+					["zoom"],
+					15,
+					0,
+					18,
+					1.5,
+					19,
+					3,
+					22,
+					10
+				]
+			}
+		},
+		{
+			"id": "double-lines",
+			"type": "line",
+			"source": "hd-roads",
+			"source-layer": "hd_road_line",
+			"slot": "",
+			"filter": [
+				"all",
+				["match", ["get", "class"], ["lanes"], true, false],
+				["match", ["get", "line_type"], ["double"], true, false]
+			],
+			"layout": {
+				"line-elevation-reference": "hd-road-markup"
+			},
+			"paint": {
+				"line-color": [
+					"match",
+					["get", "color"],
+					["yellow"],
+					"hsl(54, 100%, 65%)",
+					"hsl(0, 0%, 96%)"
+				],
+				"line-width": [
+					"interpolate",
+					["exponential", 1.5],
+					["zoom"],
+					15,
+					0,
+					18,
+					1.5,
+					19,
+					3,
+					22,
+					10
+				],
+				"line-gap-width": 2
+			}
+		},
+		{
+			"id": "dashed-lines",
+			"type": "line",
+			"source": "hd-roads",
+			"source-layer": "hd_road_line",
+			"filter": [
+				"all",
+				["match", ["get", "class"], ["lanes"], true, false],
+				[
+					"match",
+					["get", "line_type"],
+					[
+						"dashed",
+						"arrow_dashed",
+						"long_dashed",
+						"short_dash",
+						"solid_dashed"
+					],
+					true,
+					false
+				]
+			],
+			"layout": {
+				"line-elevation-reference": "hd-road-markup"
+			},
+			"paint": {
+				"line-color": [
+					"match",
+					["get", "color"],
+					["yellow"],
+					"hsl(54, 100%, 65%)",
+					"hsl(0, 0%, 96%)"
+				],
+				"line-width": [
+					"interpolate",
+					["exponential", 1.5],
+					["zoom"],
+					15,
+					0,
+					18,
+					1,
+					19,
+					3,
+					22,
+					6
+				],
+				"line-dasharray": [
+					"step",
+					["zoom"],
+					["literal", [14, 14]],
+					20,
+					["literal", [18, 18]]
+				]
+			}
+		},
+		{
+			"id": "circle",
+			"type": "circle",
+			"source": "geojson",
+			"layout": {
+				"circle-elevation-reference": "hd-road-markup"
+			},
+			"paint": {
+				"circle-radius": 40,
+				"circle-color": "green",
+				"circle-pitch-alignment": "map"
+			}
+		}
+	]
+}
+```
+
+综合这份样式以及其他几份样式，可以发现，3D立交桥主要由以下几个图层组成：
+
+### fake-road-shade
+
+将表示路面的 polygon 简单的呈现出来，达到阴影的效果，挺巧妙的。
+
+![](/wp-content/uploads/2025/05/image-5.png)
+
+### road-base，road-base-bridge
+
+灰色区域的路面都是 road-base，road-base-bridge。两者使用的数据都是 source 中表示路面的polygon。
+
+road-base 贴在地面上，就是普通的二维多边形。road-base-bridge 是三维的，并且在 layout 配置中，指定 fill-elevation-reference 属性为 hd-road-base，这应该是实现三维效果的关键。
+
+![](/wp-content/uploads/2025/05/image-6.png)
+
+![](/wp-content/uploads/2025/05/image-7.png)
+
+### road-hatched-area
+
+导流区，通过 fill-pattern 实现的，所以需要准备好条纹状的纹理，这样实现无法控制纹理的走向。
+
+![](/wp-content/uploads/2025/05/image-15.png)
+
+### solid-lines，double-lines，dashed-lines
+
+车道分界线，车道边缘线等。
+
+![](/wp-content/uploads/2025/05/image-16.png)
+
+---
+
+实际上还有车道方向，隧道等要素，这些要素的表达和上面的图层基本类似，就不细说了。
+
+## 代码实现解析
+
+看完样式文件中的 source 和 layer 配置，最奇怪的应该就是 hd_road_elevation 数据集和 xxx-elevation-reference 样式了。
+
+在 \src\data\bucket\fill_bucket.ts 文件中，可以看到 Bucket 读取 fill-elevation-reference 这个属性值作为 elevationMode。
+
+![](/wp-content/uploads/2025/05/image-17-1024x453.png)
+
+对于 elevationMode 不为 none 的 source，需要根据 elevationFeatures 来创建几何信息：
+
+![](/wp-content/uploads/2025/05/image-18-1024x228.png)
+
+对于一条数据，并不是所有的 elevationFeatures 都需要参与计算，在304行，代码根据 3d_elevation_id 来获取到对应的 tiledElevation 数据。
+
+![](/wp-content/uploads/2025/05/image-19-1024x569.png)
+
+![](/wp-content/uploads/2025/05/image-20-1024x208.png)
+
+这时回过头来看上面的数据构成，hd_road_line 通过 3d_elevation_id 与 hd_road_elevation 数据关联，并从 hd_road_elevation 中获取到高度信息。
+
+<Gallery
+  images={[
+    { src: "/wp-content/uploads/2025/05/image-24.png", caption: "" },
+    { src: "/wp-content/uploads/2025/05/image-23.png", caption: "" },
+  ]}
+/>
+
+看一下某个 elevationFeatures 的数据，顶点数组中包含了点位坐标和高度：
+
+![](/wp-content/uploads/2025/05/image-25.png)
+
+在 \3d-style\elevation\elevation_feature.ts 文件中，可以看到代码通过线性插值的方式来为特定的点位计算高度值。
+
+![](/wp-content/uploads/2025/05/image-26-1024x376.png)
+
+## 总结
+
+自 Mapbox v2 起，地形渲染能力被正式引入，为地图叠加提供了三维地形支持。自此，点、线、面要素具备了立体表现能力。基于相似的渲染机制，Mapbox 现已支持高精地图的可视化展示。在此过程中，hd_road_elevation 数据源的构建至关重要，是实现高精道路形态还原的核心。
+
+期待 Mapbox 在高精地图可视化领域的更多作品。

@@ -1,0 +1,46 @@
+---
+// Responsive image gallery carried over from the old WordPress `wp-block-gallery`.
+// Pass an array of images; an optional per-image `caption` renders under each
+// thumbnail, and an optional gallery-level `caption` prop renders below the grid.
+// Images keep their public `/wp-content/...` paths (not processed by astro:assets).
+//
+// Usage (MDX):
+//   <Gallery
+//     images={[
+//       { src: "/wp-content/uploads/…/a.png", caption: "默认效果" },
+//       { src: "/wp-content/uploads/…/b.png", caption: "size = 10240" },
+//     ]}
+//     caption="Cesium 的建筑阴影效果"
+//   />
+type Image = { src: string; alt?: string; caption?: string };
+
+type Props = {
+  images: Image[];
+  /** Min column width in px; grid auto-fits as many columns as fit. */
+  min?: number;
+  caption?: string;
+};
+
+const { images, min = 220, caption } = Astro.props;
+---
+
+<figure class="blog-gallery">
+  <div
+    class="blog-gallery-grid"
+    style={`grid-template-columns:repeat(auto-fit,minmax(${min}px,1fr))`}
+  >
+    {
+      images.map(image => (
+        <figure class="blog-gallery-item">
+          <img
+            src={image.src}
+            alt={image.alt ?? image.caption ?? ""}
+            loading="lazy"
+          />
+          {image.caption && <figcaption>{image.caption}</figcaption>}
+        </figure>
+      ))
+    }
+  </div>
+  {caption && <figcaption class="blog-gallery-caption">{caption}</figcaption>}
+</figure>
