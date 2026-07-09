@@ -69,7 +69,11 @@
 
 - [ ] **列表封面**：原 `heroImage` 映射保存在 git `fbd300d` 与 scratchpad `cover_map.json`（18/50 篇有封面）。AstroPaper 原生列表无封面，需自定义。
 - [ ] **数学公式**：加 `remark-math` + `rehype-mathjax`（或 KaTeX）。含公式的文章：`how-kriging-works-*`、`principle-of-word-segmentation-*` 等。
-- [ ] **中文 UI**：AstroPaper 只内置 `en` 翻译。当前 `lang: "en"`。需在 `src/i18n/lang/` 加 `zh` 并在 config 切换。
+- [ ] **中英双语切换（i18n）**：目标是让**界面语言**支持 en/zh 切换（不是把 UI 固定成中文）。AstroPaper 只内置 `en` 翻译，当前 `lang: "en"`。计划：
+  - 在 `src/i18n/lang/` 新增 `zh.ts`（对照 `en.ts` 翻译 nav/a11y 等文案）。
+  - 在 `astro.config.ts` 的 `i18n.locales` 加入 `zh`，确定路由策略（locale 前缀 `/zh/…`，默认 en 不加前缀）。
+  - 在 header 加语言切换入口，切换后跳到对应 locale 路由。
+  - 待明确：仅**界面**双语（文章内容保持原语言），还是**内容**也要中/英两版（后者需每篇文章多语言版本，工作量大，默认不做）。
 - [ ] **自定义 embeds**：旧站有 link-card / youtube / mapbox 嵌入，按需评估是否移植。
 - [ ] **部署（Cloudflare Pages）**：构建命令 `pnpm build`，输出目录 `dist`，环境变量 `NODE_VERSION=22`。可选：删除 AstroPaper 自带的 `.github/`（issue 模板、`ci.yml`）。
 - [ ] **WordPress 正文样式**：检查 `wp-block-*` 在 AstroPaper prose 下的渲染，按需补 CSS。
