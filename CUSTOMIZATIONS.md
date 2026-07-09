@@ -79,7 +79,7 @@
 **新增文件：**
 - `src/i18n/lang/zh-cn.ts`：中文 UI 翻译文件，覆盖导航（首页/文章/标签/关于/归档/搜索）、文章操作按钮、分页、页脚、无障碍标签、404 页面等所有界面文本。
 - `src/scripts/lang.ts`：客户端语言切换脚本，处理语言按钮点击事件、localStorage/Cookie 双重持久化（有效期 1 年）、页面导航（保持当前路径，仅切换语言前缀），兼容 Astro View Transitions（监听 `astro:after-swap` 重新绑定事件）。
-- `functions/_middleware.js`：Cloudflare Pages Functions 边缘中间件，实现基于访问者地理位置的自动语言检测。检测优先级：用户 Cookie 偏好 > Cloudflare `request.cf.country`（CN/TW/HK/MO/SG → 中文）> 浏览器 `Accept-Language` 请求头。仅在首次访问根路径时执行 302 重定向，已有偏好 Cookie 则跳过。本地开发时无 CF 环境，回退到 Accept-Language 检测。
+- `functions/_middleware.js`：Cloudflare Pages Functions 边缘中间件，实现基于访问者地理位置的自动语言检测。检测优先级：用户 Cookie 偏好 > Cloudflare `request.cf.country`（CN/TW/HK/MO/SG → 中文）> 浏览器 `Accept-Language` 请求头。对任意非 `/zh-cn/` 前缀的页面路径（GET、非静态资源）执行 302 重定向；已有偏好 Cookie 则跳过（`zh-cn` 重定向、其他停留）。注意自动检测命中时不写 Cookie，因此无偏好 Cookie 的访问者每次整页加载都会重跑检测（SPA 内部导航不经过边缘，影响有限）。本地开发时无 CF 环境，回退到 Accept-Language 检测。
 - `src/pages/zh-cn/`：中文页面路由目录。Astro SSG 模式下非默认语言需要对应的页面文件，文件内容与英文版相同（通过 `Astro.currentLocale === "zh-cn"` 自动使用中文翻译），目录结构包含 `index.astro`、`about.astro`、`search.astro`、`404.astro` 及 `posts/`、`tags/`、`archives/` 子目录。
 
 **修改文件：**
