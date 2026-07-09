@@ -93,6 +93,15 @@
     pre {
       @apply focus-visible:outline-accent focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-dashed;
     }
+
+    /* Third-party iframe embeds, wrapped by remarkResponsiveEmbeds */
+    .blog-embed {
+      @apply border-border my-6 overflow-hidden rounded-lg border;
+
+      iframe {
+        @apply block w-full max-w-full border-0;
+      }
+    }
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */

@@ -107,7 +107,10 @@
 
 - [ ] **数学公式**：加 `remark-math` + `rehype-mathjax`（或 KaTeX）。含公式的文章：`how-kriging-works-*`、`principle-of-word-segmentation-*` 等。
 - [x] **中英双语切换（i18n）**：已完成界面双语支持（en/zh-cn），含语言切换按钮、Cloudflare 地理位置自动检测、Cookie 持久化。当前仅 UI 文本双语，文章内容保持原语言，后续可扩展内容多语言。
-- [ ] **自定义 embeds**：旧站有 link-card / youtube / mapbox 嵌入，按需评估是否移植。
+- [x] **自定义 embeds（响应式）**：正文里迁移过来的第三方 `<iframe>` 嵌入（CodePen ×5、Shadertoy ×1、CodeSandbox ×2、XMind ×6、Lucidchart ×2，共 13 篇）已统一处理。
+  - `src/utils/remarkResponsiveEmbeds.ts`：remark 插件，把每个含 `<iframe>` 的 raw-HTML 节点包进 `<div class="blog-embed">`，并将协议相对 URL（`//host/…`）升级为 `https:`。放在 remark 层（字符串处理）而非 rehype，避免为解析正文引入 `rehype-raw` 重新解析整篇 HTML。
+  - `src/styles/typography.css`：`.blog-embed` 容器（圆角边框）+ `.blog-embed iframe { width:100%; max-width:100% }`，用 CSS 宽度覆盖写死的 `width='900'` 等属性，修复窄屏横向溢出（高度保留原值）。
+  - ⚠️ CodePen 用的是 `anon` 匿名嵌入，CodePen 早已停用，实际会显示 "CodePen Embed Fallback" 空框——只做了响应式包裹，未替换失效源（需人工，与 WordPress 清洗联动）。link-card / youtube：迁移内容中未发现。
 - [ ] **部署（Cloudflare Pages）**：构建命令 `pnpm build`，输出目录 `dist`，环境变量 `NODE_VERSION=22`。可选：删除 AstroPaper 自带的 `.github/`（issue 模板、`ci.yml`）。
 - [ ] **彻底清洗 WordPress 痕迹**：正文目前是 WordPress Gutenberg 导出的原始 HTML，痕迹很多：
   - block class：`wp-block-paragraph` ×1429、`wp-block-heading` ×458、`wp-block-list` ×255、`wp-block-image` ×237、`wp-element-caption` ×155，以及 gallery / quote / table / separator / group / file / codepen-embed 等。

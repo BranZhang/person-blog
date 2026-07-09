@@ -6,6 +6,7 @@ import { unified } from "@astrojs/markdown-remark";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import rehypeCallouts from "rehype-callouts";
+import remarkResponsiveEmbeds from "./src/utils/remarkResponsiveEmbeds";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -35,6 +36,7 @@ export default defineConfig({
       remarkPlugins: [
         remarkToc,
         [remarkCollapse, { test: "Table of contents" }],
+        remarkResponsiveEmbeds,
       ],
       rehypePlugins: [rehypeCallouts],
     }),
