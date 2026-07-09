@@ -1,87 +1,84 @@
-// @ts-check
-import { defineConfig } from "astro/config";
-import { resolve } from "path";
-import remarkMath from "remark-math";
-import rehypeMathjax from "rehype-mathjax";
-
+import {
+  defineConfig,
+  envField,
+  fontProviders,
+  svgoOptimizer,
+} from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
-import svelte from "@astrojs/svelte";
-import { pagefind } from "vite-plugin-pagefind";
-
-import { BASE, SITE } from "./src/config.ts";
-
-import customEmbeds from "astro-custom-embeds";
-
+import { unified } from "@astrojs/markdown-remark";
+import remarkToc from "remark-toc";
+import remarkCollapse from "remark-collapse";
+import rehypeCallouts from "rehype-callouts";
 import {
-  transformerMetaHighlight,
+  transformerNotationDiff,
   transformerNotationHighlight,
+  transformerNotationWordHighlight,
 } from "@shikijs/transformers";
+import { transformerFileName } from "./src/utils/transformers/fileName";
+import config from "./astro-paper.config";
 
-import LinkCardEmbed from "./src/embeds/link-card/embed";
-import YoutubeEmbed from "./src/embeds/youtube/embed";
-import ExcalidrawEmbed from "./src/embeds/excalidraw/embed";
-
-// https://astro.build/config
 export default defineConfig({
-  vite: {
-    resolve: {
-      alias: {
-        $components: resolve("./src/components"),
-        $layouts: resolve("./src/layouts"),
-        $pages: resolve("./src/pages"),
-        $assets: resolve("./src/assets"),
-        $content: resolve("./src/content"),
-      },
-    },
-    ssr: {
-      noExternal: [BASE + "/pagefind/pagefind.js"],
-    },
-    plugins: [pagefind({ outputDirectory: "dist" })],
-    build: {
-      rollupOptions: {
-        external: [BASE + "/pagefind/pagefind.js"],
-      },
-    },
-  },
-
+  site: config.site.url,
   integrations: [
-    customEmbeds({
-      embeds: [ExcalidrawEmbed, YoutubeEmbed, LinkCardEmbed],
-    }),
     mdx(),
-    sitemap(),
-    tailwind(),
-    svelte(),
+    sitemap({
+      filter: page =>
+        config.features?.showArchives !== false || !page.endsWith("/archives/"),
+    }),
   ],
-
-  markdown: {
-    shikiConfig: {
-      // Choose from Shiki's built-in themes (or add your own)
-      // https://shiki.style/themes
-      // Alternatively, provide multiple themes
-      // See note below for using dual light/dark themes
-      themes: {
-        light: "github-light",
-        dark: "github-dark",
-      },
-      defaultColor: false,
-      transformers: [
-        transformerMetaHighlight(),
-        transformerNotationHighlight(),
-      ],
-      wrap: true,
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+    routing: {
+      prefixDefaultLocale: false,
     },
-
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeMathjax],
   },
-
-  prefetch: {
-    prefetchAll: true,
+  markdown: {
+    processor: unified({
+      remarkPlugins: [
+        remarkToc,
+        [remarkCollapse, { test: "Table of contents" }],
+      ],
+      rehypePlugins: [rehypeCallouts],
+    }),
+    shikiConfig: {
+      themes: { light: "min-light", dark: "night-owl" },
+      defaultColor: false,
+      wrap: false,
+      transformers: [
+        transformerFileName({ style: "v2", hideDot: false }),
+        transformerNotationHighlight(),
+        transformerNotationWordHighlight(),
+        transformerNotationDiff({ matchAlgorithm: "v3" }),
+      ],
+    },
   },
-  site: SITE,
-  base: BASE,
-  output: "static",
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  fonts: [
+    {
+      name: "Google Sans Code",
+      cssVariable: "--font-google-sans-code",
+      provider: fontProviders.google(),
+      fallbacks: ["monospace"],
+      weights: [300, 400, 500, 600, 700],
+      styles: ["normal", "italic"],
+      formats: ["woff", "ttf"],
+    },
+  ],
+  env: {
+    schema: {
+      PUBLIC_GOOGLE_SITE_VERIFICATION: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+    },
+  },
+  experimental: {
+    svgOptimizer: svgoOptimizer(),
+  },
 });

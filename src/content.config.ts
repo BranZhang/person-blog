@@ -1,61 +1,37 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 import { glob } from "astro/loaders";
+import config from "@/config";
 
-const blog = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/blog/" }),
-  // Type-check frontmatter using a schema
+export const BLOG_PATH = "src/content/posts";
+
+const posts = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: `./${BLOG_PATH}` }),
+  schema: ({ image }) =>
+    z.object({
+      author: z.string().default(config.site.author),
+      pubDatetime: z.date(),
+      modDatetime: z.date().optional().nullable(),
+      title: z.string(),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional(),
+      tags: z.array(z.string()).default(["others"]),
+      ogImage: image().or(z.string()).optional(),
+      description: z.string(),
+      canonicalURL: z.string().optional(),
+      hideEditPost: z.boolean().optional(),
+      timezone: z.string().optional(),
+    }),
+});
+
+const pages = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/pages" }),
   schema: z.object({
-    // title of the blog post, don't repeat this in the markdown part
-    // REQUIRED
     title: z.string(),
-
-    // will be shown in the blog post list
-    // REQUIRED
-    description: z.string(),
-
-    // date published
-    // REQUIRED
-    pubDate: z.coerce.date(),
-
-    // whether the post is published
-    // defaults to true
-    // if set to false the post will not be shown in the blog list nor be accessible by url
-    published: z.boolean().optional(),
-
-    // whether to hide the post from the blog list (can still be accessed by url)
-    // useful for sharing drafts with other people
-    hidden: z.boolean().optional(),
-
-    // short description will be used for og image (fallback to description)
-    shortDescription: z.string().optional(),
-
-    // date updated
-    updatedDate: z.coerce.date().optional(),
-
-    // path to the hero (cover) image. Either:
-    //   - a /src/assets/... path (optimized via astro:assets; jpg/png/gif), or
-    //   - a public/ absolute path like /wp-content/uploads/.../cover.avif
-    //     (served as-is, supports any format incl. avif/webp)
-    heroImage: z.string().optional(),
-
-    // array of tags
-    tags: z.array(z.string()).optional(),
-
-    // whether to hide the hero image in the blog post
-    hideHero: z.boolean().optional(),
-
-    // whether to hide the hero image in the blog post
-    noImage: z.boolean().optional(),
-
-    // replace the default og image with a custom one, will also not show the title and description in the og image (add it yourself)
-    // has to be in /src/assets folder and has to start with `/src/assets/`
-    customOGImage: z.string().optional(),
+    description: z.string().optional(),
+    ogImage: z.string().optional(),
+    canonicalURL: z.string().optional(),
   }),
 });
 
-const posts = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/posts/" }),
-  schema: z.any(),
-});
-
-export const collections = { blog, posts };
+export const collections = { posts, pages };
