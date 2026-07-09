@@ -21,7 +21,7 @@ const coverMask = "linear-gradient(to right, transparent, black 45%)";
   <div
     class="group relative rounded-xl px-4 py-5 transition-colors duration-200 hover:bg-muted/60"
   >
-    <div class="flex items-stretch gap-4">
+    <div class="flex items-start gap-4">
       <div class="min-w-0 flex-1">
         <a
           href={getPostUrl(id, filePath, Astro.currentLocale)}
@@ -41,7 +41,7 @@ const coverMask = "linear-gradient(to right, transparent, black 45%)";
       </div>
       {
         cover && (
-          <div class="relative hidden w-40 shrink-0 overflow-hidden lg:w-52 sm:block">
+          <div class="relative hidden h-40 w-56 shrink-0 overflow-hidden sm:block lg:h-48 lg:w-72">
             <img
               src={cover}
               alt=""
