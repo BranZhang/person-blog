@@ -1,0 +1,22 @@
+---
+import Tag from "./Tag.astro";
+
+// Show at most `max` tags; collapse the rest into a "+N" badge so posts with
+// many tags stay on one tidy row instead of wrapping.
+const { tags, max = 3 } = Astro.props;
+const shown: string[] = tags?.slice(0, max) ?? [];
+const extra = (tags?.length ?? 0) - shown.length;
+---
+
+<div class="flex gap-2 flex-wrap items-center">
+  {shown.map((tag: string) => <Tag {tag} />)}
+  {
+    extra > 0 ? (
+      <span
+        class="inline-flex items-center justify-center rounded-full bg-base-100 dark:bg-base-800 text-xs px-2 py-1 font-medium text-base-500 dark:text-base-400 border border-base-200 dark:border-base-700"
+      >
+        +{extra}
+      </span>
+    ) : null
+  }
+</div>

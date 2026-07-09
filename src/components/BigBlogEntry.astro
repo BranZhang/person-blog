@@ -1,7 +1,7 @@
 ---
 import { BASE, SHOW_IMAGES } from "../config.ts";
 import FormattedDate from "./FormattedDate.astro";
-import Tag from "./Tag.astro";
+import TagList from "./TagList.astro";
 import HeroImage from "./HeroImage.astro";
 
 const { title, description, pubDate, slug, heroImage, tags, noImage } =
@@ -24,9 +24,7 @@ const { title, description, pubDate, slug, heroImage, tags, noImage } =
       <time datetime={pubDate} class="text-base-500 shrink-0">
         <FormattedDate date={pubDate} />
       </time>
-      <div class="flex gap-2 flex-wrap">
-        {tags?.map((tag: string) => <Tag {tag} />)}
-      </div>
+      <TagList {tags} />
     </div>
     <div>
       <div
