@@ -59,8 +59,9 @@
 - 在 `src/pages/posts/[...slug]/index.astro` 的 `AdjacentPostNav` 后引入 `<Comments />`。
 - 配置：repo `BranZhang/person-blog`、category `Announcements`、`data-lang="zh-CN"`。
 
-### 7. Header Logo
+### 7. Logo / Favicon
 - `src/components/Header.astro`：站点标题前加 `public/logo.png`（引入 `getAssetPath`）。
+- `src/layouts/Layout.astro`：favicon 与 apple-touch-icon 改用 `public/logo.png`（原为 AstroPaper 的 `favicon.svg` / `favicon.ico`）。
 
 ---
 
