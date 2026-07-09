@@ -21,6 +21,10 @@ export const SITE_DESCRIPTION = "Personal notes, engineering writeups, and archi
 // will be used as the icon in the header and the favicon
 export const SITE_FAVICON = "B";
 
+// image logo (in the public/ dir) used as the header icon and favicon;
+// when set it takes precedence over SITE_FAVICON
+export const SITE_LOGO = "/logo.png";
+
 // will be used in the footer as the name of the author (c) <YEAR> <NAME> - LICENSE
 export const NAME = "Bran Zhang";
 
