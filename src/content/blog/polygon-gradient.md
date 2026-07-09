@@ -5,6 +5,7 @@ pubDate: "2022-09-07T10:04:04.000Z"
 updatedDate: "2023-01-03T09:47:31.000Z"
 published: true
 tags: ["mapbox","WebGL","可视化","地图","GIS","算法"]
+heroImage: "/wp-content/uploads/2022/09/polygon-gradient-cover-e1672739243762.png"
 ---
 <p class="wp-block-paragraph">渐变效果能够实现多种颜色之间的自然过渡，一般情况下，渐变往往与某种场强度相关，或者说某一个在二维空间内连续变化的数值相关，比如某片地区的气温，海拔高度，一条路径的畅通程度。地图中常见的渐变效果是热力图，分层设色也算渐变吧，只要分的够多。</p>
 

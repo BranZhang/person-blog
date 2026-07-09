@@ -5,6 +5,7 @@ pubDate: "2024-05-19T10:17:00.000Z"
 updatedDate: "2025-02-24T08:00:58.000Z"
 published: true
 tags: ["gis","WebGL","地图"]
+heroImage: "/wp-content/uploads/2025/02/deckgl3-min.gif"
 ---
 <p class="wp-block-paragraph">deck.gl 是一个开源的 WebGL 驱动框架，用于对大型数据集进行可视化的探索性数据分析。因为工作需要，我尝试改造 deck.gl 以让它支持 EPSG:4326 投影坐标系。最终实现代码可以参考：<a href="https://github.com/BranZhang/deck.gl" target="_blank" rel="noopener">deck.gl with EPSG:4326</a>。不过，在我改造代码的过程中，发现在 deck.gl 源码里有这样的一段：</p>
 

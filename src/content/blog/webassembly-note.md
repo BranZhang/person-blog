@@ -5,6 +5,7 @@ pubDate: "2023-12-09T07:30:00.000Z"
 updatedDate: "2025-03-05T09:49:16.000Z"
 published: true
 tags: ["C++","JavaScript","WebAssembly"]
+heroImage: "/wp-content/uploads/2023/12/3915709301.png"
 ---
 <p class="wp-block-paragraph"><a href="https://webassembly.org/" target="_blank" rel="noopener">WebAssembly</a>（简称 WASM）是一种以安全有效的方式运行可移植程序的新兴 Web 技术，下面是引用 <a href="https://developer.mozilla.org/zh-CN/docs/WebAssembly" target="_blank" rel="noopener">MDN 上对它的定义</a>：</p>
 

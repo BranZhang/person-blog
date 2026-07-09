@@ -5,6 +5,7 @@ pubDate: "2020-06-11T02:32:00.000Z"
 updatedDate: "2025-02-18T14:35:39.000Z"
 published: true
 tags: ["gis","mapbox","地图","算法","GIS"]
+heroImage: "/wp-content/uploads/2025/02/R-tree.webp"
 ---
 <p class="wp-block-paragraph">在大规模处理和显示空间数据时，没有什么概念比<strong>空间索引（Spatial Index）</strong>更有用和重要。空间索引是一类算法，它们通过特定的方式组织几何数据，使搜索更加高效。例如，执行以下查询：</p>
 

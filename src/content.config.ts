@@ -32,8 +32,10 @@ const blog = defineCollection({
     // date updated
     updatedDate: z.coerce.date().optional(),
 
-    // path to the hero image, HAS TO BE IN /src/assets folder
-    // and HAS TO START with `/src/assets/`
+    // path to the hero (cover) image. Either:
+    //   - a /src/assets/... path (optimized via astro:assets; jpg/png/gif), or
+    //   - a public/ absolute path like /wp-content/uploads/.../cover.avif
+    //     (served as-is, supports any format incl. avif/webp)
     heroImage: z.string().optional(),
 
     // array of tags

@@ -5,6 +5,7 @@ pubDate: "2025-05-21T09:14:51.000Z"
 updatedDate: "2025-06-23T08:48:29.000Z"
 published: true
 tags: ["gis","mapbox","WebGL","地图","GIS"]
+heroImage: "/wp-content/uploads/2025/05/image.png"
 ---
 <p class="wp-block-paragraph">看了下最近的 <a href="https://github.com/mapbox/mapbox-gl-js" target="_blank" rel="noopener">Mapbox GL JS</a> 的更新日志，发现新增了立交桥的3D显示效果。根据车道级的高精地图数据，能够实现立交，高架，隧道，导流区等形式的效果。还是挺美观的。下面将从样式，数据，渲染等几个角度研究一下 Mapbox 的实现思路。</p>
 

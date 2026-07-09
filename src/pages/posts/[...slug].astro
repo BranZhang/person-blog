@@ -9,7 +9,7 @@ import FormattedDate from "$components/FormattedDate.astro";
 import { getBlogPosts } from "src/utils";
 import Giscus from "$components/Giscus.astro";
 import Tag from "$components/Tag.astro";
-import { SHOW_IMAGES } from "../../config.ts";
+import { BASE, SHOW_IMAGES } from "../../config.ts";
 
 export async function getStaticPaths() {
   const posts = await getBlogPosts(true);
@@ -26,11 +26,17 @@ const { Content } = await render(post);
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/**/*.{jpeg,jpg,png,gif}"
 );
-const replacedHero = post.data.heroImage?.replace("../..", "/src");
+const hero = post.data.heroImage;
+// A public/ absolute path (e.g. "/wp-content/uploads/.../cover.avif") is served
+// as-is and supports any format; other paths resolve against /src/assets.
+const heroIsPublic = !!hero && hero.startsWith("/") && !hero.startsWith("/src/");
+const replacedHero = heroIsPublic ? undefined : hero?.replace("../..", "/src");
 if (replacedHero && !images[replacedHero])
   throw new Error(
-    `"${post.data.heroImage}" does not exist in glob: "src/assets/**/*.{jpeg,jpg,png,gif}"`
+    `"${hero}" does not exist in glob: "src/assets/**/*.{jpeg,jpg,png,gif}"`
   );
+const showHero =
+  !!hero && post.data.hideHero !== true && SHOW_IMAGES;
 ---
 
 <BaseLayout {...post.data} image={post.id + ".png"}>
@@ -38,12 +44,20 @@ if (replacedHero && !images[replacedHero])
 
   <main class="max-w-2xl lg:max-w-3xl mx-auto my-0 h-full p-4">
     {
-      replacedHero && post.data.hideHero !== true && SHOW_IMAGES ? (
-        <Image
-          src={images[replacedHero]()}
-          alt=""
-          class="w-full h-80 object-cover rounded-xl shadow border border-base-400 dark:border-base-700"
-        />
+      showHero ? (
+        heroIsPublic ? (
+          <img
+            src={BASE + hero}
+            alt=""
+            class="w-full h-80 object-cover rounded-xl shadow border border-base-400 dark:border-base-700"
+          />
+        ) : (
+          <Image
+            src={images[replacedHero!]()}
+            alt=""
+            class="w-full h-80 object-cover rounded-xl shadow border border-base-400 dark:border-base-700"
+          />
+        )
       ) : null
     }
     <BlogPost>

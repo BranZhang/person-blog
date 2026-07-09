@@ -1,7 +1,14 @@
 ---
 import { Image } from "astro:assets";
+import { BASE } from "../config.ts";
 
 const { image } = Astro.props;
+
+// A public/ absolute path (e.g. "/wp-content/uploads/.../cover.avif") is served
+// as-is. This supports any format (avif/webp/…) and matches how the migrated
+// post bodies reference their images.
+const isPublicPath = image.startsWith("/") && !image.startsWith("/src/");
+
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/**/*.{jpeg,jpg,png,gif}"
 );
@@ -9,17 +16,22 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 // replace ../.. with src in image
 let replacedImage = image.replace("../..", "/src");
 
-if (!images[replacedImage])
+if (!isPublicPath && !images[replacedImage])
   throw new Error(
     `"${replacedImage}" does not exist in glob: "src/assets/**/*.{jpeg,jpg,png,gif}"`
   );
+
+const sharedClass =
+  "absolute inset-0 h-full w-full rounded-2xl bg-base-50 dark:bg-base-900 object-cover";
 ---
 
-<Image
-  src={images[replacedImage]()}
-  alt=""
-  class="absolute inset-0 h-full w-full rounded-2xl bg-base-50 dark:bg-base-900 object-cover"
-/>
+{
+  isPublicPath ? (
+    <img src={BASE + image} alt="" loading="lazy" class={sharedClass} />
+  ) : (
+    <Image src={images[replacedImage]()} alt="" class={sharedClass} />
+  )
+}
 
 <div
   class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-base-900/10 dark:ring-base-100/10"

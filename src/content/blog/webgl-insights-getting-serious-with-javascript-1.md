@@ -5,6 +5,7 @@ pubDate: "2020-07-25T14:04:00.000Z"
 updatedDate: "2025-02-18T14:35:18.000Z"
 published: true
 tags: ["Cesium","gis","JavaScript","WebGL","地图"]
+heroImage: "/wp-content/uploads/2025/02/WebGL.Insights.-.Patrick.Cozzi-Image70.jpg"
 ---
 <p class="wp-block-paragraph">WebGL相关的书籍并不多，《WebGL Insights》算是一本，其中各个章节都是由行业内资深的开发者们编写的。书中第四章的作者，Matthew Amato 和 Kevin Ring，正好是 Cesium 的联合创始人及资深开发工程师，所以就想着将本章翻译一下，加深一下理解。</p>
 
