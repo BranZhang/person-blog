@@ -11,7 +11,7 @@ const { title, description, pubDate, slug, heroImage, tags, noImage } =
 <article class="relative isolate flex flex-col gap-8 md:flex-row group">
   {
     noImage || !SHOW_IMAGES || !heroImage ? null : (
-      <div class="relative aspect-[16/9] md:w-64 md:shrink-0">
+      <div class="relative aspect-[16/9] md:w-64 md:shrink-0 overflow-hidden">
         <HeroImage image={heroImage} />
       </div>
     )

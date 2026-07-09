@@ -14,7 +14,7 @@ const { title, description, pubDate, slug, heroImage, tags, noImage } =
 >
   {
     noImage || !SHOW_IMAGES || !heroImage ? null : (
-      <div class="relative aspect-[16/9] lg:w-full lg:shrink-0">
+      <div class="relative aspect-[16/9] lg:w-full lg:shrink-0 overflow-hidden">
         <HeroImage image={heroImage} />
       </div>
     )

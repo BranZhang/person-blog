@@ -23,33 +23,13 @@ if (!isPublicPath && !images[replacedImage])
 
 const resolved = isPublicPath ? null : images[replacedImage];
 
-// The cover is shown complete (object-contain) so wide/tall images aren't
-// cropped, over a blurred, zoomed copy of the same image that fills the empty
-// space — keeping every card the same shape without letterbox gaps.
-const bgClass =
-  "absolute inset-0 h-full w-full object-cover scale-110 blur-2xl";
-const fgClass = "absolute inset-0 h-full w-full object-contain";
+const imgClass = "absolute inset-0 h-full w-full object-cover";
 ---
 
-<div
-  class="absolute inset-0 overflow-hidden rounded-2xl bg-base-100 dark:bg-base-900"
->
-  {
-    isPublicPath ? (
-      <Fragment>
-        <img src={BASE + image} alt="" aria-hidden="true" class={bgClass} />
-        <img src={BASE + image} alt="" loading="lazy" class={fgClass} />
-      </Fragment>
-    ) : (
-      <Fragment>
-        <Image src={resolved!()} alt="" aria-hidden="true" class={bgClass} />
-        <Image src={resolved!()} alt="" class={fgClass} />
-      </Fragment>
-    )
-  }
-</div>
-
-<div
-  class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-base-900/10 dark:ring-base-100/10"
->
-</div>
+{
+  isPublicPath ? (
+    <img src={BASE + image} alt="" loading="lazy" class={imgClass} />
+  ) : (
+    <Image src={resolved!()} alt="" class={imgClass} />
+  )
+}

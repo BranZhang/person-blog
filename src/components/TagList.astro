@@ -1,22 +1,60 @@
 ---
 import Tag from "./Tag.astro";
 
-// Show at most `max` tags; collapse the rest into a "+N" badge so posts with
-// many tags stay on one tidy row instead of wrapping.
-const { tags, max = 3 } = Astro.props;
-const shown: string[] = tags?.slice(0, max) ?? [];
-const extra = (tags?.length ?? 0) - shown.length;
+// Render every tag on a single non-wrapping row; a client script then hides
+// whatever overflows the available width and collapses it into a "+N" badge,
+// re-running on resize so it adapts to the viewport.
+const { tags } = Astro.props;
+const list: string[] = tags ?? [];
 ---
 
-<div class="flex gap-2 flex-wrap items-center">
-  {shown.map((tag: string) => <Tag {tag} />)}
+<div class="taglist flex-1 min-w-0 flex gap-2 items-center overflow-hidden">
   {
-    extra > 0 ? (
-      <span
-        class="inline-flex items-center justify-center rounded-full bg-base-100 dark:bg-base-800 text-xs px-2 py-1 font-medium text-base-500 dark:text-base-400 border border-base-200 dark:border-base-700"
-      >
-        +{extra}
+    list.map((tag: string) => (
+      <span class="taglist-item shrink-0">
+        <Tag {tag} />
       </span>
-    ) : null
+    ))
   }
+  <span
+    class="taglist-more shrink-0 items-center justify-center rounded-full bg-base-100 dark:bg-base-800 text-xs px-2 py-1 font-medium text-base-500 dark:text-base-400 border border-base-200 dark:border-base-700"
+    style="display:none"
+  >
+  </span>
 </div>
+
+<script>
+  function fit(container: HTMLElement) {
+    const items = Array.from(
+      container.querySelectorAll<HTMLElement>(".taglist-item")
+    );
+    const more = container.querySelector<HTMLElement>(".taglist-more");
+    if (!more) return;
+
+    // reset to "all visible"
+    items.forEach((i) => (i.style.display = ""));
+    more.style.display = "none";
+    if (container.scrollWidth <= container.clientWidth) return;
+
+    // hide from the end until the row (incl. the badge) fits
+    more.style.display = "inline-flex";
+    let hidden = 0;
+    for (let i = items.length - 1; i >= 0; i--) {
+      items[i].style.display = "none";
+      hidden++;
+      more.textContent = "+" + hidden;
+      if (container.scrollWidth <= container.clientWidth) break;
+    }
+  }
+
+  function run() {
+    document
+      .querySelectorAll<HTMLElement>(".taglist")
+      .forEach((el) => fit(el));
+  }
+
+  run();
+  window.addEventListener("resize", run);
+  // fonts can change tag widths after first paint
+  if (document.fonts?.ready) document.fonts.ready.then(run);
+</script>
