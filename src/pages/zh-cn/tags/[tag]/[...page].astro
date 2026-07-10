@@ -16,11 +16,12 @@ import config from "@/config";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
-  const tags = getUniqueTags(posts);
+  const tags = getUniqueTags(posts, "zh-cn");
 
   return tags.flatMap(({ tag, tagName }) => {
     const tagPosts = getSortedPosts(
-      posts.filter(({ data }) => slugifyAll(data.tags).includes(tag))
+      posts.filter(({ data }) => slugifyAll(data.tags).includes(tag)),
+      "zh-cn"
     );
 
     return paginate(tagPosts, {

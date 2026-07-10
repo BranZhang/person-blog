@@ -4,6 +4,7 @@ description: "为了提高 Cesium for Unreal 中 3D Tiles 的传输性能，我�
 pubDatetime: 2023-02-04T07:43:00.000Z
 modDatetime: 2025-03-03T02:25:16.000Z
 draft: false
+hiddenLocales: ["en"]
 tags: ["Cesium","gis","地图","GIS","算法"]
 cover: "/wp-content/uploads/2025/03/BoundingVolumes.avif"
 ---

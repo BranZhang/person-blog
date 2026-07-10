@@ -15,6 +15,8 @@ const posts = defineCollection({
       title: z.string(),
       featured: z.boolean().optional(),
       draft: z.boolean().optional(),
+      // Hide this post from selected locale listings and detail routes.
+      hiddenLocales: z.array(z.enum(["en", "zh-cn"])).default([]),
       tags: z.array(z.string()).default(["others"]),
       ogImage: image().or(z.string()).optional(),
       // Custom: list-card cover image as a public/ absolute path
