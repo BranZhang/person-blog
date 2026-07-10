@@ -4,6 +4,7 @@ description: "deck.gl 是一个开源的 WebGL 驱动框架，用于对大型数
 pubDatetime: 2024-05-19T10:17:00.000Z
 modDatetime: 2025-02-24T08:00:58.000Z
 draft: false
+hiddenLocales: ["en"]
 tags: ["gis","WebGL","地图"]
 cover: "/wp-content/uploads/2025/02/deckgl3-min.gif"
 ---

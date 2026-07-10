@@ -4,6 +4,7 @@ description: "3D Gaussian Splatting（3DGS）正在快速成为 Web 端实景三
 pubDatetime: 2026-06-10T12:33:00.000Z
 modDatetime: 2026-06-12T01:38:58.000Z
 draft: false
+hiddenLocales: ["en"]
 tags: ["3dtiles","Cesium","gaussian_splatting","spark","WebGL","GIS"]
 cover: "/wp-content/uploads/2026/06/labs-report-gaussian-splatting-stadium-e1781228379995.webp"
 ---

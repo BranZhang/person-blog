@@ -4,6 +4,7 @@ description: "“随着无产阶级文化大革命的深入发展，首都的红
 pubDatetime: 2019-09-07T13:01:54.000Z
 modDatetime: 2025-02-04T13:40:24.000Z
 draft: false
+hiddenLocales: ["en"]
 tags: ["mapbox","openstreetmap","地图","GIS"]
 cover: "/wp-content/uploads/2019/09/china-e1673587197753.png"
 ---

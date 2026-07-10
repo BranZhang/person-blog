@@ -1,0 +1,134 @@
+---
+title: "WebGL Study Notes"
+description: "Study notes based primarily on WebGL Fundamentals."
+pubDatetime: 2021-02-25T04:24:00.000Z
+modDatetime: 2025-02-04T14:05:04.000Z
+draft: false
+hiddenLocales: ["zh-cn"]
+tags: ["WebGL", "Computer Graphics", "Notes"]
+---
+
+import Embed from "@/components/Embed.astro";
+
+## Books and Documentation
+
+- [WebGL Fundamentals (Chinese)](https://webglfundamentals.org/webgl/lessons/zh_cn/)
+- [WebGL Programming Guide (Chinese)](https://book.douban.com/subject/25909351/)
+- [Beginner's Guide to WebGL (Chinese)](http://www.yanhuangxueyuan.com/WebGL/)
+
+## Outline
+
+- **Overview**
+  - History and development
+- **Fundamental Concepts**
+  - WebGL is a rasterization engine that draws points, lines, and triangles according to application code.
+  - Programs provide shader pairs consisting of a vertex shader and a fragment shader.
+  - Four ways of supplying data to shaders
+  - Primitives
+  - Depth buffer, or Z-buffer
+  - Stencil buffer
+  - Fragment-shader precision
+- **Rendering Pipeline**
+  - Vertex shading
+  - Primitive assembly
+  - Rasterization
+  - Fragment shading
+  - Per-fragment operations
+  - Framebuffer
+- **2D Operations**
+  - Translation
+  - Rotation
+  - Scaling
+  - Projection
+  - Matrices
+- **3D Projection**
+  - Orthographic projection
+  - Perspective projection
+  - 3D cameras
+- **Model, View, and Projection Matrices (MVP)**
+  - Coordinate systems
+  - Local coordinates
+  - World coordinates
+  - View coordinates
+  - Clip coordinates
+- **Lighting**
+  - Directional lights
+  - Point lights
+  - Spotlights
+  - Shadows
+- **Geometry**
+  - Processing 3D geometry
+  - Loading OBJ files
+  - Loading OBJ files with MTL materials
+- **Image Processing**
+  - Images are drawn with textures. Sampling a texture requires normalized texture coordinates in the range 0.0–1.0 rather than pixel coordinates.
+  - Uploading images to GL textures
+  - Looking up color values in textures
+  - Modifying image color channels
+  - Replacing each pixel with the average of its horizontal neighbors
+  - Applying multiple effects
+- **Textures**
+  - 3D textures
+  - Data textures
+  - Render-to-texture
+  - Cross-origin images
+  - Perspective-correct texture mapping
+  - Planar and perspective projection mapping
+- **Text**
+  - HTML
+  - 2D Canvas
+  - Texture-based text
+  - Glyph textures
+- **3D Environments**
+  - Cube maps
+  - Environment maps
+  - Skyboxes
+  - Skinning
+  - Fog
+  - Scene graphs
+  - Mouse picking
+- **Canvas**
+  - `clientWidth` and `clientHeight` report the canvas's displayed size in the browser.
+  - Dimensions
+  - Retina or HiDPI displays
+- **Animation**
+  - requestAnimationFrame
+- **Other Topics**
+  - Instanced rendering
+  - Multi-view rendering
+  - Rendering across multiple canvases
+  - Transparency
+- **Code Conventions**
+  - Basic application structure
+  - Naming conventions
+  - Undefined behavior in GLSL
+- **Utilities**
+  - Development and debugging
+  - State-debugging tools such as WebGL State Diagram
+  - WebGL reference tables
+- **Testing**
+  - Functional testing
+  - Performance testing
+- **Related Frameworks**
+  - WebGL abstraction libraries
+  - Rendering engines
+  - Game engines
+- **WebGL2**
+  - Vertex array objects are always available
+  - Shaders can query texture dimensions
+  - Direct texel fetching
+  - Additional texture formats
+  - 3D textures
+  - Texture arrays
+  - Support for non-power-of-two textures
+  - Removed shader-loop restrictions
+  - Matrix functions in GLSL
+  - Common compressed-texture formats
+  - Uniform buffer objects
+  - Depth textures
+
+---
+
+The XMind mind map is embedded below. It may take a moment to load.
+
+<Embed src="https://www.xmind.app/embed/WH5mtN/" height={600} />

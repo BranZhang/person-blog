@@ -1,0 +1,85 @@
+---
+title: "Three.js Study Notes"
+description: "Study notes on Three.js."
+pubDatetime: 2020-12-13T05:51:00.000Z
+modDatetime: 2025-02-18T12:34:55.000Z
+draft: false
+hiddenLocales: ["zh-cn"]
+tags: ["JavaScript", "Three.js", "WebGL", "Notes"]
+---
+
+import Embed from "@/components/Embed.astro";
+
+## Books and Documentation
+
+- [Beginner's Guide to Three.js (Chinese)](http://www.yanhuangxueyuan.com/Three.js/)
+- [Learning Three.js (Chinese)](https://book.douban.com/subject/34451906/)
+- [Three.js document](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
+
+## Outline
+
+- **Program Structure**
+  - Scene
+  - Camera
+  - Renderer
+  - Helper objects
+- **Geometry**
+  - Base `Geometry` class
+  - BufferGeometry
+  - Categories
+  - Custom geometry
+  - Constructive solid geometry (CSG)
+  - Merging geometry
+  - Vertices
+- **Materials**
+  - Basic properties
+  - Blending properties
+  - Categories
+  - Combined materials
+  - The `materialIndex` property
+- **Models**
+  - Categories
+  - Base model class
+- **Sprites**
+  - Creating a sprite does not require a separate `Geometry`; conceptually, a sprite already encapsulates a rectangular `PlaneGeometry`.
+  - Points and sprites produce similar visual results. Large numbers of sprites can cause performance problems, but each sprite can be controlled independently.
+  - A `Points` object can be created from the vertices of a complex geometry.
+- **Groups**
+  - Three.js `Group` objects organize models into a hierarchy.
+  - Group
+- **Post-processing**
+  - Implementation
+  - Post-processing passes
+  - Masks: applying a pass only within a specified region
+  - `THREE.ShaderPass`: custom effects
+- **Utilities**
+  - Controls
+  - Helper
+- **Plugins**
+  - Physics effects
+- **Picking**
+  - CPU picking
+  - GPU picking
+- **Loading External Models**
+  - Loaders
+- **Animation**
+  - Base class
+  - Categories
+  - Methods
+  - Adaptive rendering
+- **Lights**
+  - Base `Light` class
+  - Categories
+  - Shadows
+- **Textures**
+  - Categories
+  - Creating textures
+  - `Texture` objects
+- **Scenes**
+  - Properties
+
+---
+
+The XMind mind map is embedded below. It may take a moment to load.
+
+<Embed src="https://www.xmind.app/embed/E52ap7/" height={600} />

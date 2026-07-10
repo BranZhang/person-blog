@@ -4,6 +4,7 @@ description: "翻译自 maplibre/maplibre-gl-js 项目的《life-of-a-tile》，
 pubDatetime: 2021-02-28T02:07:00.000Z
 modDatetime: 2025-02-18T14:31:16.000Z
 draft: false
+hiddenLocales: ["en"]
 tags: ["mapbox","WebGL","地图","GIS"]
 cover: "/wp-content/uploads/2021/02/mapbox-tile.png"
 ---

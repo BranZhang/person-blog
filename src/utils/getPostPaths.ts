@@ -3,6 +3,8 @@ import { BLOG_PATH } from "@/content.config";
 import { slugifyStr } from "./slugify";
 import config from "@/config";
 
+const CONTENT_LOCALES = new Set(["en", "zh-cn"]);
+
 function getPostPathSegments(filePath: string | undefined): string[] {
   return (
     filePath
@@ -10,6 +12,10 @@ function getPostPathSegments(filePath: string | undefined): string[] {
       .split("/")
       .filter(path => path !== "")
       .filter(path => !path.startsWith("_"))
+      // Localized post variants live under a locale directory, but the
+      // directory is an implementation detail and must not change the public
+      // slug (for example, posts/en/my-post.md remains /posts/my-post).
+      .filter((segment, index) => index !== 0 || !CONTENT_LOCALES.has(segment))
       .slice(0, -1)
       .map(segment => slugifyStr(segment)) ?? []
   );

@@ -4,6 +4,7 @@ description: "接上篇《克里金(kriging)插值的计算原理》，本篇主
 pubDatetime: 2017-08-29T10:04:43.000Z
 modDatetime: 2023-01-03T09:57:57.000Z
 draft: false
+hiddenLocales: ["en"]
 tags: ["C#","kriging","插值","GIS","算法"]
 ---
 

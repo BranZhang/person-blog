@@ -4,6 +4,7 @@ description: "克里金插值较为复杂，但效果也是比较好的。为了
 pubDatetime: 2017-08-28T14:31:02.000Z
 modDatetime: 2023-01-03T09:58:08.000Z
 draft: false
+hiddenLocales: ["en"]
 tags: ["arcgis","C#","kriging","插值","GIS","算法"]
 ---
 

@@ -4,6 +4,7 @@ description: "使用 GeoServer 搭建适用于 Mapbox 的矢量瓦片服务过�
 pubDatetime: 2021-01-05T10:10:24.000Z
 modDatetime: 2025-02-18T14:32:47.000Z
 draft: false
+hiddenLocales: ["en"]
 tags: ["geoserver","mapbox","mvt","GIS"]
 ---
 

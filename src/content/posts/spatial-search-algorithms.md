@@ -4,6 +4,7 @@ description: "在大规模处理和显示空间数据时，没有什么概念比
 pubDatetime: 2020-06-11T02:32:00.000Z
 modDatetime: 2025-02-18T14:35:39.000Z
 draft: false
+hiddenLocales: ["en"]
 tags: ["gis","mapbox","地图","算法","GIS"]
 cover: "/wp-content/uploads/2025/02/R-tree.webp"
 ---

@@ -1,0 +1,64 @@
+---
+title: "C++ Concurrency Study Notes"
+description: "A reading outline covering C++ concurrency, synchronization, atomics, parallel algorithms, and concurrent data structures."
+pubDatetime: 2021-09-25T15:40:00.000Z
+modDatetime: 2025-03-19T15:44:12.000Z
+draft: false
+hiddenLocales: ["zh-cn"]
+tags: ["C++", "Concurrency", "Notes"]
+---
+
+import Embed from "@/components/Embed.astro";
+
+## Books
+
+- [C++ Concurrency in Action, 2nd Edition (Chinese)](https://book.douban.com/subject/35653912/)
+
+## Outline
+
+- **Fundamentals**
+  - Approaches to concurrency
+  - Concurrency and parallelism
+  - Multithreading in C++
+- **Managing Threads**
+  - Basic thread management
+  - Passing arguments to thread functions
+  - Transferring thread ownership
+  - Choosing the number of threads at runtime
+  - Identifying threads
+- **Sharing Data Between Threads**
+  - Race conditions
+  - Avoiding problematic race conditions
+  - Protecting shared data in other scenarios
+- **Synchronizing Concurrent Operations**
+  - Tools for synchronizing threads
+  - Waiting for events
+  - Using futures to wait for one-off events
+  - Time-bounded waits
+  - Simplifying code with synchronization operations
+- **The Memory Model and Atomic Operations**
+  - The memory model
+  - Atomic types
+  - Atomic operations
+  - Implementing synchronization with atomic operations
+- **Testing and Debugging**
+  - Types of concurrency-related bugs
+  - Locating bugs
+- **Parallel Algorithms**
+  - Parallelized Standard Library algorithms
+  - Execution policies
+- **Thread Management**
+  - Thread pools
+  - Interrupting threads
+- **Designing Multithreaded Code**
+  - Dividing work between threads
+  - Factors that affect concurrency performance
+  - Other considerations
+- **Lock-Free Data Structures**
+- **Lock-Based Concurrent Data Structures**
+
+---
+
+The XMind mind map is embedded below. It may take a moment to load.
+
+<Embed src="https://www.xmind.app/embed/2SruSG/" height={600} />

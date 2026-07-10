@@ -1,0 +1,104 @@
+---
+title: "Information Retrieval Study Notes"
+description: "An outline of core information-retrieval concepts, from inverted indexes and ranking to clustering and evaluation."
+pubDatetime: 2018-03-17T11:22:42.000Z
+modDatetime: 2023-01-03T09:57:29.000Z
+draft: false
+hiddenLocales: ["zh-cn"]
+tags: ["Information Retrieval", "Search", "Notes"]
+---
+
+import Embed from "@/components/Embed.astro";
+
+## Books
+
+- [Introduction to Information Retrieval (Chinese edition)](https://book.douban.com/subject/5252170/)
+
+## Outline
+
+- **Documents**
+  - Document frequency: the number of documents containing a term
+  - Indexing granularity
+- **Boolean Retrieval**
+  - A Boolean term–document incidence matrix
+  - `AND` queries tend to have high precision but low recall, while `OR` queries tend to have high recall but lower precision
+  - Boolean expressions using `AND`, `OR`, and `NOT`
+  - Additional operators such as term proximity
+- **Ranked Retrieval Models**
+  - Free-text queries made up of one or more terms
+- **Tolerant Retrieval**
+  - Data structures for dictionary lookup
+  - Wildcard queries
+  - Spelling correction
+- **Document Scoring**
+  - Parametric indexes
+  - Field indexes
+  - Term frequency
+  - Inverse document frequency (IDF)
+  - Vector space model (VSM)
+  - Pivoted document-length normalization
+- **Scoring in Search Systems**
+  - Using postings lists
+  - Approximate top-K retrieval
+  - Query-term proximity
+  - The processing path of a free-text query
+  - Querying with the vector space model
+- **Evaluation**
+  - Gold standards, or ground truth
+  - Evaluating unordered result sets
+  - Evaluating ranked results
+  - Relevance assessment
+  - System quality and user utility
+  - Result snippets
+- **Link Analysis**
+  - PageRank
+- **Hierarchical Clustering**
+- **Flat Clustering**
+  - Clustering is one of the most common forms of unsupervised learning
+  - Classification is supervised learning: it learns or reproduces category distinctions assigned by people
+  - Clustering has no human-provided category labels to guide those distinctions
+  - The cluster hypothesis: documents in the same cluster behave similarly with respect to relevance to an information need
+  - Search-result clustering presents similar documents together; browsing a few coherent groups is often easier than inspecting isolated documents one by one
+  - Major applications of clustering
+  - Evaluating clustering algorithms
+- **Machine Learning**
+  - Learning to score
+  - Learning to rank search results
+- **Probabilistic Retrieval Models**
+  - BM25, also known as Okapi weighting
+- **XML Retrieval**
+  - Structured retrieval
+  - Key challenges
+- **Query Refinement**
+  - Boolean queries
+  - Global methods
+  - Local methods
+- **Index Compression**
+  - Benefits
+  - Statistical properties
+  - Dictionary compression
+  - Postings-list compression
+- **Index Construction**
+  - Blocked sort-based indexing
+  - Single-pass in-memory indexing
+  - Distributed indexing
+  - Dynamic indexing
+  - Document visibility for different users
+- **Inverted Indexes**
+  - Each term has a list of the documents in which it occurs; every list entry records an occurrence in a document
+  - Each entry is called a posting
+  - The complete list for a term is a postings list
+  - The postings lists for all terms together form the index's postings
+  - A postings list stores document identifiers and may also store term frequency and positional information
+  - Biword indexes
+- **Terms**
+  - The unit of indexing
+  - Tokenization
+  - Normalization
+  - Term frequency: the number of times a term occurs in a document
+
+---
+
+The XMind mind map is embedded below. It may take a moment to load.
+
+<Embed src="https://www.xmind.net/embed/CBeAjL/" height={600} />

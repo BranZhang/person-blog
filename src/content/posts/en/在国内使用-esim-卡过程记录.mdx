@@ -1,0 +1,72 @@
+---
+title: "Using an eSIM in Mainland China"
+description: "A practical record of purchasing, activating, and testing a travel eSIM in mainland China."
+pubDatetime: 2021-06-02T17:58:46.000Z
+modDatetime: 2023-01-03T09:51:38.000Z
+draft: false
+hiddenLocales: ["zh-cn"]
+tags: ["eSIM", "Mobile Networks", "Notes"]
+---
+
+import Gallery from "@/components/Gallery.astro";
+
+## Choosing a Provider
+
+I had switched to a US-model iPhone XS. One major difference from the mainland China model is that the US model includes eSIM support, so testing that capability had been on my to-do list for some time.
+
+I finally decided to try it. [eSIMDB](https://esimdb.com/china) lists eSIM plans for many regions around the world, including China.
+
+![](/wp-content/uploads/2021/06/eSIM-for-China-%F0%9F%87%A8%F0%9F%87%B3-Find-the-best-data-plans-for-travelers-esimdb-2021-06-03-01-03-29-1024x747.png "eSIM plans for China, sorted by price")
+
+When buying a plan, pay attention to its coverage area. Some plans only provide service in the Pearl River Delta.
+
+After comparing several providers, I chose [3 Hong Kong](https://www.three.com.hk/), which appeared first when sorting by price. It was not actually the cheapest: the plan cost HKD 10 per day and included 500 MB of data before throttling. The minimum initial purchase was HKD 50, or roughly CNY 40, so I bought five days of service. The days could be activated separately at any time within the six-month validity period.
+
+## Purchase
+
+The purchase process was convenient and even supported Alipay. There were separate options for mainland Alipay and AlipayHK, which apparently operate as distinct systems.
+
+![](/wp-content/uploads/2021/06/Three.com_.hk-DIY-Prepaid-2021-06-03-01-20-40-1024x570.png "Plan selection page")
+
+Either the Greater China or Asia-Pacific plan would work for me, so I placed the order.
+
+An activation email arrived after the purchase. This is one of the main advantages of an eSIM: a physical SIM would have to be shipped, and a provider might be reluctant to ship to China or the delivery might take too long.
+
+![](/wp-content/uploads/2021/06/%E6%94%B6%E4%BB%B6%E7%AE%B1-%E2%80%A2-zcqzcq-2021-06-03-01-27-27.png "Similar to buying a local travel SIM before going abroad")
+
+The remaining allowance can be checked on the provider's website.
+
+![](/wp-content/uploads/2021/06/Three.com_.hk-DIY-Prepaid-2021-06-03-01-23-56.png "The data allowance was consumed surprisingly quickly")
+
+## Activation
+
+![](/wp-content/uploads/2021/06/Monosnap-2021-06-03-01-35-49.png "No service immediately after activation")
+
+![](/wp-content/uploads/2021/06/Monosnap-2021-06-03-01-36-46.png "The eSIM appears to provide data only")
+
+![](/wp-content/uploads/2021/06/1E7AF533-9AC9-4435-9F1F-079FE8BBD8D4_1_105_c-473x1024.jpeg "Some eSIM configuration options")
+
+![](/wp-content/uploads/2021/06/Monosnap-2021-06-03-01-39-52.png "The provider appears to roam through China Mobile")
+
+![](/wp-content/uploads/2021/06/Monosnap-2021-06-03-01-41-01.png "Signal quality was often poor")
+
+![](/wp-content/uploads/2021/06/Monosnap-2021-06-03-01-42-09.png "Checking the public IP address")
+
+## Testing Everyday Apps
+
+The first and most anticipated test was whether Google could be accessed without filtering:
+
+![](/wp-content/uploads/2021/06/Monosnap-2021-06-03-01-43-17.png "✌️")
+
+![](/wp-content/uploads/2021/06/IMG_0351.gif)
+
+<Gallery
+  images={[
+    { src: "/wp-content/uploads/2021/06/E5ABB2AB-25A5-4081-ABC7-CBF07DE5C307_1_105_c-473x1024.jpeg", caption: "" },
+    { src: "/wp-content/uploads/2021/06/8FCAA27D-4C85-4D01-86BC-378776F7FFCA_1_105_c-1024x473.jpeg", caption: "" },
+    { src: "/wp-content/uploads/2021/06/7407574A-A91E-428D-BE3C-AA1E82BFFED6_1_105_c-473x1024.jpeg", caption: "" },
+    { src: "/wp-content/uploads/2021/06/7dfe90ed-6d68-4947-8506-06236e1e21b9-473x1024.png", caption: "" },
+  ]}
+/>
+
+Netflix did not accept this eSIM connection, while Bilibili still worked.
