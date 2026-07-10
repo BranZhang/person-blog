@@ -45,6 +45,11 @@
 
     img {
       @apply mx-auto rounded-lg shadow-sm;
+      width: auto;
+      height: auto;
+      max-width: 80%;
+      max-height: min(36rem, 60vh);
+      object-fit: contain;
     }
 
     img[role="button"] {
@@ -151,6 +156,12 @@
         @apply text-muted-foreground/80 mt-3 text-center text-sm italic;
       }
     }
+  }
+
+  html[data-theme="dark"] .app-prose img[role="button"]:hover {
+    box-shadow:
+      0 10px 15px -3px rgb(255 255 255 / 18%),
+      0 4px 6px -4px rgb(255 255 255 / 18%);
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */

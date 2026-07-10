@@ -1,0 +1,122 @@
+---
+import type { MarkdownHeading } from "astro";
+import { useTranslations } from "@/i18n";
+
+type Props = {
+  headings: MarkdownHeading[];
+};
+
+const { headings } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const headingStack: { depth: number; count: number }[] = [];
+const tocHeadings = headings
+  .filter(heading => heading.depth >= 2 && heading.depth <= 4)
+  .map(heading => {
+    while (
+      headingStack.length > 0 &&
+      headingStack[headingStack.length - 1].depth > heading.depth
+    ) {
+      headingStack.pop();
+    }
+
+    const currentLevel = headingStack[headingStack.length - 1];
+    if (currentLevel?.depth === heading.depth) {
+      currentLevel.count += 1;
+    } else {
+      headingStack.push({ depth: heading.depth, count: 1 });
+    }
+
+    return {
+      ...heading,
+      number: headingStack.map(level => level.count).join("."),
+    };
+  });
+---
+
+{
+  tocHeadings.length > 0 && (
+    <nav
+      class="article-toc article-toc-inline not-prose"
+      aria-label={t.post.tableOfContents}
+    >
+      <p class="article-toc-title">{t.post.tableOfContents}</p>
+      <ol class="article-toc-list">
+        {tocHeadings.map(heading => (
+          <li data-depth={heading.depth}>
+            <a href={`#${heading.slug}`}>
+              <span class="article-toc-number" aria-hidden="true">
+                {heading.number}
+              </span>
+              <span>{heading.text}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<style>
+  .article-toc {
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: color-mix(in oklab, var(--muted) 35%, transparent);
+  }
+
+  .article-toc-inline {
+    margin-block: 0 2rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .article-toc-title {
+    margin: 0 0 0.625rem;
+    color: var(--foreground);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .article-toc-list {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .article-toc-list li[data-depth="3"] {
+    padding-inline-start: 0.75rem;
+  }
+
+  .article-toc-list li[data-depth="4"] {
+    padding-inline-start: 1.5rem;
+  }
+
+  .article-toc-list a {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 0.5rem;
+    padding: 0.25rem 0.375rem;
+    border-radius: 0.25rem;
+    color: var(--muted-foreground);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    transition: color 150ms ease;
+  }
+
+  .article-toc-list a:hover {
+    color: var(--accent);
+  }
+
+  .article-toc-number {
+    min-width: 1.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .article-toc-list a {
+      transition: none;
+    }
+  }
+</style>
