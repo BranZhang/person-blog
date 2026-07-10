@@ -149,7 +149,7 @@
 
 - [x] **数学公式**：已用 `remark-math` + `rehype-katex` 渲染（见第 11 项）。7 篇被 WordPress 渲染成 quicklatex 图片的公式，LaTeX 源码从 `<img alt>`（HTML 数字实体编码）中完整恢复，行内用 `$…$`、独立公式用 `$$…$$`。KaTeX 字体自托管（59 个 woff2 打进 `dist/_astro/`），无需外网。
 - [x] **中英双语切换（i18n）**：已完成界面双语支持（en/zh-cn），含语言切换按钮、Cloudflare 地理位置自动检测、Cookie 持久化。当前仅 UI 文本双语，文章内容保持原语言，后续可扩展内容多语言。
-- [x] **自定义 embeds（响应式）**：第三方 `<iframe>` 嵌入已升级为 `<Embed>` 组件（见第 11 项）。清洗后的 `.mdx` 文章用 `<Embed src height title />`；仅两篇含活体 `<script>` 的文章（`trying-different-wordpress-blocks`、`design-a-cultural-revolution-style-map`）保留原始 `<iframe>` 走 `remarkResponsiveEmbeds` 兜底。
+- [x] **自定义 embeds（响应式）**：第三方 `<iframe>` 嵌入已升级为 `<Embed>` 组件（见第 11 项）。清洗后的 `.mdx` 文章用 `<Embed src height title />`；仅 `design-a-cultural-revolution-style-map` 含活体 `<script>`，保留原始 `<iframe>` 走 `remarkResponsiveEmbeds` 兜底。
   - `src/utils/remarkResponsiveEmbeds.ts`：仍保留，负责上面两篇 raw-HTML `<iframe>` 的 `.blog-embed` 包裹与协议相对 URL 升级。
   - ⚠️ CodePen 用的是 `anon` 匿名嵌入，CodePen 早已停用，实际会显示 "CodePen Embed Fallback" 空框——已转成 `<Embed>`（保留原 src，方便日后替换），但源仍失效。link-card / youtube：迁移内容中未发现。
 - [x] **部署（Cloudflare Pages）**：构建命令 `pnpm build`，输出目录 `dist`，环境变量 `NODE_VERSION=22`。可选：删除 AstroPaper 自带的 `.github/`（issue 模板、`ci.yml`）。

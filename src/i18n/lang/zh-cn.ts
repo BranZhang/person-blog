@@ -28,6 +28,10 @@ export default {
     page: "第",
   },
   home: {
+    intro:
+      "「坐标之外」是一个个人博客，记录地图、图形、软件工程，以及它们彼此连接的方式。",
+    note: "这里收录项目笔记、渲染实验，以及实践中的工程取舍。",
+    rssFeed: "RSS 订阅",
     socialLinks: "社交链接",
     featured: "精选",
     recentPosts: "最新文章",

@@ -28,6 +28,10 @@ export default {
     page: "Page",
   },
   home: {
+    intro:
+      "Beyond Coordinates is a personal blog about maps, graphics, software engineering, and the ideas that connect them.",
+    note: "It collects project notes, rendering experiments, and practical engineering tradeoffs.",
+    rssFeed: "RSS Feed",
     socialLinks: "Social Links",
     featured: "Featured",
     recentPosts: "Recent Posts",

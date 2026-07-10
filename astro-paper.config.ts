@@ -3,8 +3,9 @@ import { defineAstroPaperConfig } from "./src/types/config";
 export default defineAstroPaperConfig({
   site: {
     url: "https://littlepotato.me/",
-    title: "Bran Zhang",
-    description: "Personal notes, engineering writeups, and archived posts.",
+    title: "Beyond Coordinates",
+    description:
+      "A personal blog about maps, graphics, software engineering, and the ideas that connect them.",
     author: "Bran Zhang",
     profile: "https://github.com/BranZhang",
     ogImage: "default-og.jpg",

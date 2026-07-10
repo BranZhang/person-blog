@@ -1,8 +1,9 @@
 ---
 title: About
-description: Personal notes, engineering writeups, and archived posts.
+description: About Beyond Coordinates, a personal blog by Bran Zhang.
 ---
 
-# Bran Zhang
+# Beyond Coordinates
 
-Personal notes, engineering writeups, and archived posts.
+Beyond Coordinates is Bran Zhang's personal blog about maps, graphics,
+software engineering, and the ideas that connect them.
