@@ -1,9 +1,6 @@
 ---
 import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
-import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
-import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import LinkButton from "./LinkButton.astro";
 import { useTranslations } from "@/i18n";
 
 type Props = {
@@ -13,34 +10,49 @@ type Props = {
 const { page } = Astro.props;
 
 const t = useTranslations(Astro.currentLocale ?? "en");
+
+const pageNumbers = Array.from(
+  { length: page.lastPage },
+  (_, index) => index + 1
+);
+const firstPageUrl = page.url.first ?? page.url.current;
+const pageBaseUrl = firstPageUrl.endsWith("/")
+  ? firstPageUrl
+  : `${firstPageUrl}/`;
+
+const getPageUrl = (pageNumber: number) =>
+  pageNumber === 1 ? firstPageUrl : `${pageBaseUrl}${pageNumber}/`;
 ---
 
 {
   page.lastPage > 1 && (
     <nav
-      class="mt-auto mb-8 flex justify-center gap-4"
+      class="mt-auto mb-8"
       role="navigation"
       aria-label={t.a11y.paginationNav}
     >
-      <LinkButton
-        disabled={!page.url.prev}
-        href={page.url.prev as string}
-        class:list={["select-none", { "opacity-50": !page.url.prev }]}
-        aria-label={t.a11y.goToPreviousPage}
-      >
-        <IconArrowLeft class="inline-block rtl:rotate-180" />
-        {t.pagination.prev}
-      </LinkButton>
-      {page.currentPage} / {page.lastPage}
-      <LinkButton
-        disabled={!page.url.next}
-        href={page.url.next as string}
-        class:list={["select-none", { "opacity-50": !page.url.next }]}
-        aria-label={t.a11y.goToNextPage}
-      >
-        {t.pagination.next}
-        <IconArrowRight class="inline-block rtl:rotate-180" />
-      </LinkButton>
+      <ol class="flex flex-wrap justify-center gap-2">
+        {pageNumbers.map(pageNumber => (
+          <li>
+            {pageNumber === page.currentPage ? (
+              <span
+                class="bg-foreground text-background flex size-10 items-center justify-center font-semibold tabular-nums"
+                aria-current="page"
+              >
+                {pageNumber}
+              </span>
+            ) : (
+              <a
+                href={getPageUrl(pageNumber)}
+                class="border-border hover:border-accent hover:text-accent focus-visible:border-accent flex size-10 items-center justify-center border-b-2 font-medium tabular-nums transition-colors"
+                aria-label={`${t.pagination.page} ${pageNumber}`}
+              >
+                {pageNumber}
+              </a>
+            )}
+          </li>
+        ))}
+      </ol>
     </nav>
   )
 }

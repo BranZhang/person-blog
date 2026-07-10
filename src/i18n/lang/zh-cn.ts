@@ -23,8 +23,6 @@ export default {
     nextPost: "下一篇",
   },
   pagination: {
-    prev: "上一页",
-    next: "下一页",
     page: "第",
   },
   home: {
@@ -64,8 +62,6 @@ export default {
     toggleTheme: "切换主题",
     searchPlaceholder: "搜索文章...",
     noResults: "未找到结果",
-    goToPreviousPage: "转到上一页",
-    goToNextPage: "转到下一页",
     paginationNav: "分页导航",
   },
   notFound: {

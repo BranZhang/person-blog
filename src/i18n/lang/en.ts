@@ -23,8 +23,6 @@ export default {
     nextPost: "Next Post",
   },
   pagination: {
-    prev: "Prev",
-    next: "Next",
     page: "Page",
   },
   home: {
@@ -64,8 +62,6 @@ export default {
     toggleTheme: "Toggle theme",
     searchPlaceholder: "Search posts...",
     noResults: "No results found",
-    goToPreviousPage: "Go to previous page",
-    goToNextPage: "Go to next page",
     paginationNav: "Pagination Navigation",
   },
   notFound: {

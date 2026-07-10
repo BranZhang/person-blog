@@ -21,8 +21,6 @@ export interface UIStrings {
     nextPost: string;
   };
   pagination: {
-    prev: string;
-    next: string;
     page: string;
   };
   home: {
@@ -61,8 +59,6 @@ export interface UIStrings {
     toggleTheme: string;
     searchPlaceholder: string;
     noResults: string;
-    goToPreviousPage: string;
-    goToNextPage: string;
     paginationNav: string;
   };
   notFound: {
