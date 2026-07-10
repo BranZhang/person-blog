@@ -23,7 +23,7 @@ export default {
     nextPost: "下一篇",
   },
   pagination: {
-    page: "第",
+    page: "第{{page}}页",
   },
   home: {
     intro:

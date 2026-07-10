@@ -1,11 +1,13 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { stripBase, stripLocale } from "@/utils/withBase";
-import { useTranslations } from "@/i18n";
+import { tplStr, useTranslations } from "@/i18n";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
+const formatPageLabel = (page: string | number) =>
+  tplStr(t.pagination.page, { page });
 
 // Strip base prefix and trailing slash, then locale prefix so segments
 // reflect the logical page path only.
@@ -38,7 +40,7 @@ if (breadcrumbList[0] === "posts") {
   breadcrumbList.splice(
     0,
     2,
-    `${t.nav.posts} (${t.pagination.page.toLowerCase()} ${breadcrumbList[1] || 1})`
+    `${t.nav.posts} (${formatPageLabel(breadcrumbList[1] || 1).toLowerCase()})`
   );
 }
 
@@ -51,7 +53,7 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
     `${decodeSegment(breadcrumbList[1])} ${
       Number(breadcrumbList[2]) === 1
         ? ""
-        : `(${t.pagination.page.toLowerCase()} ${breadcrumbList[2]})`
+        : `(${formatPageLabel(breadcrumbList[2]).toLowerCase()})`
     }`
   );
 }

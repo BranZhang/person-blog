@@ -1,7 +1,7 @@
 ---
 import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
-import { useTranslations } from "@/i18n";
+import { tplStr, useTranslations } from "@/i18n";
 
 type Props = {
   page: Page<CollectionEntry<"posts">>;
@@ -10,6 +10,8 @@ type Props = {
 const { page } = Astro.props;
 
 const t = useTranslations(Astro.currentLocale ?? "en");
+const formatPageLabel = (pageNumber: number) =>
+  tplStr(t.pagination.page, { page: pageNumber });
 
 const pageNumbers = Array.from(
   { length: page.lastPage },
@@ -38,6 +40,7 @@ const getPageUrl = (pageNumber: number) =>
               <span
                 class="bg-foreground text-background flex size-10 items-center justify-center font-semibold tabular-nums"
                 aria-current="page"
+                aria-label={formatPageLabel(pageNumber)}
               >
                 {pageNumber}
               </span>
@@ -45,7 +48,7 @@ const getPageUrl = (pageNumber: number) =>
               <a
                 href={getPageUrl(pageNumber)}
                 class="border-border hover:border-accent hover:text-accent focus-visible:border-accent flex size-10 items-center justify-center border-b-2 font-medium tabular-nums transition-colors"
-                aria-label={`${t.pagination.page} ${pageNumber}`}
+                aria-label={formatPageLabel(pageNumber)}
               >
                 {pageNumber}
               </a>

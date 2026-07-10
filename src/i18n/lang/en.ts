@@ -23,7 +23,7 @@ export default {
     nextPost: "Next Post",
   },
   pagination: {
-    page: "Page",
+    page: "Page {{page}}",
   },
   home: {
     intro:
