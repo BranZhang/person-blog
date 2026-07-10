@@ -55,16 +55,16 @@ Each train consists of 16 car objects with the following properties:
 static buildGeoJSON(coord, train_index, train_type, angle) {
     var singe_type = "body";
 
-    if (train_type === "\u52a8\u8f66\u7ec4" && (train_index===0 || train_index===8)) { // EMU
+    if (train_type === "\u52a8\u8f66\u7ec4" && (train_index===0 || train_index===8)) {
         singe_type = "normal_head";
     }
-    else if (train_type === "\u52a8\u8f66\u7ec4" && (train_index===7 || train_index===15)) { // EMU
+    else if (train_type === "\u52a8\u8f66\u7ec4" && (train_index===7 || train_index===15)) {
         singe_type = "normal_tail";
     }
-    else if (train_type === "\u9ad8\u901f\u94c1\u8def" && (train_index===0 || train_index===8)) { // high-speed rail
+    else if (train_type === "\u9ad8\u901f\u94c1\u8def" && (train_index===0 || train_index===8)) {
         singe_type = "high_head";
     }
-    else if (train_type === "\u9ad8\u901f\u94c1\u8def" && (train_index===7 || train_index===15)) { // high-speed rail
+    else if (train_type === "\u9ad8\u901f\u94c1\u8def" && (train_index===7 || train_index===15)) {
         singe_type = "high_tail";
     }
 

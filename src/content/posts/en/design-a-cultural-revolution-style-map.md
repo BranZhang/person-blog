@@ -101,7 +101,7 @@ I selected the Pengpai display typeface, although a Mapbox Studio issue prevente
 
 ### Color Palette
 
-The palette draws from contemporary posters: revolutionary red, military green, worker blue, and a gold accent.
+The palette draws from contemporary posters: revolutionary red, military green, and worker blue. Gold turned up too, unexpectedly—perhaps the Party's radiance? So I called it Glorious Gold.
 
 ### “The Whole Country Is Red”
 
@@ -111,7 +111,7 @@ The famous stamp suggested an effective small-scale national view. The remaining
 
 The design hides other countries, fills mainland China in red, adds a glow along the land boundary, outlines Taiwan in red, and places a gold banner above the map.
 
-Constructing the mainland boundary was the difficult part. The initial plan was to union provincial polygons and subtract the Bohai, Yellow, and East China seas. In practice, the country-boundary dataset did not include territorial waters, which simplified the operation.
+Constructing the mainland boundary was the difficult part. The plan was to union the mainland provinces' polygons, subtract the Bohai, Yellow, and East China seas, and remember to also strip out the South China Sea islands. That last worry turned out to be unnecessary: I had assumed the country-boundary dataset would include territorial waters, but it didn't—and it even labeled the South China Sea islands as belonging to the Philippines, which saved me the trouble.
 
 A Studio heatmap-layer issue prevented the glow effect. Zoom the map below out to the national extent to see the rest of the design.
 
@@ -144,7 +144,7 @@ A Studio heatmap-layer issue prevented the glow effect. Zoom the map below out t
 
 ## Closing Note
 
-The map was completed for the 70th anniversary of the founding of the People's Republic of China.
+On the occasion of the 70th anniversary of the founding of the People's Republic of China, I dedicate this map to the nation.
 
 ![](/wp-content/uploads/2019/09/gis-5-10-1024x634.png)
 

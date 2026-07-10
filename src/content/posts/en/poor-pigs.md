@@ -1,6 +1,6 @@
 ---
-title: "Poor Pigs: An Information-theory Perspective"
-description: "Extending the LeetCode Poor Pigs problem and interpreting its state-counting solution through information theory."
+title: "Poor pigs"
+description: "Aren't we all just poor pigs? Touch too many sensitive words, and you might not survive either."
 pubDatetime: 2021-01-14T16:50:20.000Z
 modDatetime: 2025-03-02T09:19:49.000Z
 draft: false
@@ -127,7 +127,7 @@ Suppose 1,000 buckets must be tested in one hour, with death occurring after 15 
 
 #### Variant 1: Exactly Two Poisoned Buckets
 
-One article constructs several strategies using 10 pigs but does not prove whether 9 are sufficient.
+[Pig Super Evolution: Your Potential Is Beyond Imagination](https://mp.weixin.qq.com/s/JgColmETAH7Es81iM1dOeQ) surveys several practical strategies and finds that every one of them needs a minimum of 10 pigs, without proving whether 9 could suffice.
 
 There are `C(1000,2) = 499,500` possible poisoned pairs. Four rounds give each pig five states, so the information bound is `5^n ≥ 499500`, yielding `n ≥ 9`. This is only a lower bound; it does not construct a valid nine-pig testing scheme.
 

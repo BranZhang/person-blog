@@ -34,7 +34,7 @@ Matching requires language processing for synonyms and ambiguity. Choosing among
 
 ### Ranking Factors
 
-Positive signals may include descriptive titles, meaningful anchor text, crawlable structure, and site-quality metrics. Inaccessibility, duplicate content, and repeated or misleading titles can hurt indexing and ranking.
+Positive signals may include descriptive titles, meaningful anchor text, crawlable structure, and site-quality metrics. Inaccessibility, duplicate content, and repeated titles or tag keywords can hurt indexing and ranking.
 
 ### Vertical Search
 
@@ -113,13 +113,13 @@ The main technical and editorial practices are:
 
 Google Search Console and Bing Webmaster Tools let publishers submit site information and inspect sitemaps, impressions, click-through rates, queries, indexing, and crawl problems.
 
-![](/wp-content/uploads/2019/10/google_search_console_click.png "Search Console performance for the site")
+![](/wp-content/uploads/2019/10/google_search_console_click.png "Current state of the site - nobody's clicking, so pathetic")
 
 For example, Search Console provides the queries that most often lead users to the site.
 
 ## Understanding SEO Plugins
 
-At the time, this blog used [Rank Math](https://s.rankmath.com/home), a feature-rich free plugin that exposes settings and scores each article against an SEO checklist.
+Currently, this blog uses [Rank Math](https://s.rankmath.com/home), a feature-rich free plugin that exposes settings and scores each article against an SEO checklist.
 
 ![](/wp-content/uploads/2019/10/seo_rank_math.png)
 

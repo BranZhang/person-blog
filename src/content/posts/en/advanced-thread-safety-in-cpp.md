@@ -213,11 +213,19 @@ private:
 };
 ```
 
-This does not lose increments: `fetch_add` is an atomic read-modify-write operation, so all modifications to `_count` remain ordered. Relaxed ordering merely permits unrelated operations to move around the increment.
+At this point you might ask: "If there is no synchronization, how can this possibly work? Couldn't thread 1 increment the value from N to N+1 while thread 2 also increments the same old value N to N+1?"
 
-Incrementing a private reference count generally does not publish data or change control flow, so no additional synchronization is needed. Decrementing the final reference is different: the thread that observes the transition to zero must synchronize with earlier accesses before destroying the object. A typical implementation uses release semantics on decrements and an acquire operation or fence on the zero path.
+No, for two reasons:
 
-Use `memory_order_relaxed` only when the algorithm's correctness has been carefully established and profiling demonstrates a benefit. It is one of the easiest memory orders to misuse.
+- Each increment is still atomic (in the first and second senses), so every thread always sees the latest value. What `memory_order_relaxed` does is allow the hardware or compiler to reorder other operations unrelated to `_count`, whether before or after the increment, to improve overall performance—not specifically to speed up `_count` itself.
+- Because `_count` is part of a private data structure, no other thread is guaranteed to take any conditional action based on its current value. In other words, using `memory_order_relaxed` is safe as long as only the increment is performed and it does not change any thread's control flow.
+
+`memory_order_relaxed` is not safe when decrementing a reference count. When you decrement a reference count, you typically destroy the object or release its resources once the count reaches zero. In that case, the ordering of the operation matters a great deal. If you use `memory_order_relaxed`, the ordering of the `fetch_sub` operation is not guaranteed, which can lead to the following problems:
+
+- **Race conditions**: one thread might access the object after another thread has decremented the reference count but before it has destroyed the object, resulting in access to an already-destroyed object and undefined behavior.
+- **No guaranteed synchronization**: although the decrement itself is atomic, other threads' operations may see a stale reference-count value, leading to incorrect logic or resource leaks.
+
+In practice, avoid `memory_order_relaxed` unless you can prove its use is correct and it genuinely improves performance significantly. Using `memory_order_relaxed` correctly is very difficult.
 
 ### `memory_order_acquire` and `memory_order_release`
 
@@ -268,7 +276,7 @@ public:
     explicit spin_lock( std::atomic_flag *mutex ) noexcept :
         _mutex{ mutex }
     {
-        while ( _mutex->test_and_set( std::memory_order_acquire ) )
+        while ( !_mutex->test_and_set( std::memory_order_acquire ) )
            ;
     }
     ~spin_lock() noexcept {

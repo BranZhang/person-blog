@@ -119,7 +119,7 @@ constexpr bool validate(std::string_view str) {
 
 `std::string_view` improves the performance and readability of string analysis, but its non-owning design introduces important safety tradeoffs.
 
-### Rule 1: Do Not Return a View into Local Storage
+### Rule 1: Never Return a std::string_view
 
 ```cpp
 std::string_view func() {
@@ -131,7 +131,7 @@ std::string_view func() {
 
 This harmless-looking function returns a dangling view. `str` owns the allocation containing the input characters. When the function returns, its destructor releases that storage, leaving the returned `std::string_view` pointing to freed memory.
 
-Returning `std::string_view` is not inherently invalid. A view into static storage or into memory owned by the caller can remain valid. The API must nevertheless make the lifetime relationship explicit; returning a view whose backing storage may disappear is unsafe.
+Note that returning `std::string_view` does not always cause unsafe memory access. A view into static storage, or into memory that remains accessible outside the function, is still valid. But such cases can become invalid as code evolves, so the safest practice is to never return `std::string_view` under any circumstances.
 
 ### Rule 2: Do Not Assume Null Termination
 

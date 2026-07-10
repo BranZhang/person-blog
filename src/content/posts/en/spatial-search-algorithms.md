@@ -133,7 +133,9 @@ The algorithm begins with a fast convex hull, then progressively bends its bound
 
 ![](/wp-content/uploads/2025/02/Concave-hull-2.webp)
 
-In the paper that proposed this concave-hull method, finding the nearest eligible interior point for every boundary edge was the expensive step. A spatial index makes those repeated proximity queries efficient even for large point sets.
+In the paper that proposed this concave-hull method, finding the nearest eligible interior point for every boundary edge — the candidate points for carving into the hull — was a time-consuming step, and developing a faster approach was left as future work.
+
+The challenge is that with many data points, searching for interior points near each boundary edge becomes very expensive. Future research could focus on improving the search itself, for example by using a more efficient spatial index such as a k-d tree or R-tree to speed up the nearest-point lookups and improve overall performance.
 
 ## Further Spatial-index Improvements
 
