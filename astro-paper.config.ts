@@ -33,7 +33,7 @@ export default defineAstroPaperConfig({
   },
   socials: [
     { name: "github", url: "https://github.com/BranZhang" },
-    { name: "mail", url: "mailto:njnuzhangchi@gmail.com" },
+    { name: "mail", url: "mailto:littlepotato.me@outlook.com" },
   ],
   shareLinks: [
     { name: "x", url: "https://x.com/intent/post?url=" },
