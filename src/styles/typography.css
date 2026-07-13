@@ -141,14 +141,18 @@
       }
 
       .blog-gallery-item {
-        @apply my-0;
+        @apply my-0 grid min-w-0 grid-rows-[minmax(0,1fr)_auto];
+
+        .blog-gallery-image {
+          @apply min-h-0 overflow-hidden rounded-md;
+        }
 
         img {
-          @apply my-0 h-full w-full rounded-md object-cover;
+          @apply my-0 h-full max-h-none! w-full max-w-none! rounded-none object-cover;
         }
 
         figcaption {
-          @apply text-muted-foreground/80 mt-1.5 text-center text-sm italic;
+          @apply text-muted-foreground/80 mt-1.5 text-center text-sm leading-relaxed wrap-break-word italic;
         }
       }
 

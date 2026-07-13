@@ -53,12 +53,14 @@ function resolveImage(source: string): ImageMetadata {
     {
       images.map(image => (
         <figure class="blog-gallery-item">
-          <AstroImage
-            src={resolveImage(image.src)}
-            alt={image.alt ?? image.caption ?? ""}
-            loading="lazy"
-            layout="full-width"
-          />
+          <div class="blog-gallery-image">
+            <AstroImage
+              src={resolveImage(image.src)}
+              alt={image.alt ?? image.caption ?? ""}
+              loading="lazy"
+              layout="full-width"
+            />
+          </div>
           {image.caption && <figcaption>{image.caption}</figcaption>}
         </figure>
       ))
