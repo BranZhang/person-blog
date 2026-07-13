@@ -12,7 +12,7 @@ tags: ["C#","kriging","插值","GIS","算法"]
 
 ## 程序下载
 
-[克里金插值及DEM等高线生成](/wp-content/uploads/2019/08/%E5%85%8B%E9%87%8C%E9%87%91%E6%8F%92%E5%80%BC%E5%8F%8ADEM%E7%AD%89%E9%AB%98%E7%BA%BF%E7%94%9F%E6%88%90.zip)[Download](/wp-content/uploads/2019/08/%E5%85%8B%E9%87%8C%E9%87%91%E6%8F%92%E5%80%BC%E5%8F%8ADEM%E7%AD%89%E9%AB%98%E7%BA%BF%E7%94%9F%E6%88%90.zip)
+[克里金插值及DEM等高线生成](/downloads/kriging-interpolation-dem-contours.zip)[Download](/downloads/kriging-interpolation-dem-contours.zip)
 
 ---
 
@@ -36,7 +36,7 @@ tags: ["C#","kriging","插值","GIS","算法"]
 
 在VS的主界面上，选择“工具”=>“NuGet程序包管理器”=>“程序包管理器控制台”，可以看到这样的界面：
 
-![](../../assets/wp-content/uploads/2019/07/gis-2-1-1024x223.jpg "NuGet")
+![](../../assets/content-images/uploads/2019/07/gis-2-1-1024x223.jpg "NuGet")
 
 输入“Install-Package MathNet.Numerics”后，回车，等待片刻即可。
 
@@ -66,13 +66,13 @@ $$
 
 下图是我的DEM：
 
-![](../../assets/wp-content/uploads/2019/07/gis-2-2.jpg "DEM及在上面选取的随机点")
+![](../../assets/content-images/uploads/2019/07/gis-2-2.jpg "DEM及在上面选取的随机点")
 
 我在已知的DEM上选取随机点，再利用这些随机点进行插值，方便比较计算结果与原始值。
 
 下图是这些随机点的半方差拟合结果：
 
-![](../../assets/wp-content/uploads/2019/07/gis-2-3.jpg "拟合结果")
+![](../../assets/content-images/uploads/2019/07/gis-2-3.jpg "拟合结果")
 
 红色的点是初始计算的结果，实际上已经做过一次筛选了，因为选取的随机点约100个，初步计算出来的半方差值约有9900个。蓝色的叉叉是再次筛选后的结果，每隔10个单位的区间计算一个平均点。深蓝色的线即为对蓝色叉叉的拟合。
 
@@ -151,6 +151,6 @@ for (int q = 0; q < size; q++)
 
 下图为插值结果：
 
-![](../../assets/wp-content/uploads/2019/07/gis-2-4.jpg "插值比较")
+![](../../assets/content-images/uploads/2019/07/gis-2-4.jpg "插值比较")
 
 结果与原始数据相比较，还是比较准确的。

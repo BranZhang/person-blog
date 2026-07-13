@@ -39,7 +39,7 @@ import Gallery from "@/components/Gallery.astro";
 - 若其左子树存在，则其左子树中每个节点的值都不大于该节点值；
 - 若其右子树存在，则其右子树中每个节点的值都不小于该节点值。
 
-![](../../assets/wp-content/uploads/2020/01/bst.jpg "BST 示例")
+![](../../assets/content-images/uploads/2020/01/bst.jpg "BST 示例")
 
 - **二叉搜索树中的插入操作：**Given the root node of a binary search tree (BST) and a value to be inserted into the tree, insert the value into the BST. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST. [链接](https://leetcode.com/problems/insert-into-a-binary-search-tree/)
 - **二叉搜索树的范围和：**Given the root node of a binary search tree, return the sum of values of all nodes with value between L and R (inclusive). [链接](https://leetcode.com/problems/range-sum-of-bst/)
@@ -96,11 +96,11 @@ def rangeSumBST(self, root, L, R):
 - 如果一个节点是红色的，则它的子节点必须是黑色的。
 - 从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。
 
-![](../../assets/wp-content/uploads/2020/01/Red_black_tree_example.png "红黑树的图例")
+![](../../assets/content-images/uploads/2020/01/Red_black_tree_example.png "红黑树的图例")
 
 红黑树的左右旋是比较重要的操作，左右旋的目的是调整红黑节点结构，转移黑色节点位置，使其在进行插入、删除后仍能保持红黑树的 5 条性质。
 
-![](../../assets/wp-content/uploads/2020/01/Red_black_tree_opt.png "红黑树的左右旋")
+![](../../assets/content-images/uploads/2020/01/Red_black_tree_opt.png "红黑树的左右旋")
 
 红黑树的增删操作比较复杂，在此就不多说了。看下面这个问题。
 
@@ -124,21 +124,21 @@ def rangeSumBST(self, root, L, R):
 
 对街区工期进行排序，先分析前两个：
 
-![](../../assets/wp-content/uploads/2020/01/Huffman_0-1-e1578382812597-300x143.png)
+![](../../assets/content-images/uploads/2020/01/Huffman_0-1-e1578382812597-300x143.png)
 
 对于前两个街区，需要花费的时间是，先花3天时间招个工，2个工人分别建造街区，时间花费max(1,2)天，共计split+max(1,2)，也就是5天。其余的依此类推。
 
 <Gallery
   images={[
-    { src: "../../assets/wp-content/uploads/2020/01/Huffman_1.png", caption: "" },
-    { src: "../../assets/wp-content/uploads/2020/01/Huffman_2.png", caption: "" },
-    { src: "../../assets/wp-content/uploads/2020/01/Huffman_3.png", caption: "" },
+    { src: "../../assets/content-images/uploads/2020/01/Huffman_1.png", caption: "" },
+    { src: "../../assets/content-images/uploads/2020/01/Huffman_2.png", caption: "" },
+    { src: "../../assets/content-images/uploads/2020/01/Huffman_3.png", caption: "" },
   ]}
 />
 
 最终，一个霍夫曼树就算构建完成了，生成的过程是自底向上的，实际的执行过程是自顶向下的，也就是：第一个工人先花3天招一个新工人，让他去建造需要花10天的街区；同时，第一个工人再花3天招一个新工人，让他去建造需要花7天的街区；依此类推。直到最后一个需要花1天的街区，就自己上了。
 
-![](../../assets/wp-content/uploads/2020/01/Huffman_4-300x225.png)
+![](../../assets/content-images/uploads/2020/01/Huffman_4-300x225.png)
 
 剩下的就代码实现了，参考代码：
 

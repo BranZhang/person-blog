@@ -6,7 +6,7 @@ modDatetime: 2025-02-04T13:40:24.000Z
 draft: false
 hiddenLocales: ["en"]
 tags: ["mapbox","openstreetmap","地图","GIS"]
-cover: "../../assets/wp-content/uploads/2019/09/china-e1673587197753.png"
+cover: "../../assets/content-images/uploads/2019/09/china-e1673587197753.png"
 ---
 
 最近刚好读到《中评周刊》115期的《陈徒手： 1965-1975：北京地名修改内情》文章，里面提到了北京在六七十年代，曾要求过改革不适合时代潮流的已有地名。原文的说法如下：
@@ -27,8 +27,8 @@ cover: "../../assets/wp-content/uploads/2019/09/china-e1673587197753.png"
 
 | 参考图 | 参考图 |
 | --- | --- |
-| ![](../../assets/wp-content/uploads/2019/09/gis-5-1.jpg) | ![](../../assets/wp-content/uploads/2019/09/gis-5-6-722x1024.jpg) |
-| ![](../../assets/wp-content/uploads/2019/09/gis-5-7.jpg) | ![](../../assets/wp-content/uploads/2019/09/gis-5-4-1.png) |
+| ![](../../assets/content-images/uploads/2019/09/gis-5-1.jpg) | ![](../../assets/content-images/uploads/2019/09/gis-5-6-722x1024.jpg) |
+| ![](../../assets/content-images/uploads/2019/09/gis-5-7.jpg) | ![](../../assets/content-images/uploads/2019/09/gis-5-4-1.png) |
 
 ## 数据准备
 
@@ -77,7 +77,7 @@ cover: "../../assets/wp-content/uploads/2019/09/china-e1673587197753.png"
 
 如果只是单纯的在地图上加上标记没什么意思。那只是把地图拿来应用，算不上是地图本身。我们要
 
-![](../../assets/wp-content/uploads/2019/09/gis-5-9.jpeg)
+![](../../assets/content-images/uploads/2019/09/gis-5-9.jpeg)
 
 那么怎么才能修改地图上的数据呢？或者说，如何才能让我们后期添加到地图上的数据看起来和地图上的其他要素融为一体呢？有请 [Mapbox Studio](https://studio.mapbox.com/) 以及 [OpenStreetMap](https://www.openstreetmap.org)。
 
@@ -101,7 +101,7 @@ cover: "../../assets/wp-content/uploads/2019/09/china-e1673587197753.png"
 
 ### 全国山河一片红
 
-![](../../assets/wp-content/uploads/2019/09/gis-5-12-223x300.jpg "《全国山河一片红》邮票")
+![](../../assets/content-images/uploads/2019/09/gis-5-12-223x300.jpg "《全国山河一片红》邮票")
 
 这张邮票的背景读者可以自行搜索。我觉得将地图在小比例尺下显示成这样的效果不错。关键是怎么做出这样的效果呢？
 
@@ -142,7 +142,7 @@ cover: "../../assets/wp-content/uploads/2019/09/china-e1673587197753.png"
 
 值此新中国成立70周年之际，就将此图献给国家吧。??❓
 
-![](../../assets/wp-content/uploads/2019/09/gis-5-10-1024x634.png)
+![](../../assets/content-images/uploads/2019/09/gis-5-10-1024x634.png)
 
 ## 参考资料
 

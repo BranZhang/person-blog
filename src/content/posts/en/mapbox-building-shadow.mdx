@@ -6,7 +6,7 @@ modDatetime: 2025-02-18T12:25:36.000Z
 draft: false
 hiddenLocales: ["zh-cn"]
 tags: ["Mapbox", "WebGL", "Data Visualization", "Mapping", "GIS"]
-cover: "../../../assets/wp-content/uploads/2022/12/image-4-e1672739374316.png"
+cover: "../../../assets/content-images/uploads/2022/12/image-4-e1672739374316.png"
 ---
 
 import Embed from "@/components/Embed.astro";
@@ -14,7 +14,7 @@ import Gallery from "@/components/Gallery.astro";
 
 Sunlight and shadow analysis is a common requirement. How can a comparable effect be implemented on a map?
 
-![](../../../assets/wp-content/uploads/2022/12/image-1-1024x493.png "Target result")
+![](../../../assets/content-images/uploads/2022/12/image-1-1024x493.png "Target result")
 
 ## Choosing a Framework
 
@@ -24,9 +24,9 @@ Cesium has built-in shadow support: set the `Viewer` option `shadows` to `true`.
 
 <Gallery
   images={[
-    { src: "../../../assets/wp-content/uploads/2022/12/cesium_1-1.png", caption: "Default result" },
-    { src: "../../../assets/wp-content/uploads/2022/12/cesium_2-1.png", caption: "size = 10240" },
-    { src: "../../../assets/wp-content/uploads/2022/12/cesium_3-1.png", caption: "size = 10240 softShadows = true" },
+    { src: "../../../assets/content-images/uploads/2022/12/cesium_1-1.png", caption: "Default result" },
+    { src: "../../../assets/content-images/uploads/2022/12/cesium_2-1.png", caption: "size = 10240" },
+    { src: "../../../assets/content-images/uploads/2022/12/cesium_3-1.png", caption: "size = 10240 softShadows = true" },
   ]}
   caption="Building shadows in Cesium"
 />
@@ -101,7 +101,7 @@ pos.y += sin(u_azimuth) * len;
 
 The value of `u_azimuth` is the solar azimuth calculated from the specified local time and the building's geographic location.
 
-![](../../../assets/wp-content/uploads/2022/12/image-4-1024x697.png "Building shadows in Mapbox")
+![](../../../assets/content-images/uploads/2022/12/image-4-1024x697.png "Building shadows in Mapbox")
 
 ## Supporting Mapbox GL JS v2
 

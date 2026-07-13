@@ -6,7 +6,7 @@ modDatetime: 2025-02-24T08:00:58.000Z
 draft: false
 hiddenLocales: ["en"]
 tags: ["gis","WebGL","地图"]
-cover: "../../assets/wp-content/uploads/2025/02/deckgl3-min.gif"
+cover: "../../assets/content-images/uploads/2025/02/deckgl3-min.gif"
 ---
 
 deck.gl 是一个开源的 WebGL 驱动框架，用于对大型数据集进行可视化的探索性数据分析。因为工作需要，我尝试改造 deck.gl 以让它支持 EPSG:4326 投影坐标系。最终实现代码可以参考：[deck.gl with EPSG:4326](https://github.com/BranZhang/deck.gl)。不过，在我改造代码的过程中，发现在 deck.gl 源码里有这样的一段：
@@ -31,11 +31,11 @@ get projectionMode() {
 
 在运行时，deck.gl 的 MapView 使用 Web Mercator 投影将地理特征显示在屏幕上。在渲染每一帧时，根据用户交互设置的缩放级别，deck.gl 对每个坐标执行以下转换，将 [经度，纬度，海拔] 转换为 Mercator 平面上的 [X，Y]：
 
-![](../../assets/wp-content/uploads/2025/02/deckgl1-1024x281.webp)
+![](../../assets/content-images/uploads/2025/02/deckgl1-1024x281.webp)
 
 正如你所看到的，从纬度到 Y 的映射是非线性的。这个计算依赖于昂贵的三角函数和对数运算，并且必须针对每个坐标在可能非常大的数据集中执行。这是因为地球不是平的！
 
-![](../../assets/wp-content/uploads/2025/02/deckgl2-1024x1024.webp "墨卡托投影，所有这些点的大小相同。")
+![](../../assets/content-images/uploads/2025/02/deckgl2-1024x1024.webp "墨卡托投影，所有这些点的大小相同。")
 
 与大多数地图库（如 Mapbox GL JS）不同，deck.gl 并不在 CPU 上进行处理。因为 deck.gl 旨在处理大量频繁变化的数据点，在 CPU 上进行 Web Mercator 投影会导致严重的性能损失。相反，它将坐标原样传递给 GPU，并在顶点着色器中执行这些转换。
 
@@ -51,9 +51,9 @@ get projectionMode() {
 
 其结果是，当进行大范围概览时，一切正常，但在放大时，精度问题开始显现，点会明显变形并在视口发生最轻微变化时“跳动”。
 
-![](../../assets/wp-content/uploads/2025/02/deckgl3-min.gif "圆形在四周“跳动”")
+![](../../assets/content-images/uploads/2025/02/deckgl3-min.gif "圆形在四周“跳动”")
 
-![](../../assets/wp-content/uploads/2025/02/deckgl4-1024x605.webp "在使用32位坐标和Web Mercator投影时，像素误差随着缩放级别的增加而增加。")
+![](../../assets/content-images/uploads/2025/02/deckgl4-1024x605.webp "在使用32位坐标和Web Mercator投影时，像素误差随着缩放级别的增加而增加。")
 
 ## 引入模拟的64位浮点数
 
@@ -70,11 +70,11 @@ lowPart = x – highPart*
 
 作为 emulated fp64 解决方案的更便宜替代方案，deck.gl v5 引入了 LNGLAT_OFFSETS 坐标系统。在此模式下，代替使用 [lng, lat]，每个地理位置使用 [Δlng, Δlat] 来表示相对于固定点（坐标原点）的“偏移”。在着色器中，使用线性近似将经纬度差转换为 Mercator 平面上的像素差：
 
-![](../../assets/wp-content/uploads/2025/02/deckgl5.webp)
+![](../../assets/content-images/uploads/2025/02/deckgl5.webp)
 
 其中，常数 K[ij] 是通过使用二阶泰勒级数展开，根据坐标原点的纬度来确定的。
 
-![](../../assets/wp-content/uploads/2025/02/deckgl6-1024x800.webp "使用线性近似时，随着偏移量远离原点，像素误差会增加（基于 12 级缩放的计算）。")
+![](../../assets/content-images/uploads/2025/02/deckgl6-1024x800.webp "使用线性近似时，随着偏移量远离原点，像素误差会增加（基于 12 级缩放的计算）。")
 
 虽然线性近似的误差随着偏移量的增加而增大，但在±0.1度的范围内（足够覆盖一个城市的范围），误差通常是无法察觉的。在局部范围内，我们可以假设地球是平的。当偏移量如此小的时候，32位浮点数足以捕捉所需的精度，从而消除了对复杂的仿真64位运算的需求。由于不涉及三角函数，着色器的执行速度极快。
 
@@ -86,7 +86,7 @@ lowPart = x – highPart*
 
 动态选择坐标原点对我们有利：视口的大小是有限的，这意味着任何远离中心的点在投影时出现较大误差的情况，会被屏幕边缘裁剪掉。更好的是，随着缩放级别的增加，视口的覆盖范围呈指数级缩小，从而抵消了误差的比例效应。
 
-![](../../assets/wp-content/uploads/2025/02/deckgl7-1024x595.webp "在自动偏移模式下，最大像素误差随着缩放级别的增加而减少（计算基于 2000×2000 的视口）。")
+![](../../assets/content-images/uploads/2025/02/deckgl7-1024x595.webp "在自动偏移模式下，最大像素误差随着缩放级别的增加而减少（计算基于 2000×2000 的视口）。")
 
 将此图与 32 位 Web Mercator 投影的图表进行比较，我们创建了一种新的坐标系统，结合了正常模式和自动偏移模式：当缩放级别低于某个阈值时，我们将使用“正常”投影；否则，我们将使用坐标偏移的“平面”模式，将中心点设置为视口的中心。我们始终在任何给定的缩放级别选择误差较小的模式。
 
@@ -98,7 +98,7 @@ lowPart = x – highPart*
 
 新的混合坐标系统（黄色）与 64 位模式（红色）具有可比的准确性，尽管它仅使用 32 位。而传统的 32 位模式（蓝色）在相同的缩放级别下不稳定。
 
-![](../../assets/wp-content/uploads/2025/02/deckgl8.gif "从 deck.gl v6.2 开始，这种坐标系统将成为所有 LNGLAT 图层的新默认设置。")
+![](../../assets/content-images/uploads/2025/02/deckgl8.gif "从 deck.gl v6.2 开始，这种坐标系统将成为所有 LNGLAT 图层的新默认设置。")
 
 ### 性能
 

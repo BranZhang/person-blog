@@ -67,7 +67,7 @@ Iterate over every position $k$ from the beginning of the text. Start with a fra
 2. If the fragment does not exist, no longer word can begin with that sequence, so stop extending it.
 3. Increment the end position, form the slice `[k:i+1]`, and repeat the lookup.
 
-![](../../../assets/wp-content/uploads/2019/10/jieba_dag-1024x321.png "DAG for the Chinese sentence 'Go visit Peking University'")
+![](../../../assets/content-images/uploads/2019/10/jieba_dag-1024x321.png "DAG for the Chinese sentence 'Go visit Peking University'")
 
 ### Finding the Maximum-Probability Path
 

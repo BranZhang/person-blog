@@ -6,7 +6,7 @@ modDatetime: 2025-02-04T13:40:24.000Z
 draft: false
 hiddenLocales: ["zh-cn"]
 tags: ["Mapbox", "OpenStreetMap", "Cartography", "GIS"]
-cover: "../../../assets/wp-content/uploads/2019/09/china-e1673587197753.png"
+cover: "../../../assets/content-images/uploads/2019/09/china-e1673587197753.png"
 ---
 
 I recently read Chen Tushou's article “Inside Beijing's Place-name Changes, 1965–1975,” which describes an official effort in the 1960s and 1970s to replace Beijing street names considered inconsistent with the political climate of the time.
@@ -27,8 +27,8 @@ The following images served as visual references. They came from the web and may
 
 | Reference | Reference |
 | --- | --- |
-| ![](../../../assets/wp-content/uploads/2019/09/gis-5-1.jpg) | ![](../../../assets/wp-content/uploads/2019/09/gis-5-6-722x1024.jpg) |
-| ![](../../../assets/wp-content/uploads/2019/09/gis-5-7.jpg) | ![](../../../assets/wp-content/uploads/2019/09/gis-5-4-1.png) |
+| ![](../../../assets/content-images/uploads/2019/09/gis-5-1.jpg) | ![](../../../assets/content-images/uploads/2019/09/gis-5-6-722x1024.jpg) |
+| ![](../../../assets/content-images/uploads/2019/09/gis-5-7.jpg) | ![](../../../assets/content-images/uploads/2019/09/gis-5-4-1.png) |
 
 ## Data Preparation
 
@@ -77,7 +77,7 @@ Many more hutongs were renamed, but matching them to the modern city is difficul
 
 Simply placing markers on an existing map would not be especially interesting. The historical data should become part of the map itself.
 
-![](../../../assets/wp-content/uploads/2019/09/gis-5-9.jpeg)
+![](../../../assets/content-images/uploads/2019/09/gis-5-9.jpeg)
 
 How can newly added data look native to the rest of the map? The workflow uses [Mapbox Studio](https://studio.mapbox.com/) and [OpenStreetMap](https://www.openstreetmap.org).
 
@@ -101,7 +101,7 @@ The palette draws from contemporary posters: revolutionary red, military green, 
 
 ### “The Whole Country Is Red”
 
-![](../../../assets/wp-content/uploads/2019/09/gis-5-12-223x300.jpg "The Whole Country Is Red postage stamp")
+![](../../../assets/content-images/uploads/2019/09/gis-5-12-223x300.jpg "The Whole Country Is Red postage stamp")
 
 The famous stamp suggested an effective small-scale national view. The remaining question was how to reproduce it cartographically.
 
@@ -142,7 +142,7 @@ A Studio heatmap-layer issue prevented the glow effect. Zoom the map below out t
 
 On the occasion of the 70th anniversary of the founding of the People's Republic of China, I dedicate this map to the nation.
 
-![](../../../assets/wp-content/uploads/2019/09/gis-5-10-1024x634.png)
+![](../../../assets/content-images/uploads/2019/09/gis-5-10-1024x634.png)
 
 ## References
 

@@ -6,7 +6,7 @@ modDatetime: 2025-02-18T14:31:16.000Z
 draft: false
 hiddenLocales: ["zh-cn"]
 tags: ["Mapbox", "WebGL", "Vector Tiles", "GIS"]
-cover: "../../../assets/wp-content/uploads/2021/02/mapbox-tile.png"
+cover: "../../../assets/content-images/uploads/2021/02/mapbox-tile.png"
 ---
 
 **This article is based on [“Life of a Tile” from maplibre/maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js/blob/main/docs/life-of-a-tile.md). Source links below point to Mapbox GL JS v1.13.2.**
@@ -23,7 +23,7 @@ Ideally, the event and render loops run at 60 frames per second, while expensive
 
 ## Event Loop
 
-![](../../../assets/wp-content/uploads/2022/09/event-loop.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/event-loop.plantuml.svg")
+![](../../../assets/content-images/uploads/2022/09/event-loop.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/event-loop.plantuml.svg")
 
 ### Transform
 
@@ -40,7 +40,7 @@ After changing `transform`, both `Camera` and `HandlerManager` can emit events s
 
 ## Tile Loading
 
-![](../../../assets/wp-content/uploads/2022/09/fetch-tile.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/fetch-tile.plantuml.svg")
+![](../../../assets/content-images/uploads/2022/09/fetch-tile.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/fetch-tile.plantuml.svg")
 
 [Map#_render()](https://github.com/mapbox/mapbox-gl-js/blob/release-v1.13.2/src/ui/map.js#L2439) follows two paths depending on `map._sourcesDirty`. When it is true, `_render()` first asks every source whether new data is needed. The false case is covered in the render-loop section.
 
@@ -117,7 +117,7 @@ After the missing tile has loaded, control returns to [SourceCache](https://gith
 
 ## Render Loop
 
-![](../../../assets/wp-content/uploads/2022/09/render-frame.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/render-frame.plantuml.svg")
+![](../../../assets/content-images/uploads/2022/09/render-frame.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/render-frame.plantuml.svg")
 
 When `_sourcesDirty` is false, `Map#_render()` draws the next frame directly on the main thread:
 

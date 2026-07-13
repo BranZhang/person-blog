@@ -6,7 +6,7 @@ modDatetime: 2025-02-18T12:25:36.000Z
 draft: false
 hiddenLocales: ["en"]
 tags: ["mapbox","WebGL","可视化","地图","GIS"]
-cover: "../../assets/wp-content/uploads/2022/12/image-4-e1672739374316.png"
+cover: "../../assets/content-images/uploads/2022/12/image-4-e1672739374316.png"
 ---
 
 import Embed from "@/components/Embed.astro";
@@ -14,7 +14,7 @@ import Gallery from "@/components/Gallery.astro";
 
 光照分析是一个很常见的需求，那么如何在地图中实现类似的效果呢？
 
-![](../../assets/wp-content/uploads/2022/12/image-1-1024x493.png "理想效果")
+![](../../assets/content-images/uploads/2022/12/image-1-1024x493.png "理想效果")
 
 ## 框架选择
 
@@ -24,9 +24,9 @@ Cesium 本身是支持光照阴影效果的，只需要将 Viewer 中的 shadows
 
 <Gallery
   images={[
-    { src: "../../assets/wp-content/uploads/2022/12/cesium_1-1.png", caption: "默认效果" },
-    { src: "../../assets/wp-content/uploads/2022/12/cesium_2-1.png", caption: "size = 10240" },
-    { src: "../../assets/wp-content/uploads/2022/12/cesium_3-1.png", caption: "size = 10240 softShadows = true" },
+    { src: "../../assets/content-images/uploads/2022/12/cesium_1-1.png", caption: "默认效果" },
+    { src: "../../assets/content-images/uploads/2022/12/cesium_2-1.png", caption: "size = 10240" },
+    { src: "../../assets/content-images/uploads/2022/12/cesium_3-1.png", caption: "size = 10240 softShadows = true" },
   ]}
   caption="Cesium 的建筑阴影效果"
 />
@@ -101,7 +101,7 @@ pos.y += sin(u_azimuth) * len;
 
 而 u_azimuth 的值，则是根据指定的当地时间，以及建筑的地理位置计算得到的光照角度。
 
-![](../../assets/wp-content/uploads/2022/12/image-4-1024x697.png "Mapbox 中的建筑物阴影")
+![](../../assets/content-images/uploads/2022/12/image-4-1024x697.png "Mapbox 中的建筑物阴影")
 
 ## 兼容 v2 版的 mapbox
 

@@ -6,7 +6,7 @@ modDatetime: 2025-03-05T09:49:16.000Z
 draft: false
 hiddenLocales: ["en"]
 tags: ["C++","JavaScript","WebAssembly"]
-cover: "../../assets/wp-content/uploads/2023/12/3915709301.png"
+cover: "../../assets/content-images/uploads/2023/12/3915709301.png"
 ---
 
 [WebAssembly](https://webassembly.org/)（简称 WASM）是一种以安全有效的方式运行可移植程序的新兴 Web 技术，下面是引用 [MDN 上对它的定义](https://developer.mozilla.org/zh-CN/docs/WebAssembly)：
@@ -15,7 +15,7 @@ cover: "../../assets/wp-content/uploads/2023/12/3915709301.png"
 
 也就是说，无论你使用的是哪一种语言，我们都可以将其转换为 WebAssembly 格式，并在浏览器中以原生的性能运行。WebAssembly 的开发团队来自 Mozilla、Google、Microsoft 和 Apple，分别代表着四大网络浏览器 Firefox、Chrome、Microsoft Edge 和 Safari，从 2017 年 11 月开始，这四大浏览器就开始实验性的支持 WebAssembly。当时 WebAssembly 还没有形成标准，这么多的浏览器开发商对某个尚未标准化的技术 [达成如此一致的意见](https://lists.w3.org/Archives/Public/public-webassembly/2017Feb/0002.html)，这在历史上是很罕见的，可以看出这绝对是一项值得关注的技术，被号称为 `the future of web development`。
 
-![](../../assets/wp-content/uploads/2023/12/3915709301.png)
+![](../../assets/content-images/uploads/2023/12/3915709301.png)
 
 WebAssembly 在 2019 年 12 月 5 日被万维网联盟（W3C）推荐为标准，与 HTML，CSS 和 JavaScript 一起，成为 Web 的第四种语言。
 
@@ -31,7 +31,7 @@ JavaScript 诞生于 1995 年 5 月，一个让人津津乐道的故事是，当
 
 JIT 技术推出之后，JavaScript 的性能得到了飞速提升：
 
-![](../../assets/wp-content/uploads/2023/12/2031471968.png)
+![](../../assets/content-images/uploads/2023/12/2031471968.png)
 
 随着性能的提升，JavaScript 的应用范围也得到了极大的扩展，Web 内容变得更加丰富，图片、视频、游戏，等等等等，甚至有人将 JavaScript 用于后端开发（Node.js）。不过 JIT 也不完全是 “性能银弹”，因为通过 JIT 优化也是有一定代价的，比如存储优化后的机器码需要更多的内存，另外 JIT 优化对变量类型非常敏感，但是由于 JavaScript **动态类型** 的特性，用户代码中对某个变量的类型并不会严格固定，这时 JIT 优化的效果将被大打折扣。比如下面这段简单的代码：
 
@@ -93,7 +93,7 @@ function f(i) {
 
 但是 asm.js 也存在着不少的问题。首先由于它还是和 JavaScript一样是文本格式，因此加载和解析都会花费比较长的时间，这被称为慢启动问题；其次，asm.js 除了在变量后面加 `|0` 之外，还有很多类似这样的标注代码：
 
-![](../../assets/wp-content/uploads/2023/12/3642329671.webp)
+![](../../assets/content-images/uploads/2023/12/3642329671.webp)
 
 很显然，这让代码的可读性和可扩展性都变的很差；最后，仍然是性能问题，通过 asm.js 无论怎么优化最终生成的都还是 JavaScript 代码，性能自然远远比不上原生代码；因此这并不是一个非常理想的技术方案。
 
@@ -112,7 +112,7 @@ function f(i) {
 
 这个技术方案在 2015 年正式命名为 WebAssembly，2017 年各大浏览器生产商纷纷宣布支持 WebAssembly，2019 年 WebAssembly 正式成为 W3C 标准，一场关于浏览器的性能革命已经悄然展开。
 
-![](../../assets/wp-content/uploads/2023/12/2623224868.png)
+![](../../assets/content-images/uploads/2023/12/2623224868.png)
 
 ## WebAssembly 入门示例
 
@@ -167,7 +167,7 @@ $ python3 -m http.server
 
 访问 hello.html 页面如下：
 
-![](../../assets/wp-content/uploads/2023/12/263141450-1024x435.png)
+![](../../assets/content-images/uploads/2023/12/263141450-1024x435.png)
 
 可以看到我们在 C 语言中打印的 Hello World 成功输出到浏览器了。
 
@@ -222,7 +222,7 @@ document.getElementById("mybutton").addEventListener("click", () => {
 
 点击这个按钮，可以在页面和控制台上都看到 `greet()` 函数打印的内容：
 
-![](../../assets/wp-content/uploads/2023/12/3461844847-1024x443.png)
+![](../../assets/content-images/uploads/2023/12/3461844847-1024x443.png)
 
 ## WebAssembly 文本格式
 
@@ -269,7 +269,7 @@ function fetchAndInstantiate(url, importObject) {
 
 将这段 JavaScript 脚本放在一个 HTML 文件中，然后启动 Web Server 访问，可以看到控制台输出了 3，也就是 `add(1, 2)` 的结果，并且我们还可以通过 Chrome 提供的 [开发者工具对 wasm 文件进行调试](https://developer.chrome.com/blog/wasm-debugging-2020/)：
 
-![](../../assets/wp-content/uploads/2023/12/3995215115-1024x473.png)
+![](../../assets/content-images/uploads/2023/12/3995215115-1024x473.png)
 
 ## 在非浏览器下运行 WebAssembly
 

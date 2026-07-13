@@ -18,37 +18,37 @@ Kriging is relatively complex, but it can produce high-quality interpolation res
 
 ### Import Point Data
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-1.jpg "Importing point coordinates and elevation values")
+![](../../../assets/content-images/uploads/2019/07/gis-1-1.jpg "Importing point coordinates and elevation values")
 
 Choose **Geostatistical Wizard** from the **Geostatistical Analyst** toolbar. If the toolbar is not visible, right-click an empty area of the toolbar region and enable **Geostatistical Analyst**.
 
 ### Select the Data
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-2.jpg "Selecting the data and choosing Kriging")
+![](../../../assets/content-images/uploads/2019/07/gis-1-2.jpg "Selecting the data and choosing Kriging")
 
 ### Choose Ordinary Kriging
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-3.jpg "Selecting Ordinary Kriging")
+![](../../../assets/content-images/uploads/2019/07/gis-1-3.jpg "Selecting Ordinary Kriging")
 
 ### Model-fitting Interface
 
 This screen is important and corresponds to the concepts described in the ArcGIS documentation. The fitted curve in the upper-left corner is what the C# implementation will reproduce, and the plotted points must also be calculated.
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-4.jpg "Model-fitting interface")
+![](../../../assets/content-images/uploads/2019/07/gis-1-4.jpg "Model-fitting interface")
 
 ### Inspect the Variogram Model Types
 
 Open the **Type** menu to choose among spherical, exponential, Gaussian, and other models. Selecting a different type changes the fitted curve on the left. The ArcGIS documentation describes each model.
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-5.jpg "Variogram model types")
+![](../../../assets/content-images/uploads/2019/07/gis-1-5.jpg "Variogram model types")
 
 ### View the Interpolation Result
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-6.jpg "The interpolation result after selecting a model")
+![](../../../assets/content-images/uploads/2019/07/gis-1-6.jpg "The interpolation result after selecting a model")
 
 ### Error Analysis
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-7.jpg "Error analysis for the interpolation result")
+![](../../../assets/content-images/uploads/2019/07/gis-1-7.jpg "Error analysis for the interpolation result")
 
 ---
 
@@ -56,7 +56,7 @@ Open the **Type** menu to choose among spherical, exponential, Gaussian, and oth
 
 Open the ArcGIS help, search for “kriging,” and select “How Kriging works.”
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-8.jpg "ArcGIS documentation on kriging")
+![](../../../assets/content-images/uploads/2019/07/gis-1-8.jpg "ArcGIS documentation on kriging")
 
 ### Calculate Pairwise Semivariance
 
@@ -66,25 +66,25 @@ With 100 points, calculating semivariance between every point and the other 99 p
 
 This produces the points shown below: red points are the original pairwise results, and blue points are the bin means.
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-9.jpg)
+![](../../../assets/content-images/uploads/2019/07/gis-1-9.jpg)
 
 ### Fit the Points to Obtain the Range and Sill
 
 The model is fitted primarily to the blue points. In the equations, $c_0$ is the nugget, $c$ is the partial sill, and $a$ or $r$ is the practical range. The nugget $c_0$ is commonly assumed to be zero in this fitting process.
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-10.jpg "Variogram model equations")
+![](../../../assets/content-images/uploads/2019/07/gis-1-10.jpg "Variogram model equations")
 
 #### Spherical Model
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-11.jpg "Spherical model")
+![](../../../assets/content-images/uploads/2019/07/gis-1-11.jpg "Spherical model")
 
 #### Exponential Model
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-12.jpg "Exponential model")
+![](../../../assets/content-images/uploads/2019/07/gis-1-12.jpg "Exponential model")
 
 #### Gaussian Model
 
-![](../../../assets/wp-content/uploads/2019/07/gis-1-13.jpg "Gaussian model")
+![](../../../assets/content-images/uploads/2019/07/gis-1-13.jpg "Gaussian model")
 
 Assuming $c_0=0$, the spherical equation has three unknowns, whereas the Gaussian and exponential models have two. Because the fitting process must be implemented in C#, I chose the simpler exponential model:
 

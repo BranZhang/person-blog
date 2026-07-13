@@ -278,9 +278,9 @@ class Solution:
 
 不过到目前位置碰到的题目都是基于数组实现的状态转移，还没有碰见真正的需要基于图来实现的状态转移。
 
-![](../../assets/wp-content/uploads/2019/09/algorithm-1-1.png)
+![](../../assets/content-images/uploads/2019/09/algorithm-1-1.png)
 
-![](../../assets/wp-content/uploads/2019/09/algorithm-1-2.png)
+![](../../assets/content-images/uploads/2019/09/algorithm-1-2.png)
 
 以上为原书的内容。原书中归纳的4中状态转移方程并不能完全理解，我还是结合例子来看吧。
 

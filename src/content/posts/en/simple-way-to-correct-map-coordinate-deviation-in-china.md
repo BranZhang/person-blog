@@ -35,19 +35,19 @@ The wrapper itself is straightforward. The unexpected result was that this workf
 
 Real-world features such as buildings and roads pass through data collection and processing before being rendered into map tiles.
 
-![](../../../assets/wp-content/uploads/2019/08/gis-4-real_world.png "A building between points A and B rendered into a tile")
+![](../../../assets/content-images/uploads/2019/08/gis-4-real_world.png "A building between points A and B rendered into a tile")
 
 When a provider applies a coordinate offset, the effect is not obvious if its data is used alone. Combining it with other sources, however, reveals misalignment between datasets. The offset is generally nonlinear and cannot be corrected by adding a constant displacement.
 
 To keep the map usable, the transformation must nevertheless be approximately linear over a sufficiently small area. The diagram below illustrates transformed feature coordinates. Requesting a tile using the original points A and B returns imagery containing the shifted features.
 
-![](../../../assets/wp-content/uploads/2019/08/gis-4-encrypted_coordinate.png)
+![](../../../assets/content-images/uploads/2019/08/gis-4-encrypted_coordinate.png)
 
 The provider cannot return a tile rendered from the unshifted source data. It can, however, return a tile that closely resembles one.
 
 The solution is to use the provider's API for converting original coordinates into its offset coordinate system. Transform the desired tile extent through that API before requesting the imagery.
 
-![](../../../assets/wp-content/uploads/2019/08/gis-4-finish.png)
+![](../../../assets/content-images/uploads/2019/08/gis-4-finish.png)
 
 If A transforms to A′ and B transforms to B′, the tile requested for the A′–B′ extent is approximately aligned with the original A–B extent.
 
@@ -68,9 +68,9 @@ Most online map providers do expose interface 2.
 
 The red lines in the following screenshots are OpenStreetMap data.
 
-![](../../../assets/wp-content/uploads/2019/08/gis-4-amap_osm.png "Amap imagery and OSM data before correction")
+![](../../../assets/content-images/uploads/2019/08/gis-4-amap_osm.png "Amap imagery and OSM data before correction")
 
-![](../../../assets/wp-content/uploads/2019/08/gis-4-amap_c_osm.png "Corrected Amap imagery aligned with OSM data")
+![](../../../assets/content-images/uploads/2019/08/gis-4-amap_c_osm.png "Corrected Amap imagery aligned with OSM data")
 
 After applying the correction described above, the raster tiles in the second screenshot align closely with the OSM vectors.
 

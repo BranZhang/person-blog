@@ -18,37 +18,37 @@ tags: ["arcgis","C#","kriging","插值","GIS","算法"]
 
 ### 导入散点数据
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-1.jpg "导入散点数据，数据包括散点的坐标，高程值")
+![](../../assets/content-images/uploads/2019/07/gis-1-1.jpg "导入散点数据，数据包括散点的坐标，高程值")
 
 在“Geostatistical Analyst”中选择“地统计向导”。找不到的先右击菜单栏空白处，勾选“Geostatistical Analyst”。
 
 ### 选择数据
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-2.jpg "选择数据，选择“克里金法”，下一步")
+![](../../assets/content-images/uploads/2019/07/gis-1-2.jpg "选择数据，选择“克里金法”，下一步")
 
 ### 选择“普通克里金”
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-3.jpg "选择“普通克里金”，下一步")
+![](../../assets/content-images/uploads/2019/07/gis-1-3.jpg "选择“普通克里金”，下一步")
 
 ### 拟合界面
 
 这个界面的内容很重要，也正是帮助文档中所解释的内容。左上角的拟合曲线是我们将要在C#代码中实现的，坐标系中的散点也是需要我们去通过计算得到的。
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-4.jpg "拟合界面")
+![](../../assets/content-images/uploads/2019/07/gis-1-4.jpg "拟合界面")
 
 ### 查看拟合函数类型
 
 点开上图界面中的“类型”，可以看到如下的几种：球面函数，指数函数，高斯函数等。选择其中不同的类型，左侧的拟合曲线也会相应的改变，这几种函数在帮助文档中有介绍到。
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-5.jpg "拟合函数类型")
+![](../../assets/content-images/uploads/2019/07/gis-1-5.jpg "拟合函数类型")
 
 ### 查看插值的结果
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-6.jpg "选择好类型之后，下一步就将看到插值的结果")
+![](../../assets/content-images/uploads/2019/07/gis-1-6.jpg "选择好类型之后，下一步就将看到插值的结果")
 
 ### 误差分析的界面
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-7.jpg "最后的界面是对插值结果的误差分析")
+![](../../assets/content-images/uploads/2019/07/gis-1-7.jpg "最后的界面是对插值结果的误差分析")
 
 ---
 
@@ -56,7 +56,7 @@ tags: ["arcgis","C#","kriging","插值","GIS","算法"]
 
 打开ArcGIS的帮助文档，搜索“克里金”，选择“克里金法的工作原理”。
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-8.jpg "有关克里金插值的文档")
+![](../../assets/content-images/uploads/2019/07/gis-1-8.jpg "有关克里金插值的文档")
 
 ### 求取散点的半方差
 
@@ -67,25 +67,25 @@ tags: ["arcgis","C#","kriging","插值","GIS","算法"]
 
 这样，我们就可以得到多个坐标点，如图，红色的点就是初始求得的点，蓝色的点就是均值点：
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-9.jpg)
+![](../../assets/content-images/uploads/2019/07/gis-1-9.jpg)
 
 ### 拟合坐标点，求取主变程和基台值
 
 拟合主要是针对蓝色的点，拟合函数有多种选择，函数中的$c_0$是块金值，$c$是偏基台值，$a$或$r$是主变程值，$c_0$块金值在拟合中一般默认为0。
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-10.jpg "拟合函数")
+![](../../assets/content-images/uploads/2019/07/gis-1-10.jpg "拟合函数")
 
 #### 球形模型
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-11.jpg "球形模型")
+![](../../assets/content-images/uploads/2019/07/gis-1-11.jpg "球形模型")
 
 #### 指数模型
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-12.jpg "指数模型")
+![](../../assets/content-images/uploads/2019/07/gis-1-12.jpg "指数模型")
 
 #### 高斯模型
 
-![](../../assets/wp-content/uploads/2019/07/gis-1-13.jpg "高斯模型")
+![](../../assets/content-images/uploads/2019/07/gis-1-13.jpg "高斯模型")
 
 在以上三个模型中，抛开$c_0$默认为0，球形模型的方程有3个未知量，高斯模型和指数模型有2个未知量，因为需要用C#程序去实现这个拟合的过程，我选择了较为简单的指数模型，其公式为：
 

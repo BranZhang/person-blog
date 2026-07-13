@@ -14,7 +14,7 @@ Starting from a LeetCode problem, this article explores several extensions and u
 
 **Aside 2:** On LeetCode's Chinese site, the word “poison” itself appeared to be filtered in some solution text.
 
-![](../../../assets/wp-content/uploads/2021/01/image.png "Is 'poison' itself a sensitive word?")
+![](../../../assets/content-images/uploads/2021/01/image.png "Is 'poison' itself a sensitive word?")
 
 ## The Original Problem
 

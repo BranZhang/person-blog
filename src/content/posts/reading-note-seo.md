@@ -113,7 +113,7 @@ tags: ["seo","搜索引擎","笔记","信息检索"]
 
 无论是 Google Search Console 还是 Bing Search Console，都是用来帮助站长更好的管理自己的网站的，一方面，站长可以为搜索服务提供商提供关于站点的更加详细的资料；另一方面，站长可以通过这样的工具，了解到自身站点的详细信息，例如sitemap，点击率，检索词之类的。
 
-![](../../assets/wp-content/uploads/2019/10/google_search_console_click.png "站点目前状况，没人点击，太惨了")
+![](../../assets/content-images/uploads/2019/10/google_search_console_click.png "站点目前状况，没人点击，太惨了")
 
 在上面提到的种种SEO手段中，经常会提到一些数据的获取，例如想要提取到进入站点的最常用的搜索词，在 Search Console 中便可以轻松的得到。
 
@@ -121,7 +121,7 @@ tags: ["seo","搜索引擎","笔记","信息检索"]
 
 目前我的博客上用的SEO优化的插件是[Rank Math](https://s.rankmath.com/home)，因为这个插件是在免费的前提下，我能找到的功能最全的了。插件罗列了很多的设置参数，并且为每一篇文章提供了SEO的建议及评分。
 
-![](../../assets/wp-content/uploads/2019/10/seo_rank_math.png)
+![](../../assets/content-images/uploads/2019/10/seo_rank_math.png)
 
 就以当前的这篇文章为例，插件会自动生成这篇文章在搜索结果里的样式，并提示我需要填写哪些字段，来优化展示效果。也包含了很多的检查项，比如“Focus Keyword does not appear in the SEO title.”，“ Your content is 90 words long. Consider using at least 600 words. ”。我懒得为了这些指标去做优化了。
 

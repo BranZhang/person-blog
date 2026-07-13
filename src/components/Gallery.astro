@@ -17,16 +17,16 @@ type Props = {
 const { images, min = 220, caption } = Astro.props;
 
 const imageModules = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/wp-content/**/*.{avif,gif,jpeg,jpg,png,svg,webp}",
+  "/src/assets/content-images/**/*.{avif,gif,jpeg,jpg,png,svg,webp}",
   { eager: true }
 );
 
 function resolveImage(source: string): ImageMetadata {
-  const marker = "assets/wp-content/";
+  const marker = "assets/content-images/";
   const markerIndex = source.indexOf(marker);
   if (markerIndex === -1) {
     throw new Error(
-      `Gallery image must be under src/assets/wp-content: ${source}`
+      `Gallery image must be under src/assets/content-images: ${source}`
     );
   }
 
@@ -38,7 +38,7 @@ function resolveImage(source: string): ImageMetadata {
     // Keep the original path so the error below identifies the bad reference.
   }
 
-  const key = `/src/assets/wp-content/${suffix}`;
+  const key = `/src/assets/content-images/${suffix}`;
   const image = imageModules[key]?.default;
   if (!image) throw new Error(`Could not resolve Gallery image: ${source}`);
   return image;
