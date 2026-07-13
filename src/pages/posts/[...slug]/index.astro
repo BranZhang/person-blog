@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { type CollectionEntry, getCollection, render } from "astro:content";
 import PostLayout from "@/layouts/PostLayout.astro";
 import Header from "@/components/Header.astro";
@@ -127,10 +128,14 @@ const ogImage = ogImageUrl
     {
       cover ? (
         <header class="post-hero relative flex min-h-64 flex-col justify-end overflow-hidden rounded-lg p-3 shadow-sm sm:min-h-72 sm:p-5">
-          <img
+          <Image
             src={cover}
             alt=""
             fetchpriority="high"
+            loading="eager"
+            layout="full-width"
+            widths={[640, 828, 1024, 1668, 2048]}
+            sizes="(max-width: 1024px) calc(100vw - 2rem), 992px"
             class="absolute inset-0 h-full w-full border-0 object-cover"
           />
           <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />

@@ -1,17 +1,10 @@
 ---
-// Responsive image gallery carried over from the old WordPress `wp-block-gallery`.
-// Pass an array of images; an optional per-image `caption` renders under each
-// thumbnail, and an optional gallery-level `caption` prop renders below the grid.
-// Images keep their public `/wp-content/...` paths (not processed by astro:assets).
-//
-// Usage (MDX):
-//   <Gallery
-//     images={[
-//       { src: "/wp-content/uploads/…/a.png", caption: "默认效果" },
-//       { src: "/wp-content/uploads/…/b.png", caption: "size = 10240" },
-//     ]}
-//     caption="Cesium 的建筑阴影效果"
-//   />
+import type { ImageMetadata } from "astro";
+import { Image as AstroImage } from "astro:assets";
+
+// Responsive image gallery carried over from the old WordPress gallery blocks.
+// Relative content paths are resolved to local image metadata and processed by
+// astro:assets.
 type Image = { src: string; alt?: string; caption?: string };
 
 type Props = {
@@ -22,6 +15,34 @@ type Props = {
 };
 
 const { images, min = 220, caption } = Astro.props;
+
+const imageModules = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/wp-content/**/*.{avif,gif,jpeg,jpg,png,svg,webp}",
+  { eager: true }
+);
+
+function resolveImage(source: string): ImageMetadata {
+  const marker = "assets/wp-content/";
+  const markerIndex = source.indexOf(marker);
+  if (markerIndex === -1) {
+    throw new Error(
+      `Gallery image must be under src/assets/wp-content: ${source}`
+    );
+  }
+
+  const encodedSuffix = source.slice(markerIndex + marker.length);
+  let suffix = encodedSuffix;
+  try {
+    suffix = decodeURIComponent(encodedSuffix);
+  } catch {
+    // Keep the original path so the error below identifies the bad reference.
+  }
+
+  const key = `/src/assets/wp-content/${suffix}`;
+  const image = imageModules[key]?.default;
+  if (!image) throw new Error(`Could not resolve Gallery image: ${source}`);
+  return image;
+}
 ---
 
 <figure class="blog-gallery">
@@ -32,10 +53,11 @@ const { images, min = 220, caption } = Astro.props;
     {
       images.map(image => (
         <figure class="blog-gallery-item">
-          <img
-            src={image.src}
+          <AstroImage
+            src={resolveImage(image.src)}
             alt={image.alt ?? image.caption ?? ""}
             loading="lazy"
+            layout="full-width"
           />
           {image.caption && <figcaption>{image.caption}</figcaption>}
         </figure>

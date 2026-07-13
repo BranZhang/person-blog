@@ -19,10 +19,8 @@ const posts = defineCollection({
       hiddenLocales: z.array(z.enum(["en", "zh-cn"])).default([]),
       tags: z.array(z.string()).default(["others"]),
       ogImage: image().or(z.string()).optional(),
-      // Custom: list-card cover image as a public/ absolute path
-      // (e.g. "/wp-content/uploads/.../cover.avif"). Rendered directly as
-      // <img>, so it is not processed by astro:assets. See CUSTOMIZATIONS.md.
-      cover: z.string().optional(),
+      // Local content image processed by astro:assets for responsive output.
+      cover: image().optional(),
       description: z.string(),
       canonicalURL: z.string().optional(),
       hideEditPost: z.boolean().optional(),

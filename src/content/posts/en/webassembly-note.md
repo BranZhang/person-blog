@@ -6,7 +6,7 @@ modDatetime: 2025-03-05T09:49:16.000Z
 draft: false
 hiddenLocales: ["zh-cn"]
 tags: ["C++", "JavaScript", "WebAssembly"]
-cover: "/wp-content/uploads/2023/12/3915709301.png"
+cover: "../../../assets/wp-content/uploads/2023/12/3915709301.png"
 ---
 
 [WebAssembly](https://webassembly.org/) (Wasm) is a portable binary instruction format designed for safe and efficient execution. [MDN](https://developer.mozilla.org/en-US/docs/WebAssembly) describes it as:
@@ -15,7 +15,7 @@ cover: "/wp-content/uploads/2023/12/3915709301.png"
 
 Languages with an appropriate compiler can target Wasm and run in the browser. Mozilla, Google, Microsoft, and Apple collaborated on the design, and Firefox, Chrome, Edge, and Safari converged on support in 2017—an unusual degree of agreement around a technology that was not yet standardized.
 
-![](/wp-content/uploads/2023/12/3915709301.png)
+![](../../../assets/wp-content/uploads/2023/12/3915709301.png)
 
 On December 5, 2019, WebAssembly became a W3C Recommendation alongside the web's established core technologies.
 
@@ -31,7 +31,7 @@ A JIT identifies hot code, compiles it to machine instructions, caches the resul
 
 JavaScript performance improved rapidly:
 
-![](/wp-content/uploads/2023/12/2031471968.png)
+![](../../../assets/wp-content/uploads/2023/12/2031471968.png)
 
 Faster engines enabled richer media, games, and server-side JavaScript. JIT is not free: compiled code consumes memory, and optimization depends on stable type assumptions that dynamic JavaScript can violate. Consider:
 
@@ -93,7 +93,7 @@ The `|0` coercions make integer types explicit and let specialized engines skip 
 
 Its text format is large and slow to parse, and generated type annotations make it unreadable:
 
-![](/wp-content/uploads/2023/12/3642329671.webp)
+![](../../../assets/wp-content/uploads/2023/12/3642329671.webp)
 
 Even heavily optimized asm.js remains constrained by JavaScript syntax and execution semantics.
 
@@ -112,7 +112,7 @@ WebAssembly combined lessons from NaCl/PNaCl and asm.js:
 
 The project was named WebAssembly in 2015, shipped across major browsers in 2017, and became a W3C standard in 2019.
 
-![](/wp-content/uploads/2023/12/2623224868.png)
+![](../../../assets/wp-content/uploads/2023/12/2623224868.png)
 
 ## Getting Started
 
@@ -167,7 +167,7 @@ $ python3 -m http.server
 
 Open `hello.html`:
 
-![](/wp-content/uploads/2023/12/263141450-1024x435.png)
+![](../../../assets/wp-content/uploads/2023/12/263141450-1024x435.png)
 
 The C program's output now appears in the browser.
 
@@ -222,7 +222,7 @@ document.getElementById("mybutton").addEventListener("click", () => {
 
 Clicking the button prints the greeting on the page and in the console.
 
-![](/wp-content/uploads/2023/12/3461844847-1024x443.png)
+![](../../../assets/wp-content/uploads/2023/12/3461844847-1024x443.png)
 
 ## WebAssembly Text Format
 
@@ -266,7 +266,7 @@ function fetchAndInstantiate(url, importObject) {
 
 When served from an HTML page, the console prints 3. Chrome DevTools can also [debug Wasm modules](https://developer.chrome.com/blog/wasm-debugging-2020/).
 
-![](/wp-content/uploads/2023/12/3995215115-1024x473.png)
+![](../../../assets/wp-content/uploads/2023/12/3995215115-1024x473.png)
 
 ## WebAssembly Outside the Browser
 

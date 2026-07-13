@@ -6,7 +6,7 @@ modDatetime: 2023-01-03T09:48:50.000Z
 draft: false
 hiddenLocales: ["zh-cn"]
 tags: ["Mapbox", "Raster", "WebGL", "Reprojection", "GIS"]
-cover: "/wp-content/uploads/2022/11/raster-reprojection-e1672739323594.png"
+cover: "../../../assets/wp-content/uploads/2022/11/raster-reprojection-e1672739323594.png"
 ---
 
 import Embed from "@/components/Embed.astro";
@@ -22,7 +22,7 @@ A common requirement is to overlay raster tiles from different projected coordin
 
 MapProxy is usually the first choice for this problem. A server acts as a proxy that caches, accelerates, and transforms map services. The diagram below summarizes its capabilities.
 
-![](/wp-content/uploads/2023/01/image.png)
+![](../../../assets/wp-content/uploads/2023/01/image.png)
 
 In some environments, however, introducing a server is impractical. That constraint motivates the client-side solution described here.
 
@@ -88,10 +88,10 @@ The final problem is reprojecting each tile into Web Mercator. Transformation be
 
 <Gallery
   images={[
-    { src: "/wp-content/uploads/2023/01/image-1-885x1024.png", caption: "division = 1" },
-    { src: "/wp-content/uploads/2023/01/image-2-885x1024.png", caption: "division = 2" },
-    { src: "/wp-content/uploads/2023/01/image-3-885x1024.png", caption: "division = 3" },
-    { src: "/wp-content/uploads/2023/01/image-4-885x1024.png", caption: "division = 4" },
+    { src: "../../../assets/wp-content/uploads/2023/01/image-1-885x1024.png", caption: "division = 1" },
+    { src: "../../../assets/wp-content/uploads/2023/01/image-2-885x1024.png", caption: "division = 2" },
+    { src: "../../../assets/wp-content/uploads/2023/01/image-3-885x1024.png", caption: "division = 3" },
+    { src: "../../../assets/wp-content/uploads/2023/01/image-4-885x1024.png", caption: "division = 4" },
   ]}
 />
 
@@ -103,8 +103,8 @@ After solving the preceding problems, the reprojected tiles can be overlaid on t
 
 <Gallery
   images={[
-    { src: "/wp-content/uploads/2022/12/image-21.png", caption: "Source-tile boundaries hidden" },
-    { src: "/wp-content/uploads/2022/12/image-22.png", caption: "Source-tile boundaries shown" },
+    { src: "../../../assets/wp-content/uploads/2022/12/image-21.png", caption: "Source-tile boundaries hidden" },
+    { src: "../../../assets/wp-content/uploads/2022/12/image-22.png", caption: "Source-tile boundaries shown" },
   ]}
 />
 

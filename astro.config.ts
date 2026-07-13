@@ -20,6 +20,10 @@ import config from "./astro-paper.config";
 
 export default defineConfig({
   site: config.site.url,
+  image: {
+    layout: "constrained",
+    responsiveStyles: true,
+  },
   integrations: [
     // MDX inherits the remark/rehype plugins from `markdown.processor` below
     // (math, image figures, callouts, embeds) plus shikiConfig, so no per-plugin

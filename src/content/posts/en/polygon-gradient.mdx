@@ -6,7 +6,7 @@ modDatetime: 2023-01-03T09:47:31.000Z
 draft: false
 hiddenLocales: ["zh-cn"]
 tags: ["Mapbox", "WebGL", "Data Visualization", "GIS", "Geometry Algorithms"]
-cover: "/wp-content/uploads/2022/09/polygon-gradient-cover-e1672739243762.png"
+cover: "../../../assets/wp-content/uploads/2022/09/polygon-gradient-cover-e1672739243762.png"
 ---
 
 import Embed from "@/components/Embed.astro";
@@ -16,29 +16,29 @@ Gradients create smooth transitions between colors. They often encode the intens
 
 <Gallery
   images={[
-    { src: "/wp-content/uploads/2022/12/image-9.png", caption: "Heatmap" },
-    { src: "/wp-content/uploads/2022/12/image-8.png", caption: "Elevation-based hypsometric tinting" },
-    { src: "/wp-content/uploads/2022/12/image-7.png", caption: "Line gradient" },
+    { src: "../../../assets/wp-content/uploads/2022/12/image-9.png", caption: "Heatmap" },
+    { src: "../../../assets/wp-content/uploads/2022/12/image-8.png", caption: "Elevation-based hypsometric tinting" },
+    { src: "../../../assets/wp-content/uploads/2022/12/image-7.png", caption: "Line gradient" },
   ]}
   caption="Common map gradients"
 />
 
 Gradients can also create shadows by transitioning from gray to transparent, giving a 2D map more depth. In the iOS map screenshot below, the control in the upper-right uses a drop shadow to separate it from the map. The water bodies also have subtle inward shadows along their shorelines to distinguish water from land.
 
-![](/wp-content/uploads/2022/12/image-10-1024x730.png "Using gradients as shadows")
+![](../../../assets/wp-content/uploads/2022/12/image-10-1024x730.png "Using gradients as shadows")
 
 CSS gradients are also used in maps. A common technique draws a radial gradient to a canvas and overlays that canvas on the map. The resulting circular gradient can represent a buffer around a point.
 
 The limitation is that CSS radial gradients are circular or rectangular. They do not conform to irregular polygons. In the following example, circular gradients are placed over administrative areas but do not match their boundaries.
 
-![](/wp-content/uploads/2022/12/image-6-1024x585.png "Gradient effects in Cesium")
+![](../../../assets/wp-content/uploads/2022/12/image-6-1024x585.png "Gradient effects in Cesium")
 
 Desktop GIS applications can produce polygon-conforming gradients. QGIS calls this effect a **shapeburst fill** and uses it to highlight an area or shade the interior edge of a water body.
 
 <Gallery
   images={[
-    { src: "/wp-content/uploads/2022/12/image-13.png", caption: "Water-body shadow" },
-    { src: "/wp-content/uploads/2022/12/image-11-1024x569.png", caption: "Area highlight" },
+    { src: "../../../assets/wp-content/uploads/2022/12/image-13.png", caption: "Water-body shadow" },
+    { src: "../../../assets/wp-content/uploads/2022/12/image-11-1024x569.png", caption: "Area highlight" },
   ]}
   caption="Applications of shapeburst fills"
 />
@@ -95,8 +95,8 @@ What does this have to do with gradients? Applying linear interpolation across t
 
 <Gallery
   images={[
-    { src: "/wp-content/uploads/2022/12/image-14.png", caption: "Polygon straight skeleton" },
-    { src: "/wp-content/uploads/2022/12/image-15.png", caption: "Gradient fill" },
+    { src: "../../../assets/wp-content/uploads/2022/12/image-14.png", caption: "Polygon straight skeleton" },
+    { src: "../../../assets/wp-content/uploads/2022/12/image-15.png", caption: "Gradient fill" },
   ]}
 />
 
@@ -106,9 +106,9 @@ Straight skeletons have other GIS applications, including extracting a polygon c
 
 I ultimately chose the straight-skeleton approach. It handles complex polygons, including holes and concave boundaries, better than the alternatives. SDF evaluation is inefficient for large datasets, while canvas shadow effects are too constrained for general map rendering.
 
-![](/wp-content/uploads/2022/12/image-17.png "Sharp corner")
+![](../../../assets/wp-content/uploads/2022/12/image-17.png "Sharp corner")
 
-![](/wp-content/uploads/2022/12/image-16.png "Rounded corner")
+![](../../../assets/wp-content/uploads/2022/12/image-16.png "Rounded corner")
 
 Straight skeletons also have drawbacks. Reflex vertices with interior angles greater than 180 degrees can produce very long skeleton edges. Like stroking a wide line, the implementation must choose how to join corners. The comparison shows that an SDF produces rounded corners, while the straight-skeleton result has sharp joins.
 
@@ -116,8 +116,8 @@ The output can be modified to approximate rounded joins. For each reflex boundar
 
 <Gallery
   images={[
-    { src: "/wp-content/uploads/2022/12/image-18.png", caption: "Straight-skeleton output" },
-    { src: "/wp-content/uploads/2022/12/image-19.png", caption: "Splitting a reflex corner" },
+    { src: "../../../assets/wp-content/uploads/2022/12/image-18.png", caption: "Straight-skeleton output" },
+    { src: "../../../assets/wp-content/uploads/2022/12/image-19.png", caption: "Splitting a reflex corner" },
   ]}
 />
 

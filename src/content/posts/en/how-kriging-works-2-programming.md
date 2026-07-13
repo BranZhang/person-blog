@@ -36,7 +36,7 @@ For installation instructions, see [Math.NET Numerics](https://www.nuget.org/pac
 
 In Visual Studio, open **Tools → NuGet Package Manager → Package Manager Console**:
 
-![](/wp-content/uploads/2019/07/gis-2-1-1024x223.jpg "NuGet")
+![](../../../assets/wp-content/uploads/2019/07/gis-2-1-1024x223.jpg "NuGet")
 
 Run `Install-Package MathNet.Numerics` and wait for the package to install.
 
@@ -66,13 +66,13 @@ I extracted its Gauss–Newton fitting implementation, which primarily consists 
 
 The following image shows my DEM:
 
-![](/wp-content/uploads/2019/07/gis-2-2.jpg "DEM and randomly sampled points")
+![](../../../assets/wp-content/uploads/2019/07/gis-2-2.jpg "DEM and randomly sampled points")
 
 I sampled random points from a known DEM and interpolated from those samples, making it possible to compare the estimates with the original raster values.
 
 The semivariogram fit for the sampled points is shown below:
 
-![](/wp-content/uploads/2019/07/gis-2-3.jpg "Fitting result")
+![](../../../assets/wp-content/uploads/2019/07/gis-2-3.jpg "Fitting result")
 
 The red points are the initially filtered results. Roughly 100 random samples produced about 9,900 pairwise semivariance values before filtering. The blue crosses are a second reduction, with one mean point calculated for each 10-unit interval. The dark-blue curve is fitted to those crosses.
 
@@ -151,6 +151,6 @@ The estimated elevation at $(m,n)$ is now stored in the `interpolationDEMData` a
 
 The interpolation result is shown below:
 
-![](/wp-content/uploads/2019/07/gis-2-4.jpg "Interpolation comparison")
+![](../../../assets/wp-content/uploads/2019/07/gis-2-4.jpg "Interpolation comparison")
 
 The result is reasonably accurate when compared with the original data.

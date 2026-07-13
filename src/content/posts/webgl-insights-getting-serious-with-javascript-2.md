@@ -6,7 +6,7 @@ modDatetime: 2025-02-09T10:24:23.000Z
 draft: false
 hiddenLocales: ["en"]
 tags: ["Cesium","gis","JavaScript","WebGL","地图"]
-cover: "/wp-content/uploads/2025/02/WebGL.Insights.-.Patrick.Cozzi-Image79.jpg"
+cover: "../../assets/wp-content/uploads/2025/02/WebGL.Insights.-.Patrick.Cozzi-Image79.jpg"
 ---
 
 ## 4.3 性能
@@ -54,7 +54,7 @@ JavaScript 提供了多种定义和构造对象的方法，但像之前那样使
 
 在许多高性能 JavaScript 应用程序中，垃圾回收（GC）是一个主要问题，而 3D 应用程序的特性使这个问题变得更加严重。例如，假设我们需要对场景中的每个对象执行两个向量的乘法计算。如果场景中有 10,000 个对象，并且目标帧率是 60 帧每秒，那么我们每秒就会创建 120,000 个向量结果对象。在 C++ 或 C# 等语言中，这通常不会成为问题，因为向量很可能会被分配在栈上。然而，在 JavaScript 中，这种对象的频繁创建和销毁可能会成为性能瓶颈。
 
-![](/wp-content/uploads/2025/02/WebGL.Insights.-.Patrick.Cozzi-Image79-1024x640.jpg "图4.2 在 Chrome 开发者工具中显示的锯齿模式（sawtooth pattern）是垃圾回收问题的典型特征。")
+![](../../assets/wp-content/uploads/2025/02/WebGL.Insights.-.Patrick.Cozzi-Image79-1024x640.jpg "图4.2 在 Chrome 开发者工具中显示的锯齿模式（sawtooth pattern）是垃圾回收问题的典型特征。")
 
 在 WebGL 应用程序中，类似的数学运算是不可避免的。在 Cesium 早期开发阶段，我们经常在性能分析中发现，代码运行时间的 50% 竟然消耗在垃圾回收上。浏览器的性能分析工具会以“锯齿”模式显示这一问题，如 图 4.2 所示。图中的峰值代表垃圾回收的触发时刻，在这些时刻，垃圾回收器会释放内存，但同时也会占用本应属于代码执行的宝贵处理时间。
 
@@ -116,7 +116,7 @@ Cartesian3.lerp = function (start, end, t, result) {
 
 为了说明这个问题，假设我们只处理多边形。多边形三角化是一个 CPU 密集型任务，将其卸载到工作线程可以防止应用程序在处理时出现卡顿。而且，包含 50 万多个顶点的多边形组并不罕见，比如图 4.3 所示的国家边界数据。
 
-![](/wp-content/uploads/2025/02/WebGL.Insights.-.Patrick.Cozzi-Image81-1024x640.jpg "图 4.3 高精度多边形暴露了我们 Web Worker 实现中的性能问题。")
+![](../../assets/wp-content/uploads/2025/02/WebGL.Insights.-.Patrick.Cozzi-Image81-1024x640.jpg "图 4.3 高精度多边形暴露了我们 Web Worker 实现中的性能问题。")
 
 由于 JavaScript 传统上是单线程语言，因此使用 Web Workers 与传统 API 有很大不同。Worker 无法访问 DOM，并且在与主线程不同的全局上下文中执行代码。
 
@@ -218,7 +218,7 @@ describe('Cartesian3', function () {
 
 在浏览器中运行 Jasmine 测试（在 Jasmine 中称为 specs）需要我们设置一个 SpecRunner.html 文件，可以使用 Jasmine 发行包中提供的模板作为起点（见 图 4.4）。SpecRunner 的具体设置取决于应用程序的结构。但无论如何，我们都需要使用标准的 `<script>` 标签引入 Jasmine 的相关脚本。而实际运行测试用例的方式，则取决于项目的架构。
 
-![](/wp-content/uploads/2025/02/WebGL.Insights.-.Patrick.Cozzi-Image85-1024x640.jpg "图4.4 Cesium 的定制 SpecRunner.html，显示四个失败的测试")
+![](../../assets/wp-content/uploads/2025/02/WebGL.Insights.-.Patrick.Cozzi-Image85-1024x640.jpg "图4.4 Cesium 的定制 SpecRunner.html，显示四个失败的测试")
 
 如果我们不使用模块系统，那么测试的设置虽然比较直接，但对于大型应用来说会非常痛苦：我们需要在 SpecRunner.html 中按照正确的顺序，手动添加所有 源代码文件 和 测试文件 的 `<script>` 标签。
 

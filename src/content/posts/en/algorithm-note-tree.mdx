@@ -39,7 +39,7 @@ A binary search tree (BST) maintains an ordering invariant at every node:
 - Every value in the left subtree is no greater than the node value.
 - Every value in the right subtree is no less than the node value.
 
-![](/wp-content/uploads/2020/01/bst.jpg "Example binary search tree")
+![](../../../assets/wp-content/uploads/2020/01/bst.jpg "Example binary search tree")
 
 - [Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/)
 - [Range Sum of BST](https://leetcode.com/problems/range-sum-of-bst/)
@@ -96,11 +96,11 @@ Its invariants are:
 - A red node has black children.
 - Every path from a node to a descendant NIL leaf contains the same number of black nodes.
 
-![](/wp-content/uploads/2020/01/Red_black_tree_example.png "Example red–black tree")
+![](../../../assets/wp-content/uploads/2020/01/Red_black_tree_example.png "Example red–black tree")
 
 Left and right rotations restructure the tree so recoloring after insertion or deletion can restore all five invariants.
 
-![](/wp-content/uploads/2020/01/Red_black_tree_opt.png "Left and right rotations")
+![](../../../assets/wp-content/uploads/2020/01/Red_black_tree_opt.png "Left and right rotations")
 
 Full insertion and deletion are beyond these notes. Consider instead a problem that benefits from an ordered balanced tree.
 
@@ -122,21 +122,21 @@ Long build times correspond to high-frequency symbols: they should receive shall
 
 Heapify the durations and combine the two smallest first.
 
-![](/wp-content/uploads/2020/01/Huffman_0-1-e1578382812597-300x143.png)
+![](../../../assets/wp-content/uploads/2020/01/Huffman_0-1-e1578382812597-300x143.png)
 
 The first pair takes `split + max(1,2) = 5`; repeat this Huffman-like combination.
 
 <Gallery
   images={[
-    { src: "/wp-content/uploads/2020/01/Huffman_1.png", caption: "" },
-    { src: "/wp-content/uploads/2020/01/Huffman_2.png", caption: "" },
-    { src: "/wp-content/uploads/2020/01/Huffman_3.png", caption: "" },
+    { src: "../../../assets/wp-content/uploads/2020/01/Huffman_1.png", caption: "" },
+    { src: "../../../assets/wp-content/uploads/2020/01/Huffman_2.png", caption: "" },
+    { src: "../../../assets/wp-content/uploads/2020/01/Huffman_3.png", caption: "" },
   ]}
 />
 
 The tree is built bottom-up but executed top-down: split a worker, assign the longest block to one branch, continue splitting the other branch, and eventually build the shortest block there.
 
-![](/wp-content/uploads/2020/01/Huffman_4-300x225.png)
+![](../../../assets/wp-content/uploads/2020/01/Huffman_4-300x225.png)
 
 Implementation:
 

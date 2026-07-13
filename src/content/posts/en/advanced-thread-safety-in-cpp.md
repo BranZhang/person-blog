@@ -16,7 +16,7 @@ C++ allows parts of a program to run concurrently in multiple threads. Such prog
 
 Over the past few decades, CPU performance has improved much faster than memory performance.
 
-![](/wp-content/uploads/2025/02/Processor.webp "The processor-memory performance gap over time")
+![](../../../assets/wp-content/uploads/2025/02/Processor.webp "The processor-memory performance gap over time")
 
 To keep memory from limiting overall performance, CPU designers employ strategies such as:
 
@@ -550,7 +550,7 @@ void push( T &&data ) {
 
 The following diagram illustrates the operation:
 
-![](/wp-content/uploads/2024/12/threadsafety.webp)
+![](../../../assets/wp-content/uploads/2024/12/threadsafety.webp)
 
 State (1) is the initial condition: A and B are stack nodes, `_head` (H) points to A, and `new_node` (N) also points to A through `_next`. The dashed box contains the two values being compared. State (3) is the desired result, with `_head` pointing to `new_node` and `new_node->_next` pointing to A.
 
@@ -578,7 +578,7 @@ T pop() {
 
 Its state transitions are shown below:
 
-![](/wp-content/uploads/2024/12/threadsafety2.webp)
+![](../../../assets/wp-content/uploads/2024/12/threadsafety2.webp)
 
 In state (1), A, B, and C are stack nodes, while `_head` (H) and `first` (F) both point to A. The dashed box contains the compared values. State (5) is the expected result, with `_head` pointing to B.
 

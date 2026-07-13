@@ -274,9 +274,9 @@ Three essential elements are:
 
 Most examples here store that graph implicitly in arrays.
 
-![](/wp-content/uploads/2019/09/algorithm-1-1.png)
+![](../../../assets/wp-content/uploads/2019/09/algorithm-1-1.png)
 
-![](/wp-content/uploads/2019/09/algorithm-1-2.png)
+![](../../../assets/wp-content/uploads/2019/09/algorithm-1-2.png)
 
 The diagrams above come from the referenced book; concrete examples are easier to follow than its four abstract transition categories.
 

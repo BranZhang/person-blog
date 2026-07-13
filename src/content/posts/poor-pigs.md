@@ -14,7 +14,7 @@ tags: ["leetcode","算法"]
 
 **小插曲二**：在 LeetCode 的中文站上看题解时，发现好像有些词被屏蔽了，通过与题目描述对比，发现“毒药”是敏感词。
 
-![](/wp-content/uploads/2021/01/image.png "“毒药”也是敏感词？")
+![](../../assets/wp-content/uploads/2021/01/image.png "“毒药”也是敏感词？")
 
 ## 原题解析
 

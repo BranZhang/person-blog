@@ -113,7 +113,7 @@ The main technical and editorial practices are:
 
 Google Search Console and Bing Webmaster Tools let publishers submit site information and inspect sitemaps, impressions, click-through rates, queries, indexing, and crawl problems.
 
-![](/wp-content/uploads/2019/10/google_search_console_click.png "Current state of the site - nobody's clicking, so pathetic")
+![](../../../assets/wp-content/uploads/2019/10/google_search_console_click.png "Current state of the site - nobody's clicking, so pathetic")
 
 For example, Search Console provides the queries that most often lead users to the site.
 
@@ -121,7 +121,7 @@ For example, Search Console provides the queries that most often lead users to t
 
 Currently, this blog uses [Rank Math](https://s.rankmath.com/home), a feature-rich free plugin that exposes settings and scores each article against an SEO checklist.
 
-![](/wp-content/uploads/2019/10/seo_rank_math.png)
+![](../../../assets/wp-content/uploads/2019/10/seo_rank_math.png)
 
 It previews search-result appearance and checks fields and heuristics such as keyword placement and content length. I do not rewrite articles merely to satisfy these scores.
 

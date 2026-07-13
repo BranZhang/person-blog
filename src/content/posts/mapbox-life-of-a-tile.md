@@ -6,7 +6,7 @@ modDatetime: 2025-02-18T14:31:16.000Z
 draft: false
 hiddenLocales: ["en"]
 tags: ["mapbox","WebGL","地图","GIS"]
-cover: "/wp-content/uploads/2021/02/mapbox-tile.png"
+cover: "../../assets/wp-content/uploads/2021/02/mapbox-tile.png"
 ---
 
 **本篇文章翻译自 [maplibre/maplibre-gl-js 项目的《life-of-a-tile》](https://github.com/maplibre/maplibre-gl-js/blob/main/docs/life-of-a-tile.md)。文中的超链接，对应到 Mapbox 的 v1.13.2 版本。**
@@ -23,7 +23,7 @@ cover: "/wp-content/uploads/2021/02/mapbox-tile.png"
 
 ## Event Loop
 
-![](/wp-content/uploads/2022/09/event-loop.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/event-loop.plantuml.svg")
+![](../../assets/wp-content/uploads/2022/09/event-loop.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/event-loop.plantuml.svg")
 
 ### Transform
 
@@ -40,7 +40,7 @@ Camera 和 HandlerManager 都可以在更新了 transform 的状态后，抛出 
 
 ## Tile loading
 
-![](/wp-content/uploads/2022/09/fetch-tile.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/fetch-tile.plantuml.svg")
+![](../../assets/wp-content/uploads/2022/09/fetch-tile.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/fetch-tile.plantuml.svg")
 
 [Map#_render()](https://github.com/mapbox/mapbox-gl-js/blob/release-v1.13.2/src/ui/map.js#L2439) 会以2种不同的方式执行，取决于 `map._sourcesDirty` 的值。当 _sourcesDirty 为 true 时，_render() 首先要询问每个 source，是否需要请求新的数据。_sourcesDirty 为 false 时的情况将在下一节介绍。
 
@@ -117,7 +117,7 @@ Camera 和 HandlerManager 都可以在更新了 transform 的状态后，抛出 
 
 ## Render loop
 
-![](/wp-content/uploads/2022/09/render-frame.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/render-frame.plantuml.svg")
+![](../../assets/wp-content/uploads/2022/09/render-frame.plantuml.svg "https://github.com/maplibre/maplibre-gl-js/blob/main/docs/diagrams/render-frame.plantuml.svg")
 
 当 _sourcesDirty 为 false 时，map#_render() 将会直接在主线程上渲染新的一帧：
 

@@ -48,7 +48,7 @@
 - ⚠️ 升级注意：若 upstream 改动字体或 OG 架构，这几处需重新对齐。若日后网络允许，可改用本地字体文件（`fontProviders.local()`）或 fontsource 恢复自定义字体。
 
 ### 4. 图片资产 `public/`
-- `public/wp-content/`：WordPress 迁移的正文图与封面图（约 686 个文件）。
+- `src/assets/wp-content/`：WordPress 迁移的正文图与封面图（684 个文件），由 Astro 图片管线生成响应式 `srcset`；`public/wp-content/` 只保留 ZIP、MP3 等需要原路径下载的非图片资源。
 - `public/logo.png`：站点 logo（土豆图，来自 littlepotato.me）。
 
 ### 5. `.gitignore`
@@ -64,7 +64,7 @@
 - `src/layouts/Layout.astro`：favicon 与 apple-touch-icon 改用 `public/logo.png`（原为 AstroPaper 的 `favicon.svg` / `favicon.ico`）。
 
 ### 8. 列表封面
-- `src/content.config.ts`：posts schema 加自定义字段 `cover`（public 绝对路径字符串，直接当 `<img src>`，不走 astro:assets，避免把 `/wp-content/...` 当本地 asset 加载而报错）。
+- `src/content.config.ts`：posts schema 的 `cover` 使用 `image()`，正文、封面和 Gallery 均引用 `src/assets/wp-content/` 下的本地图片并交由 `astro:assets` 处理。
 - 18 篇文章 frontmatter 加回 `cover`（映射来源：git `fbd300d` / scratchpad `cover_map.json`）。
 - `src/components/Card.astro`：改成带内边距的卡片（`px-4 py-5`，靠内边距拉开卡片间距），**hover 时整卡背景高亮**（`hover:bg-muted/60` + 过渡）且整卡可点击（标题链接用 `after:absolute inset-0` 覆盖）。
 - 封面（`Card.astro`）：有 `cover` 时在**右侧**显示，图片**左侧 `mask-image` 线性渐变淡入**（`transparent → black 45%`）；**固定尺寸** `w-56 h-36`（大屏 `lg:w-72 lg:h-44`）而非跟随文字高度，行用 `items-start`，因此**短描述的文章封面会撑高卡片、文字下方留白**；移动端隐藏（`sm` 以上显示）。
@@ -153,4 +153,4 @@
   - `src/utils/remarkResponsiveEmbeds.ts`：仍保留，负责上面两篇 raw-HTML `<iframe>` 的 `.blog-embed` 包裹与协议相对 URL 升级。
   - ⚠️ CodePen 用的是 `anon` 匿名嵌入，CodePen 早已停用，实际会显示 "CodePen Embed Fallback" 空框——已转成 `<Embed>`（保留原 src，方便日后替换），但源仍失效。link-card / youtube：迁移内容中未发现。
 - [x] **部署（Cloudflare Pages）**：构建命令 `pnpm build`，输出目录 `dist`，环境变量 `NODE_VERSION=22`。可选：删除 AstroPaper 自带的 `.github/`（issue 模板、`ci.yml`）。
-- [x] **彻底清洗 WordPress 痕迹**：50 篇正文已全部从 Gutenberg 原始 HTML 转成干净的 Markdown/MDX（见第 11 项）。所有 `wp-block-*` / `wp-element-*` class、`<img>` 冗余属性、`<!--more-->` 分隔符已清除；`/wp-content/...` 图片路径保留（实体仍在 `public/wp-content/`）。
+- [x] **彻底清洗 WordPress 痕迹**：50 篇正文已全部从 Gutenberg 原始 HTML 转成干净的 Markdown/MDX（见第 11 项）。所有 `wp-block-*` / `wp-element-*` class、`<img>` 冗余属性、`<!--more-->` 分隔符已清除；图片已迁入 `src/assets/wp-content/` 并改用相对资源路径，由 Astro 构建期优化。

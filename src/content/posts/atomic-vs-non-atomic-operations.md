@@ -12,7 +12,7 @@ tags: ["Atomic","C++"]
 
 在本文中，我将尝试解释原子加载、存储和 RMW 操作之间的区别，来说明如何安全地在多线程环境中对共享数据进行操作。并比较原子加载和存储与其对应的非原子操作在处理器级别和 C/C++ 语言级别的差异。同时将澄清 C++11 中的“数据竞争”概念。
 
-![](/wp-content/uploads/2025/02/nonatomic.png)
+![](../../assets/wp-content/uploads/2025/02/nonatomic.png)
 
 ## 原子读-修改-写（RMW）操作
 
@@ -46,7 +46,7 @@ shared.compare_exchange_weak(T& expected, T desired, ...);
 
 该函数尝试将期望的值存储到共享变量 `shared` 中，但前提是 `shared` 的当前值与 `expected` 匹配。如果成功，它返回 `true`。如果失败，它会将 `shared` 的当前值加载回 `expected` 中，尽管它的名字是 `expected`，但它是一个输入/输出参数。这就是所谓的比较并交换操作，所有这些都在一个原子、不可分割的步骤中完成。
 
-![](/wp-content/uploads/2025/02/compare-exchange.png)
+![](../../assets/wp-content/uploads/2025/02/compare-exchange.png)
 
 假设你真的需要一个原子 `fetch_multiply` 操作，尽管我无法想象为什么需要它。以下是一种实现方法：
 
@@ -63,7 +63,7 @@ uint32_t fetch_multiply(std::atomic<uint32_t>& shared, uint32_t multiplier)
 
 这被称为比较并交换循环（CAS 循环）。该函数会重复尝试将 `oldValue` 与 `oldValue * multiplier` 交换，直到成功。如果没有其他线程进行并发修改，`compare_exchange_weak` 通常会在第一次尝试时成功。另一方面，如果 `shared` 被另一个线程并发修改，它的值可能会在调用 `load` 和调用 `compare_exchange_weak` 之间发生变化，从而导致比较并交换操作失败。在这种情况下，`oldValue` 将更新为 `shared` 的最新值，然后循环会重新尝试。
 
-![](/wp-content/uploads/2025/02/fetch-multiply-timeline.png)
+![](../../assets/wp-content/uploads/2025/02/fetch-multiply-timeline.png)
 
 上述的 `fetch_multiply` 实现是原子性的且无锁的。尽管 CAS 循环可能需要不确定次数的尝试，它仍然是原子性的，因为当循环最终修改 `shared` 时，它是原子地进行的。它是无锁的，因为如果 CAS 循环的单次迭代失败，通常是因为其他线程成功地修改了 `shared`。最后这一点依赖于假设 `compare_exchange_weak` 确实编译为无锁的机器代码。
 
@@ -139,7 +139,7 @@ $ cat test.s
 
 这些问题不仅仅是理论上的。Mintomic 的测试套件中包含一个名为 `test_load_store_64_fail` 的测试用例，其中一个线程使用普通赋值运算符将一堆64位值存储到一个变量中，而另一个线程反复从同一个变量执行普通加载操作，并验证每个结果。在多核 x86 系统上，这个测试如预期一样会持续失败。
 
-![](/wp-content/uploads/2025/02/load_store_x86.png)
+![](../../assets/wp-content/uploads/2025/02/load_store_x86.png)
 
 ## 非原子性的CPU指令
 
@@ -164,7 +164,7 @@ MINT_DECL_ALIGNED(static struct, 64)
 g_wrapper;
 ```
 
-![](/wp-content/uploads/2025/02/force_fail.png)
+![](../../assets/wp-content/uploads/2025/02/force_fail.png)
 
 对于特定处理的情况已经说的够多了，接下来看看在C/C++语言层面的原子性。
 
@@ -187,7 +187,7 @@ void storeFoo()
 
 尽管如此，在编写真正可移植的 C 和 C++ 代码时，一直有一种传统，假装我们对平台的了解仅限于语言标准所告诉我们的内容。可移植的 C 和 C++ 旨在运行于所有可能的计算设备，无论是过去的、现在的，还是假想的。就个人而言，我喜欢想象一种机器，在这种机器上，内存只能通过先将其混合才能进行更改：
 
-![](/wp-content/uploads/2025/02/slot-machines.png)
+![](../../assets/wp-content/uploads/2025/02/slot-machines.png)
 
 在这样的机器上，你绝对不想在进行普通赋值的同时执行并发读取；否则你可能会读取到一个完全随机的值。
 

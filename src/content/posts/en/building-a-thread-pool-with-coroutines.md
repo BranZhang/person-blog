@@ -14,7 +14,7 @@ This article records the implementation of a small thread pool based on concepts
 
 The diagram illustrates the difference between an ordinary procedure and the more general coroutine model. Adding suspension and resumption makes abstractions such as thread pools, state machines, and generators more direct and efficient.
 
-![](/wp-content/uploads/2025/02/coroutines_1.png "A coroutine generalizes a function with suspension and resumption; C++20 exposes customization points around that model")
+![](../../../assets/wp-content/uploads/2025/02/coroutines_1.png "A coroutine generalizes a function with suspension and resumption; C++20 exposes customization points around that model")
 
 That flexibility introduces lifecycle concerns. Local state must survive suspension in a separately allocated coroutine frame and be restored on resumption; the frame must eventually be destroyed. The compiler generates this machinery. C++20 uses **stackless coroutines**, in contrast to stackful implementations such as Boost.Context that switch an entire stack. Stackful coroutines require no language changes, but stackless frames can use orders of magnitude less memory.
 

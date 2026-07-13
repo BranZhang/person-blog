@@ -6,7 +6,7 @@ modDatetime: 2026-06-12T01:38:58.000Z
 draft: false
 hiddenLocales: ["zh-cn"]
 tags: ["3D Tiles", "Cesium", "Gaussian Splatting", "SparkJS", "WebGL", "GIS"]
-cover: "/wp-content/uploads/2026/06/labs-report-gaussian-splatting-stadium-e1781228379995.webp"
+cover: "../../../assets/wp-content/uploads/2026/06/labs-report-gaussian-splatting-stadium-e1781228379995.webp"
 ---
 
 3D Gaussian Splatting (3DGS) is rapidly becoming a mainstream representation for photorealistic 3D rendering on the web. The industry has not yet converged on how a browser should efficiently stream and render millions—or tens of millions—of splats. This article compares two representative open-source approaches, **Cesium 3D Tiles + glTF `KHR_gaussian_splatting`** and **SparkJS 2.0**, examining their data formats, LOD strategies, streaming pipelines, runtime memory, ecosystem integration, and design tradeoffs.
@@ -95,7 +95,7 @@ Spark's pager is not yet fully mature. Open issues report that disposing `PagedS
 
 Both pipelines share the same abstract lifecycle: a selector decides what is needed → the network retrieves a tile or chunk → a worker or WASM module decodes it → textures and indices are uploaded → splats are sorted and drawn.
 
-![](/wp-content/uploads/2026/06/mermaid-diagram-1024x500.png)
+![](../../../assets/wp-content/uploads/2026/06/mermaid-diagram-1024x500.png)
 
 ## Runtime Memory and GPU Layout
 
