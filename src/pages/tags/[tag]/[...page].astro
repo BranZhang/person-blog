@@ -17,6 +17,15 @@ import config from "@/config";
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
   const tags = getUniqueTags(posts, "en");
+  const alternateTagPageCounts = new Map(
+    getUniqueTags(posts, "zh-cn").map(({ tag }) => {
+      const count = getSortedPosts(
+        posts.filter(({ data }) => slugifyAll(data.tags).includes(tag)),
+        "zh-cn"
+      ).length;
+      return [tag, Math.ceil(count / config.posts.perPage)];
+    })
+  );
 
   return tags.flatMap(({ tag, tagName }) => {
     const tagPosts = getSortedPosts(
@@ -26,19 +35,25 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 
     return paginate(tagPosts, {
       params: { tag },
-      props: { tagName },
+      props: {
+        tagName,
+        alternatePageCount: alternateTagPageCounts.get(tag) ?? 0,
+      },
       pageSize: config.posts.perPage,
     });
   });
 }
 
-const { page, tagName } = Astro.props;
+const { page, tagName, alternatePageCount } = Astro.props;
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 ---
 
-<Layout title={`${t.pages.tagTitle}: ${tagName} | ${config.site.title}`}>
+<Layout
+  title={`${t.pages.tagTitle}: ${tagName} | ${config.site.title}`}
+  hasLocaleAlternate={page.currentPage <= alternatePageCount}
+>
   <Header />
 
   <Breadcrumb />

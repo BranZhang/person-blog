@@ -1,0 +1,59 @@
+# Permanent redirects from the former WordPress permalink structure.
+# Keep these explicit: a broad four-segment rule would also match valid
+# localized routes such as /zh-cn/tags/gis/2/.
+
+/2017/08/28/how-kriging-works-1-formula/ /zh-cn/posts/how-kriging-works-1-formula/ 301
+/2017/08/29/how-kriging-works-2-programming/ /zh-cn/posts/how-kriging-works-2-programming/ 301
+/2017/11/23/simple-way-to-correct-map-coordinate-deviation-in-china/ /zh-cn/posts/simple-way-to-correct-map-coordinate-deviation-in-china/ 301
+/2017/12/22/reading-note-seo/ /zh-cn/posts/reading-note-seo/ 301
+/2018/03/17/reading-note-information-retrieval/ /zh-cn/posts/reading-note-information-retrieval/ 301
+/2018/04/03/seo-and-search-engine-and-quality-rating/ /zh-cn/posts/seo-and-search-engine-and-quality-rating/ 301
+/2018/05/03/principle-of-word-segmentation-1/ /zh-cn/posts/principle-of-word-segmentation-1/ 301
+/2018/05/09/principle-of-word-segmentation-2/ /zh-cn/posts/principle-of-word-segmentation-2/ 301
+/2018/05/20/build-3d-intersection-by-osm-data/ /zh-cn/posts/build-3d-intersection-by-osm-data/ 301
+/2018/11/19/algorithm-notes/ /zh-cn/posts/algorithm-notes/ 301
+/2018/11/22/algorithm-note-array/ /zh-cn/posts/algorithm-note-array/ 301
+/2018/12/09/algorithm-note-dynamic-programing/ /zh-cn/posts/algorithm-note-dynamic-programing/ 301
+/2019/01/02/algorithm-note-tree/ /zh-cn/posts/algorithm-note-tree/ 301
+/2019/09/07/design-a-cultural-revolution-style-map/ /zh-cn/posts/design-a-cultural-revolution-style-map/ 301
+/2019/09/08/the-old-new-thing-calculator/ /zh-cn/posts/the-old-new-thing-calculator/ 301
+/2019/10/28/reading-note-nlp/ /zh-cn/posts/reading-note-nlp/ 301
+/2019/12/09/shanghai-hongqiao-railway-station-data-visualization/ /zh-cn/posts/shanghai-hongqiao-railway-station-data-visualization/ 301
+/2020/04/27/cloud-server-web-crawler/ /zh-cn/posts/cloud-server-web-crawler/ 301
+/2020/06/11/spatial-search-algorithms/ /zh-cn/posts/spatial-search-algorithms/ 301
+/2020/07/25/webgl-insights-getting-serious-with-javascript-1/ /zh-cn/posts/webgl-insights-getting-serious-with-javascript-1/ 301
+/2020/10/09/webgl-insights-getting-serious-with-javascript-2/ /zh-cn/posts/webgl-insights-getting-serious-with-javascript-2/ 301
+/2020/12/13/reading-note-three-js/ /zh-cn/posts/reading-note-three-js/ 301
+/2021/01/05/publish-mapbox-tile-by-geoserver/ /zh-cn/posts/publish-mapbox-tile-by-geoserver/ 301
+/2021/01/15/poor-pigs/ /zh-cn/posts/poor-pigs/ 301
+/2021/02/25/reading-note-webgl/ /zh-cn/posts/reading-note-webgl/ 301
+/2021/02/28/mapbox-life-of-a-tile/ /zh-cn/posts/mapbox-life-of-a-tile/ 301
+/2021/06/03/在国内使用-esim-卡过程记录/ /zh-cn/posts/在国内使用-esim-卡过程记录/ 301
+/2021/07/21/reading-note-cpp/ /zh-cn/posts/reading-note-cpp/ 301
+/2021/08/07/string-view/ /zh-cn/posts/string-view/ 301
+/2021/09/25/reading-cpp-concurrency/ /zh-cn/posts/reading-cpp-concurrency/ 301
+/2021/12/26/threads-locks-and-condition-variables/ /zh-cn/posts/threads-locks-and-condition-variables/ 301
+/2022/03/12/how-to-project-decals/ /zh-cn/posts/how-to-project-decals/ 301
+/2022/05/13/building-a-thread-pool-with-coroutines/ /zh-cn/posts/building-a-thread-pool-with-coroutines/ 301
+/2022/06/29/atomic-vs-non-atomic-operations/ /zh-cn/posts/atomic-vs-non-atomic-operations/ 301
+/2022/07/06/mapbox-building-shadow/ /zh-cn/posts/mapbox-building-shadow/ 301
+/2022/09/07/polygon-gradient/ /zh-cn/posts/polygon-gradient/ 301
+/2022/10/05/rvalue-references-std-move/ /zh-cn/posts/rvalue-references-std-move/ 301
+/2022/11/10/raster-reprojection/ /zh-cn/posts/raster-reprojection/ 301
+/2023/02/04/3d-tiles-streaming/ /zh-cn/posts/3d-tiles-streaming/ 301
+/2023/04/21/how-cpp-resolves-a-function-call/ /zh-cn/posts/how-cpp-resolves-a-function-call/ 301
+/2023/08/05/quadtree-and-collision-detection/ /zh-cn/posts/quadtree-and-collision-detection/ 301
+/2023/12/09/webassembly-note/ /zh-cn/posts/webassembly-note/ 301
+/2024/05/19/assuming-the-earth-is-flat-helps-speed-up-rendering-in-deck-gl/ /zh-cn/posts/assuming-the-earth-is-flat-helps-speed-up-rendering-in-deck-gl/ 301
+/2024/06/08/v8-引擎中-c-和-js-的交互/ /zh-cn/posts/v8-引擎中-c-和-js-的交互/ 301
+/2024/07/13/introducing-the-webassembly-javascript-promise-integration-api/ /zh-cn/posts/introducing-the-webassembly-javascript-promise-integration-api/ 301
+/2024/11/11/polygon-triangulation-on-the-sphere/ /zh-cn/posts/polygon-triangulation-on-the-sphere/ 301
+/2024/12/27/advanced-thread-safety-in-cpp/ /zh-cn/posts/advanced-thread-safety-in-cpp/ 301
+/2025/05/21/mapbox-3d-intersections/ /zh-cn/posts/mapbox-3d-intersections/ 301
+/2026/06/10/前端高斯泼溅渲染方案对比：cesium-3d-tiles-vs-sparkjs-2-0/ /zh-cn/posts/前端高斯泼溅渲染方案对比cesium-3d-tiles-vs-sparkjs-2-0/ 301
+
+# Former WordPress archive endpoints.
+/category/:name/ /zh-cn/tags/:name/ 301
+/tag/:name/ /zh-cn/tags/:name/ 301
+/page/:page/ /zh-cn/posts/:page/ 301
+/feed/ /rss.xml 301

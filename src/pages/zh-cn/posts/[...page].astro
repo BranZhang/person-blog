@@ -14,18 +14,26 @@ import config from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
+  const alternatePageCount = Math.ceil(
+    getSortedPosts(posts, "en").length / config.posts.perPage
+  );
+
   return paginate(getSortedPosts(posts, "zh-cn"), {
     pageSize: config.posts.perPage,
+    props: { alternatePageCount },
   });
 }) satisfies GetStaticPaths;
 
-const { page } = Astro.props;
+const { page, alternatePageCount } = Astro.props;
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 ---
 
-<Layout title={`${t.pages.postsTitle} | ${config.site.title}`}>
+<Layout
+  title={`${t.pages.postsTitle} | ${config.site.title}`}
+  hasLocaleAlternate={page.currentPage <= alternatePageCount}
+>
   <Header />
 
   <Breadcrumb />

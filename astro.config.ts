@@ -26,8 +26,15 @@ export default defineConfig({
     // config is needed here.
     mdx(),
     sitemap({
-      filter: page =>
-        config.features?.showArchives !== false || !page.endsWith("/archives/"),
+      filter: page => {
+        const pathname = new URL(page).pathname;
+        const isUtilityPage = /\/(?:404|search)\/?$/.test(pathname);
+        const isHiddenArchive =
+          config.features?.showArchives === false &&
+          pathname.endsWith("/archives/");
+
+        return !isUtilityPage && !isHiddenArchive;
+      },
     }),
   ],
   i18n: {

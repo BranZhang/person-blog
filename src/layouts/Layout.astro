@@ -11,6 +11,9 @@ type Props = {
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
+  ogType?: "website" | "article";
+  indexable?: boolean;
+  hasLocaleAlternate?: boolean;
 };
 
 const { site } = config;
@@ -20,13 +23,26 @@ const {
   description = site.description,
   ogImage = resolveDefaultOgImagePath(config),
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  ogType = "website",
+  indexable = true,
+  hasLocaleAlternate = true,
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
-const rssHref = getRelativeLocaleUrl(
-  Astro.currentLocale ?? config.site.lang,
-  "rss.xml"
+const currentLocale = Astro.currentLocale ?? config.site.lang;
+const rssHref = getRelativeLocaleUrl(currentLocale, "rss.xml").replace(
+  /\/$/,
+  ""
 );
+
+const defaultLocalePath =
+  currentLocale === "zh-cn"
+    ? Astro.url.pathname.replace(/^\/zh-cn(?=\/|$)/, "") || "/"
+    : Astro.url.pathname;
+const zhLocalePath =
+  defaultLocalePath === "/" ? "/zh-cn/" : "/zh-cn" + defaultLocalePath;
+const enLocaleURL = new URL(defaultLocalePath, Astro.site).href;
+const zhLocaleURL = new URL(zhLocalePath, Astro.site).href;
 ---
 
 <!doctype html>
@@ -42,6 +58,17 @@ const rssHref = getRelativeLocaleUrl(
     <link rel="apple-touch-icon" href={getAssetPath("logo.png")} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
+    {!indexable && <meta name="robots" content="noindex, follow" />}
+
+    {
+      indexable && hasLocaleAlternate && (
+        <>
+          <link rel="alternate" hreflang="en" href={enLocaleURL} />
+          <link rel="alternate" hreflang="zh-CN" href={zhLocaleURL} />
+          <link rel="alternate" hreflang="x-default" href={enLocaleURL} />
+        </>
+      )
+    }
 
     <!-- Primary meta -->
     <title>{title}</title>
@@ -51,7 +78,7 @@ const rssHref = getRelativeLocaleUrl(
     <link rel="sitemap" href={getAssetPath("sitemap-index.xml")} />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={site.title} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

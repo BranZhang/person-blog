@@ -23,6 +23,7 @@ const sortedPosts = getSortedPosts(posts, locale);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 const homePath = getRelativeLocaleUrl(locale, "");
+const rssPath = getRelativeLocaleUrl(locale, "rss.xml").replace(/\/$/, "");
 ---
 
 <Layout description={t.home.intro}>
@@ -39,7 +40,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
       </h1>
       <a
         target="_blank"
-        href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
+        href={rssPath}
         class="inline-block"
         aria-label={t.home.rssFeed}
         title={t.home.rssFeed}

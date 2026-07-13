@@ -74,12 +74,12 @@
 - `astro-paper.config.ts`：`posts.perPage` 从 4 改为 15（每页文章数；`perIndex` 首页数量保持 4）。
 
 ### 10. ⚠️ 中英双语（i18n）支持
-在 AstroPaper 原有 i18n 基础设施上扩展了中文支持和自动语言检测：
+在 AstroPaper 原有 i18n 基础设施上扩展了中文支持和显式语言切换：
 
 **新增文件：**
 - `src/i18n/lang/zh-cn.ts`：中文 UI 翻译文件，覆盖导航（首页/文章/标签/关于/归档/搜索）、文章操作按钮、分页、页脚、无障碍标签、404 页面等所有界面文本。
 - `src/scripts/lang.ts`：客户端语言切换脚本，处理语言按钮点击事件、localStorage/Cookie 双重持久化（有效期 1 年）、页面导航（保持当前路径，仅切换语言前缀），兼容 Astro View Transitions（监听 `astro:after-swap` 重新绑定事件）。
-- `functions/_middleware.js`：Cloudflare Pages Functions 边缘中间件，实现基于访问者地理位置的自动语言检测。检测优先级：用户 Cookie 偏好 > Cloudflare `request.cf.country`（CN/TW/HK/MO/SG → 中文）> 浏览器 `Accept-Language` 请求头。对任意非 `/zh-cn/` 前缀的页面路径（GET、非静态资源）执行 302 重定向；已有偏好 Cookie 则跳过（`zh-cn` 重定向、其他停留）。注意自动检测命中时不写 Cookie，因此无偏好 Cookie 的访问者每次整页加载都会重跑检测（SPA 内部导航不经过边缘，影响有限）。本地开发时无 CF 环境，回退到 Accept-Language 检测。
+- `public/_redirects`：Cloudflare Pages 永久重定向规则，把旧 WordPress 日期型文章 URL、分类、标签、分页和 Feed 地址迁移到当前路由。规则使用精确文章路径，避免误伤现有多语言页面。
 - `src/pages/zh-cn/`：中文页面路由目录。Astro SSG 模式下非默认语言需要对应的页面文件，文件内容与英文版相同（通过 `Astro.currentLocale === "zh-cn"` 自动使用中文翻译），目录结构包含 `index.astro`、`about.astro`、`search.astro`、`404.astro` 及 `posts/`、`tags/`、`archives/` 子目录。
 
 **修改文件：**
@@ -93,12 +93,12 @@
 **URL 结构：**
 - 英文（默认）：`/`、`/posts`、`/posts/slug`、`/tags` 等，无语言前缀
 - 中文：`/zh-cn/`、`/zh-cn/posts`、`/zh-cn/posts/slug`、`/zh-cn/tags` 等
-- 用户手动切换语言后，偏好保存在 `preferred-locale` Cookie 和 localStorage 中，后续访问直接使用用户选择的语言
-- 博客文章内容暂不做多语言切换（UI 按钮/导航已全部中英文化），后续可扩展内容多语言（需要为每篇文章提供中文版本并调整路由）
+- 不再根据 IP 或 `Accept-Language` 自动重定向，英文与中文 URL 均可被用户和搜索引擎直接访问
+- 用户手动切换语言后，偏好保存在 `preferred-locale` Cookie 和 localStorage 中；有对应译文时保持文章 slug 切换
 
 **⚠️ 升级注意：**
 - 新增语言时需同时更新 `src/i18n/lang/` 下的翻译文件和 `src/pages/zh-cn/` 对应的页面文件
-- Cloudflare 中间件位于项目根目录 `functions/` 下（不是 `src/`），这是 Cloudflare Pages Functions 的约定目录
+- 旧站 URL 迁移规则维护在 `public/_redirects`；新增旧链接映射时应使用 301，并避免覆盖现有静态路由
 - 目前 Pagefind 搜索已自动索引两种语言，但中文不支持词干提取（stemming），搜索按精确匹配工作
 
 ### 11. ⚠️ WordPress 正文清洗（HTML → Markdown/MDX）
@@ -148,7 +148,7 @@
 ## 待办的定制（TODO）
 
 - [x] **数学公式**：已用 `remark-math` + `rehype-katex` 渲染（见第 11 项）。7 篇被 WordPress 渲染成 quicklatex 图片的公式，LaTeX 源码从 `<img alt>`（HTML 数字实体编码）中完整恢复，行内用 `$…$`、独立公式用 `$$…$$`。KaTeX 字体自托管（59 个 woff2 打进 `dist/_astro/`），无需外网。
-- [x] **中英双语切换（i18n）**：已完成界面双语支持（en/zh-cn），含语言切换按钮、Cloudflare 地理位置自动检测、Cookie 持久化。当前仅 UI 文本双语，文章内容保持原语言，后续可扩展内容多语言。
+- [x] **中英双语切换（i18n）**：已完成界面与文章双语支持（en/zh-cn），含显式语言切换、Cookie 持久化、双语 RSS 和按真实译文输出的 `hreflang`；不使用地理位置强制重定向。
 - [x] **自定义 embeds（响应式）**：第三方 `<iframe>` 嵌入已升级为 `<Embed>` 组件（见第 11 项）。清洗后的 `.mdx` 文章用 `<Embed src height title />`；仅 `design-a-cultural-revolution-style-map` 含活体 `<script>`，保留原始 `<iframe>` 走 `remarkResponsiveEmbeds` 兜底。
   - `src/utils/remarkResponsiveEmbeds.ts`：仍保留，负责上面两篇 raw-HTML `<iframe>` 的 `.blog-embed` 包裹与协议相对 URL 升级。
   - ⚠️ CodePen 用的是 `anon` 匿名嵌入，CodePen 早已停用，实际会显示 "CodePen Embed Fallback" 空框——已转成 `<Embed>`（保留原 src，方便日后替换），但源仍失效。link-card / youtube：迁移内容中未发现。

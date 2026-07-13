@@ -21,11 +21,17 @@ import config from "@/config";
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
   const sortedPosts = getSortedPosts(posts, "zh-cn");
+  const alternateSlugs = new Set(
+    getSortedPosts(posts, "en").map(post => getPostSlug(post.id, post.filePath))
+  );
 
   return sortedPosts.map((post, index) => ({
     params: { slug: getPostSlug(post.id, post.filePath) },
     props: {
       post,
+      hasLocaleAlternate: alternateSlugs.has(
+        getPostSlug(post.id, post.filePath)
+      ),
       prevPost:
         index > 0
           ? {
@@ -56,9 +62,10 @@ type Props = {
   post: CollectionEntry<"posts">;
   prevPost: AdjacentPost;
   nextPost: AdjacentPost;
+  hasLocaleAlternate: boolean;
 };
 
-const { post, prevPost, nextPost } = Astro.props;
+const { post, prevPost, nextPost, hasLocaleAlternate } = Astro.props;
 const locale = Astro.currentLocale ?? config.site.lang;
 
 const {
@@ -104,6 +111,7 @@ const ogImage = ogImageUrl
   canonicalURL={canonicalURL}
   pubDatetime={pubDatetime}
   modDatetime={modDatetime}
+  {hasLocaleAlternate}
 >
   <Header />
 

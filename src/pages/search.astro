@@ -27,7 +27,11 @@ const pagefindBundlePath = getAssetPath("pagefind/");
 const t = useTranslations(locale);
 ---
 
-<Layout title={`${t.pages.searchTitle} | ${config.site.title}`}>
+<Layout
+  title={`${t.pages.searchTitle} | ${config.site.title}`}
+  indexable={false}
+  hasLocaleAlternate={false}
+>
   <Header />
 
   <Breadcrumb />
